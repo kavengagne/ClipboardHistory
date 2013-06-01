@@ -4,13 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.10.0"
+             xmlns:c="clr-namespace:ClipboardHistory.Classes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow"
              Background="{DynamicResource VsBrush.Window}"
              Foreground="{DynamicResource VsBrush.WindowText}">
-             <!--Background="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowBackgroundKey}}"
-             -->
     <UserControl.Resources>
         <Style TargetType="ListBoxItem" x:Key="ContainerStyle">
             <Style.Resources>
@@ -36,6 +35,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <ListBox Name="lbHistory" KeyDown="lbHistory_KeyDown" AlternationCount="2"
-                 ItemContainerStyle="{StaticResource ContainerStyle}" />
+                 ItemContainerStyle="{StaticResource ContainerStyle}" ItemsSource="{Binding ClipboardDataItemCollection}" DisplayMemberPath="CopyDataShort" />
     </Grid>
 </UserControl>

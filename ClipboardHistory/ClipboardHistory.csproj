@@ -113,6 +113,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ClipboardDataItem.cs" />
     <Compile Include="Classes\ClipboardUpdateNotifier.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="MyControl.xaml.cs">

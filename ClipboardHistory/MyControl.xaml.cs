@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using ClipboardHistory.Classes;
 using System.Runtime.InteropServices;
+using System.Collections.ObjectModel;
 
 // TODO: Create a IClipboardData interface to abstract common Clipboard Data objects properties.
 // TODO: Create a Add a Field named IsErrorMessage in IClipboardData interface.
@@ -26,8 +27,17 @@ namespace kavengagne.ClipboardHistory
 		#endregion
 
 
-		#region Members
+		#region Fields
 		private ClipboardUpdateNotifier _clipboardUpdateNotifier;
+		private ObservableCollection<ClipboardDataItem> _clipboardDataItemCollection;
+		#endregion
+
+
+		#region Properties
+		public ObservableCollection<ClipboardDataItem> ClipboardDataItemCollection
+		{
+			get { return this._clipboardDataItemCollection; }
+		} 
 		#endregion
 
 
@@ -36,6 +46,9 @@ namespace kavengagne.ClipboardHistory
 		{
 			InitializeComponent();
 			InitializeClipboardUpdateNotifier();
+			InitializeClipboardDataItemCollection();
+			this.DataContext = this;
+			AddClipboardDataToHistoryList(this.lbHistory);
 		}
 		#endregion
 
@@ -47,33 +60,46 @@ namespace kavengagne.ClipboardHistory
 			this._clipboardUpdateNotifier.EnableNotifications();
 		}
 
-		private void AddStringToHistoryList(string text, ListBox listbox)
+		private void InitializeClipboardDataItemCollection()
 		{
-			MaintainHistoryListCapacity(listbox, HISTORY_LIST_CAPACITY);
-			listbox.Items.Insert(0, text);
+			this._clipboardDataItemCollection = new ObservableCollection<ClipboardDataItem>();
 		}
 
-		private void MaintainHistoryListCapacity(ListBox listbox, int capacity)
+		private void AddClipboardDataToHistoryList(ListBox listbox)
 		{
-			int count = listbox.Items.Count;
-			if (count == capacity)
+			if (Clipboard.ContainsText())
 			{
-				listbox.Items.RemoveAt(count - 1);
+				this.AddStringToHistoryList(Clipboard.GetText());
 			}
 		}
 
-		private void CopySelectedLineToClipboard(ListBox listbox, int index)
+		private void AddStringToHistoryList(string text)
 		{
-			if (listbox.SelectedIndex >= 0)
+			MaintainHistoryListCapacity(HISTORY_LIST_CAPACITY);
+			this._clipboardDataItemCollection.Insert(0, new ClipboardDataItem(text));
+		}
+
+		private void MaintainHistoryListCapacity(int capacity)
+		{
+			int count = this._clipboardDataItemCollection.Count;
+			if (count == capacity)
+			{
+				this._clipboardDataItemCollection.RemoveAt(count - 1);
+			}
+		}
+
+		private void CopySelectedLineToClipboard(int index)
+		{
+			if ((index >= 0) && (index < this._clipboardDataItemCollection.Count))
 			{
 				this._clipboardUpdateNotifier.DisableNotifications();
 				try
 				{
-					Clipboard.SetText((string)listbox.SelectedItem);
+					Clipboard.SetText(this._clipboardDataItemCollection[index].CopyDataFull);
 				}
 				catch (COMException comEx)
 				{
-					AddStringToHistoryList("COMException: " + comEx.Message + "\nMost likely, another application is hooking the clipboard.", listbox);
+					AddStringToHistoryList("COMException: " + comEx.Message + "\nMost likely, another application is hooking the clipboard.");
 				}
 				this._clipboardUpdateNotifier.EnableNotifications();
 			}
@@ -89,18 +115,15 @@ namespace kavengagne.ClipboardHistory
 		#region Event Handlers
 		private void ClipboardUpdateNotifier_ClipboardUpdate(object sender, EventArgs e)
 		{
-			if (Clipboard.ContainsText())
-			{
-				this.
-				AddStringToHistoryList(Clipboard.GetText(), this.lbHistory);
-			}
+			AddClipboardDataToHistoryList(this.lbHistory);
 		}
 
 		private void lbHistory_KeyDown(object sender, KeyEventArgs e)
 		{
+			ListBox listbox = (ListBox)sender;
 			if ((Key.C == e.Key) && IsControlKeyDown())
 			{
-				CopySelectedLineToClipboard(this.lbHistory, this.lbHistory.SelectedIndex);
+				CopySelectedLineToClipboard(listbox.SelectedIndex);
 			}
 		}
 		#endregion
@@ -117,6 +140,7 @@ namespace kavengagne.ClipboardHistory
 			{
 				this._clipboardUpdateNotifier.Dispose();
 				this._clipboardUpdateNotifier = null;
+				this._clipboardDataItemCollection = null;
 			}
 		}
 		#endregion

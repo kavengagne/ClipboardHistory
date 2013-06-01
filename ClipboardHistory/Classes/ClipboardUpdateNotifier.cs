@@ -5,7 +5,7 @@ namespace ClipboardHistory.Classes
 {
     public sealed class ClipboardUpdateNotifier : IDisposable
     {
-        #region Members
+        #region Fields
         private event EventHandler ClipboardUpdate;
         private NotificationForm _form; 
         #endregion
