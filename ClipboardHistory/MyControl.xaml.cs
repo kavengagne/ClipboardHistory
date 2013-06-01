@@ -6,12 +6,6 @@ using ClipboardHistory.Classes;
 using System.Runtime.InteropServices;
 using System.Collections.ObjectModel;
 
-// TODO: Create a IClipboardData interface to abstract common Clipboard Data objects properties.
-// TODO: Create a Add a Field named IsErrorMessage in IClipboardData interface.
-// TODO: Create ClipboardDataItem : IClipboardData object to hold Clipboard Data Items.
-// TODO: Create ClipboardDataError : IClipboardData object to hold Clipboard Data Items which are Error messages.
-// TODO: Create a Collection of IClipboardData to hold Clipboard Data Items.
-// TODO: Change History ListBox to use DataBinding on the Collection of IClipboardData.
 // TODO: Create an ItemTemplate in Xaml to style the ListBox Items depending on (Type? or IsErrorMessage?)
 
 namespace kavengagne.ClipboardHistory
@@ -48,7 +42,7 @@ namespace kavengagne.ClipboardHistory
 			InitializeClipboardUpdateNotifier();
 			InitializeClipboardDataItemCollection();
 			this.DataContext = this;
-			AddClipboardDataToHistoryList(this.lbHistory);
+			AddClipboardDataToHistoryList();
 		}
 		#endregion
 
@@ -65,7 +59,7 @@ namespace kavengagne.ClipboardHistory
 			this._clipboardDataItemCollection = new ObservableCollection<ClipboardDataItem>();
 		}
 
-		private void AddClipboardDataToHistoryList(ListBox listbox)
+		private void AddClipboardDataToHistoryList()
 		{
 			if (Clipboard.ContainsText())
 			{
@@ -115,7 +109,7 @@ namespace kavengagne.ClipboardHistory
 		#region Event Handlers
 		private void ClipboardUpdateNotifier_ClipboardUpdate(object sender, EventArgs e)
 		{
-			AddClipboardDataToHistoryList(this.lbHistory);
+			AddClipboardDataToHistoryList();
 		}
 
 		private void lbHistory_KeyDown(object sender, KeyEventArgs e)
