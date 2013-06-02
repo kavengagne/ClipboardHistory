@@ -5,6 +5,7 @@ using NUnit.Framework;
 using ClipboardHistory.Classes;
 using System.Reflection;
 using System.Windows.Forms;
+using UnitTestHelperBase;
 
 namespace ClipboardHistoryTests.Classes
 {
@@ -14,6 +15,7 @@ namespace ClipboardHistoryTests.Classes
 	}
 
 
+	#region Constructors
 	[TestFixture]
 	public class ClipboardUpdateNotifier_Constructors_Tests
 	{
@@ -22,7 +24,7 @@ namespace ClipboardHistoryTests.Classes
 		{
 			// Prepare
 			EventHandler handler = null;
-			
+
 			// Act
 			ClipboardUpdateNotifier notifier = new ClipboardUpdateNotifier(handler);
 
@@ -60,5 +62,35 @@ namespace ClipboardHistoryTests.Classes
 			Assert.IsNotNull(info.GetValue(notifier));
 			Assert.IsTrue(info.GetValue(notifier).GetType().IsSubclassOf(typeof(Form)));
 		}
-	}
+	} 
+	#endregion
+
+
+	#region OnClipboardUpdate Event Handler
+	[TestFixture]
+	public class ClipboardUpdateNotifier_OnClipboardUpdate_Tests
+	{
+		private bool _eventHandlerCalled = false;
+
+		private void ClipboardUpdateEventHandler(object sender, EventArgs e)
+		{
+			this._eventHandlerCalled = true;
+		}
+
+		[Test]
+		public void If_Called_When_EventHandler_Is_Valid_Should_Call_EventHandler_Delegate()
+		{
+			// Prepare
+			EventHandler handler = new EventHandler(ClipboardUpdateEventHandler);
+			ClipboardUpdateNotifier notifier = new ClipboardUpdateNotifier(handler);
+			this._eventHandlerCalled = false;
+			
+			// Act
+			UnitTestHelper.RunInstanceMethod(typeof(ClipboardUpdateNotifier), "OnClipboardUpdate", notifier, new object[1] { null });
+
+			// Assert
+			Assert.IsTrue(this._eventHandlerCalled);
+		}
+	} 
+	#endregion
 }

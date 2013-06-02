@@ -21,7 +21,6 @@ namespace ClipboardHistory.Classes
 
 
         #region Public Methods
-		//sss
         public void DisableNotifications()
         {
             NativeMethods.RemoveClipboardFormatListener(this._form.Handle);
@@ -107,7 +106,7 @@ namespace ClipboardHistory.Classes
                 }
                 base.Dispose(disposing);
             }
-        } 
+        }
         #endregion
     }
 }

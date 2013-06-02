@@ -55,6 +55,7 @@ namespace ClipboardHistory.Classes
 			string data = string.Empty;
 			string[] lines = GetStringLines(value);
 
+			if (numberOfLines <= 0) { return ""; }
 			if (lines.Length <= numberOfLines) { return value; }
 
 			for (int i = 0; i < numberOfLines; i++)
@@ -65,6 +66,7 @@ namespace ClipboardHistory.Classes
 					data += System.Environment.NewLine;
 				}			
 			}
+			data += string.Format("{0}... [{1} lines] ...", System.Environment.NewLine, lines.Length);
 			return data;
 		}
 
