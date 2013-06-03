@@ -35,6 +35,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <ListBox Name="lbHistory" KeyDown="lbHistory_KeyDown" AlternationCount="2"
-                 ItemContainerStyle="{StaticResource ContainerStyle}" ItemsSource="{Binding ClipboardDataItemCollection}" DisplayMemberPath="CopyDataShort" />
+                 ItemContainerStyle="{StaticResource ContainerStyle}" ItemsSource="{Binding HistoryCollection}" DisplayMemberPath="CopyDataShort" />
     </Grid>
 </UserControl>

@@ -9,12 +9,6 @@ using UnitTestHelperBase;
 
 namespace ClipboardHistoryTests.Classes
 {
-	internal class TestUtils
-	{
-		public static void ClipboardUpdateEventHandler(object sender, EventArgs e) { /* Dummy EventHandler */ }
-	}
-
-
 	#region Constructors
 	[TestFixture]
 	public class ClipboardUpdateNotifier_Constructors_Tests
@@ -32,12 +26,20 @@ namespace ClipboardHistoryTests.Classes
 			Assert.IsNotNull(notifier);
 			Assert.IsInstanceOfType(typeof(ClipboardUpdateNotifier), notifier);
 		}
+	} 
+	#endregion
+
+
+	#region Fields
+	public class ClipboardUpdateNotifier_Fields_Tests
+	{
+		private void ClipboardUpdateEventHandler(object sender, EventArgs e) { /* Dummy EventHandler */ }
 
 		[Test]
 		public void When_Creating_Object_With_Valid_EventHandler_ClipboardUpdate_Field_Should_Be_This_EventHandler()
 		{
 			// Prepare
-			EventHandler handler = new EventHandler(TestUtils.ClipboardUpdateEventHandler);
+			EventHandler handler = new EventHandler(ClipboardUpdateEventHandler);
 
 			// Act
 			ClipboardUpdateNotifier notifier = new ClipboardUpdateNotifier(handler);
@@ -52,7 +54,7 @@ namespace ClipboardHistoryTests.Classes
 		public void When_Creating_Object_Form_Field_Should_Be_Not_Null_And_Subclass_Of_Form()
 		{
 			// Prepare
-			EventHandler handler = new EventHandler(TestUtils.ClipboardUpdateEventHandler);
+			EventHandler handler = new EventHandler(ClipboardUpdateEventHandler);
 
 			// Act
 			ClipboardUpdateNotifier notifier = new ClipboardUpdateNotifier(handler);

@@ -5,8 +5,9 @@ using System.Windows.Input;
 using ClipboardHistory.Classes;
 using System.Runtime.InteropServices;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
-// TODO: Create an ItemTemplate in Xaml to style the ListBox Items depending on (Type? or IsErrorMessage?)
+// TODO: Create an ItemTemplate in Xaml to style the ListBox Items depending on IsErrorMessage.
 
 namespace kavengagne.ClipboardHistory
 {
@@ -23,14 +24,14 @@ namespace kavengagne.ClipboardHistory
 
 		#region Fields
 		private ClipboardUpdateNotifier _clipboardUpdateNotifier;
-		private ObservableCollection<ClipboardDataItem> _clipboardDataItemCollection;
+		private HistoryCollection _historyCollection;
 		#endregion
 
 
 		#region Properties
-		public ObservableCollection<ClipboardDataItem> ClipboardDataItemCollection
+		public HistoryCollection HistoryCollection
 		{
-			get { return this._clipboardDataItemCollection; }
+			get { return this._historyCollection; }
 		} 
 		#endregion
 
@@ -40,7 +41,7 @@ namespace kavengagne.ClipboardHistory
 		{
 			InitializeComponent();
 			InitializeClipboardUpdateNotifier();
-			InitializeClipboardDataItemCollection();
+			InitializeHistoryCollection();
 			this.DataContext = this;
 			AddClipboardDataToHistoryList();
 		}
@@ -54,54 +55,61 @@ namespace kavengagne.ClipboardHistory
 			this._clipboardUpdateNotifier.EnableNotifications();
 		}
 
-		private void InitializeClipboardDataItemCollection()
+		private void InitializeHistoryCollection()
 		{
-			this._clipboardDataItemCollection = new ObservableCollection<ClipboardDataItem>();
+			this._historyCollection = new HistoryCollection(HISTORY_LIST_CAPACITY);
 		}
 
 		private void AddClipboardDataToHistoryList()
 		{
-			if (Clipboard.ContainsText())
-			{
-				this.AddStringToHistoryList(Clipboard.GetText());
-			}
+			AddStringToHistoryList(GetClipboardTextOrEmpty());
 		}
 
 		private void AddStringToHistoryList(string text)
 		{
-			MaintainHistoryListCapacity(HISTORY_LIST_CAPACITY);
-			this._clipboardDataItemCollection.Insert(0, new ClipboardDataItem(text));
-		}
-
-		private void MaintainHistoryListCapacity(int capacity)
-		{
-			int count = this._clipboardDataItemCollection.Count;
-			if (count == capacity)
-			{
-				this._clipboardDataItemCollection.RemoveAt(count - 1);
-			}
+			this._historyCollection.Insert(0, new ClipboardDataItem(text));
 		}
 
 		private void CopySelectedLineToClipboard(int index)
 		{
-			if ((index >= 0) && (index < this._clipboardDataItemCollection.Count))
+			if ((index >= 0) && (index < this._historyCollection.Count))
 			{
-				this._clipboardUpdateNotifier.DisableNotifications();
-				try
-				{
-					Clipboard.SetText(this._clipboardDataItemCollection[index].CopyDataFull);
-				}
-				catch (COMException comEx)
-				{
-					AddStringToHistoryList("COMException: " + comEx.Message + "\nMost likely, another application is hooking the clipboard.");
-				}
-				this._clipboardUpdateNotifier.EnableNotifications();
+				SetClipboardTextOrError(this._historyCollection[index].CopyDataFull);
 			}
 		}
 
 		private static bool IsControlKeyDown()
 		{
 			return Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
+		}
+
+		private string GetClipboardTextOrEmpty()
+		{
+			string text = string.Empty;
+			if (!Clipboard.ContainsText()) return text;
+			try
+			{
+				text = Clipboard.GetText();
+			}
+			catch (Exception ex)
+			{
+				text = string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message);
+			}
+			return text;
+		}
+
+		private void SetClipboardTextOrError(string text)
+		{
+			this._clipboardUpdateNotifier.DisableNotifications();
+			try
+			{
+				Clipboard.SetText(text);
+			}
+			catch (Exception ex)
+			{
+				AddStringToHistoryList(string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message));
+			}
+			this._clipboardUpdateNotifier.EnableNotifications();
 		}
 		#endregion
 
@@ -134,7 +142,7 @@ namespace kavengagne.ClipboardHistory
 			{
 				this._clipboardUpdateNotifier.Dispose();
 				this._clipboardUpdateNotifier = null;
-				this._clipboardDataItemCollection = null;
+				this._historyCollection = null;
 			}
 		}
 		#endregion

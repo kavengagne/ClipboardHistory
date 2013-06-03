@@ -170,7 +170,7 @@ namespace ClipboardHistoryTests.Classes
 		}
 
 		[Test]
-		public void When_Given_6_Lines_Input_String_With_NumLines_Of_0_Or_Less_Should_Return_Empty_String()
+		public void When_Given_6_Lines_Input_String_With_NumLines_Of_Zero_Or_Less_Should_Return_Empty_String()
 		{
 			// Prepare
 			int numberOfLines = 0;

@@ -6,7 +6,7 @@ namespace ClipboardHistory.Classes
 	public class ClipboardDataItem : DependencyObject
 	{
 		// TODO: Migrate this to Visual Studio Options Panel
-		private const int COPYDATA_SHORT_NUM_LINES = 4;
+		private const int COPYDATA_SHORT_NUM_LINES = 5;
 
 
 		#region Properties
