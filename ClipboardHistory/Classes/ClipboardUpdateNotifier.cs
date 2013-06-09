@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ClipboardHistory.Classes
 {
@@ -35,8 +36,9 @@ namespace ClipboardHistory.Classes
 
 
         #region Event Handler
-        private void OnClipboardUpdate(EventArgs e)
+        private void OnClipboardUpdate(ClipboardEventArgs e)
         {
+			Debug.WriteLine(e.Hwnd.ToString());
             var handler = this.ClipboardUpdate;
             if (handler != null)
             {
@@ -84,7 +86,7 @@ namespace ClipboardHistory.Classes
             {
                 if (m.Msg == NativeMethods.WM_CLIPBOARDUPDATE)
                 {
-                    this._parent.OnClipboardUpdate(null);
+                    this._parent.OnClipboardUpdate(new ClipboardEventArgs());
                 }
                 base.WndProc(ref m);
             }

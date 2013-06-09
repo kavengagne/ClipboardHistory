@@ -8,6 +8,17 @@ namespace ClipboardHistory.Classes
     {
         public delegate IntPtr HookProc(int code, IntPtr wParam, KBLLHOOKSTRUCT lParam);
 
+		public enum GetWindow_Cmd : uint
+		{
+			GW_HWNDFIRST = 0,
+			GW_HWNDLAST = 1,
+			GW_HWNDNEXT = 2,
+			GW_HWNDPREV = 3,
+			GW_OWNER = 4,
+			GW_CHILD = 5,
+			GW_ENABLEDPOPUP = 6
+		}
+
         [StructLayout(LayoutKind.Sequential)]
         public class KBLLHOOKSTRUCT
         {
@@ -49,20 +60,26 @@ namespace ClipboardHistory.Classes
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
         
-        [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("user32.dll")]
         public static extern IntPtr SetWindowsHookEx(int hookType, HookProc lpfn, IntPtr hMod, uint dwThreadId);
         
-        [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("user32.dll")]
         public static extern bool UnhookWindowsHookEx(IntPtr hookId);
         
-        [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("user32.dll")]
         public static extern IntPtr CallNextHookEx(IntPtr hookId, int nCode, IntPtr wParam, [In]KBLLHOOKSTRUCT lParam);
         
-        [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(Keys key);
         
-        [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("user32.dll")]
         public static extern IntPtr GetOpenClipboardWindow();
+
+		[DllImport("user32.dll")]
+		public static extern IntPtr GetForegroundWindow();
+
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern IntPtr GetWindow(IntPtr hWnd, GetWindow_Cmd uCmd);
         #endregion
     }
 }

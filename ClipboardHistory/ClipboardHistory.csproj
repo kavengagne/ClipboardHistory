@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ClipboardDataItem.cs" />
+    <Compile Include="Classes\ClipboardEventArgs.cs" />
     <Compile Include="Classes\ClipboardUpdateNotifier.cs" />
     <Compile Include="Classes\HistoryCollection.cs" />
     <Compile Include="Classes\NativeMethods.cs" />

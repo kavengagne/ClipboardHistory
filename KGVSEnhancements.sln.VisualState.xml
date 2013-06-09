@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="true">
+  <TopNode>[0-1000]D:\Kaven\KGVSEnhancements\KGVSEnhancements.sln</TopNode>
+  <SelectedNode>[0-1029]ClipboardHistoryTests.Classes.ClipboardUpdateNotifier_OnClipboardUpdate_Tests</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]D:\Kaven\KGVSEnhancements\KGVSEnhancements.sln" Expanded="true" />
+    <Node UniqueName="[0-1057]D:\Kaven\KGVSEnhancements\ClipboardHistoryTests\bin\Debug\ClipboardHistoryTests.dll" Expanded="true" />
+    <Node UniqueName="[0-1058]ClipboardHistoryTests" Expanded="true" />
+    <Node UniqueName="[0-1059]ClipboardHistoryTests.Classes" Expanded="true" />
+    <Node UniqueName="[0-1045]ClipboardHistoryTests.MyControl_CopyHistoryCollectionLineToClipboard_Tests" Expanded="true" />
+  </Nodes>
+</VisualState>

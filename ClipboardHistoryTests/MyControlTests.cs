@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using kavengagne.ClipboardHistory;
@@ -10,6 +9,8 @@ using ClipboardHistory.Classes;
 using System.Collections.ObjectModel;
 using UnitTestHelperBase;
 using System.Windows;
+using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace ClipboardHistoryTests
 {
@@ -54,7 +55,7 @@ namespace ClipboardHistoryTests
 		{
 			// Prepare
 			MyControl myControl = new MyControl();
-			
+
 			// Act
 			FieldInfo info = typeof(MyControl).GetField("lbHistory", BindingFlags.Instance | BindingFlags.NonPublic);
 
@@ -71,7 +72,7 @@ namespace ClipboardHistoryTests
 
 			// Act
 			FieldInfo info = typeof(MyControl).GetField("_clipboardUpdateNotifier", BindingFlags.Instance | BindingFlags.NonPublic);
-			
+
 			// Assert
 			Assert.IsNotNull(info, "Field does not exist.");
 			Assert.IsNotNull(info.GetValue(myControl), "Field is not initialized");
@@ -90,37 +91,90 @@ namespace ClipboardHistoryTests
 			Assert.IsNotNull(info, "Field does not exist.");
 			Assert.IsNotNull(info.GetValue(myControl), "Field is not initialized");
 		}
-	} 
+	}
 	#endregion
 
 
-	#region AddClipboardDataToHistoryList Method
+	#region AddStringToHistoryCollection Method
 	[TestFixture]
-	public class MyControl_AddClipboardDataToHistoryList_Tests
+	public class MyControl_AddStringToHistoryCollection_Tests
 	{
 		[Test, STAThread]
-		public void When_Calling_Method_ListBox_Should_Contain_1_More_Line()
+		public void When_Given_Empty_String_HistoryCollection_Should_Not_Contain_Anymore_Lines()
+		{
+			// Prepare
+			MyControl myControl = new MyControl();
+			string inputString = "";
+			int expectedNumberOfLines = myControl.HistoryCollection.Count;
+
+			// Act
+			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "AddStringToHistoryCollection", myControl, new object[] { inputString });
+
+			// Assert
+			Assert.AreEqual(expectedNumberOfLines, myControl.HistoryCollection.Count);
+		}
+
+		[Test, STAThread]
+		public void When_Given_Valid_String_HistoryCollection_Should_Contain_1_More_Line()
+		{
+			// Prepare
+			MyControl myControl = new MyControl();
+			string inputString = "My Test Line Should Be Added";
+			int expectedNumberOfLines = myControl.HistoryCollection.Count + 1;
+
+			// Act
+			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "AddStringToHistoryCollection", myControl, new object[] { inputString });
+
+			// Assert
+			Assert.AreEqual(expectedNumberOfLines, myControl.HistoryCollection.Count);
+		}
+
+		[Test, STAThread]
+		public void When_Given_Valid_String_HistoryCollection_First_Line_CopyDataFull_Property_Should_Be_Same_As_Input_String()
+		{
+			// Prepare
+			MyControl myControl = new MyControl();
+			string inputString = "My Test Line Should Be Added";
+
+			// Act
+			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "AddStringToHistoryCollection", myControl, new object[] { inputString });
+
+			// Assert
+			int count = myControl.HistoryCollection.Count;
+			ClipboardDataItem item = myControl.HistoryCollection[0];
+			Assert.AreEqual(inputString, item.CopyDataFull);
+		}
+	}
+	#endregion
+
+
+	#region AddClipboardDataToHistoryCollection Method
+	[TestFixture]
+	public class MyControl_AddClipboardDataToHistoryCollection_Tests
+	{
+		[Test, STAThread]
+		public void When_Calling_Method_HistoryCollection_Should_Contain_1_More_Line()
 		{
 			// Prepare
 			MyControl myControl = new MyControl();
 			int linesInitial = myControl.HistoryCollection.Count;
 
 			// Act
-			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "AddClipboardDataToHistoryList", myControl, null);
+			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "AddClipboardDataToHistoryCollection", myControl, null);
 
 			// Assert
 			Assert.AreEqual(linesInitial + 1, myControl.HistoryCollection.Count);
 		}
 
 		[Test, STAThread]
-		public void When_Calling_Method_ListBox_Last_Line_Should_Be_Same_As_Clipboard_Content()
+		public void When_Calling_Method_HistoryCollection_Last_Line_CopyDataFull_Property_Should_Be_Same_As_Clipboard_Content()
 		{
 			// Prepare
 			MyControl myControl = new MyControl();
 			string clipboardContent = Clipboard.GetText();
 
 			// Act
-			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "AddClipboardDataToHistoryList", myControl, null);
+			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "AddClipboardDataToHistoryCollection", myControl, null);
 
 			// Assert
 			int count = myControl.HistoryCollection.Count;
@@ -131,79 +185,95 @@ namespace ClipboardHistoryTests
 	#endregion
 
 
-	#region AddStringToHistoryList Method
+	#region CopyHistoryCollectionLineToClipboard Method
 	[TestFixture]
-	public class MyControl_AddStringToHistoryList_Tests
+	public class MyControl_CopyHistoryCollectionLineToClipboard_Tests
 	{
 		[Test, STAThread]
-		public void When_()
+		public void When_Given_Negative_Index_Clipboard_Should_Not_Change()
 		{
+			// Prepare
+			MyControl myControl = new MyControl();
+			int inputIndex = -5;
+			string expectedClipboardContent = Clipboard.GetText();
 
+			// Act
+			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "CopyHistoryCollectionLineToClipboard", myControl, new object[] { inputIndex });
+
+			// Assert
+			Assert.AreEqual(expectedClipboardContent, Clipboard.GetText());
 		}
-	}
-	#endregion
 
-
-	#region MaintainHistoryListCapacity Method
-	[TestFixture]
-	public class MyControl_MaintainHistoryListCapacity_Tests
-	{
 		[Test, STAThread]
-		public void When_()
+		public void When_Given_Overflow_Index_Clipboard_Should_Not_Change()
 		{
+			// Prepare
+			MyControl myControl = new MyControl();
+			string expectedClipboardContent = Clipboard.GetText();
+			myControl.HistoryCollection.Clear();
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 1"));
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 2"));
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 3"));
+			int inputIndex = myControl.HistoryCollection.Count;
 
+			// Act
+			UnitTestHelper.RunInstanceMethod(typeof(MyControl), "CopyHistoryCollectionLineToClipboard", myControl, new object[] { inputIndex });
+
+			// Assert
+			Assert.AreEqual(expectedClipboardContent, Clipboard.GetText());
 		}
-	}
-	#endregion
 
-
-	#region CopySelectedLineToClipboard Method
-	[TestFixture]
-	public class MyControl_CopySelectedLineToClipboard_Tests
-	{
 		[Test, STAThread]
-		public void When_()
+		public void When_Given_Valid_Index_Clipboard_Should_Change()
 		{
+			// Prepare
+			MyControl myControl = new MyControl();
+			myControl.HistoryCollection.Clear();
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 1"));
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 2"));
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 3"));
+			try {
+				UnitTestHelper.RunInstanceMethod(typeof(MyControl), "CopyHistoryCollectionLineToClipboard", myControl, new object[] { 0 });
+				string expectedClipboardContent = Clipboard.GetText();
+				int inputIndex = 1;
 
+				// Act
+				UnitTestHelper.RunInstanceMethod(typeof(MyControl), "CopyHistoryCollectionLineToClipboard", myControl, new object[] { inputIndex });
+
+				// Assert
+				Assert.AreNotEqual(expectedClipboardContent, Clipboard.GetText());
+			}
+			catch (COMException)
+			{
+				Assert.Fail("Please Rerun this test, The COMExcepton is caused by another program hooking the Clipboard.");
+			}
 		}
-	}
-	#endregion
 
-
-	#region IsControlKeyDown Method
-	[TestFixture]
-	public class MyControl_IsControlKeyDown_Tests
-	{
 		[Test, STAThread]
-		public void When_()
+		public void When_Given_Valid_Index_Clipboard_Should_Be_Same_As_HistoryCollection_Line_CopyDataFull_Property()
 		{
+			// Prepare
+			MyControl myControl = new MyControl();
+			myControl.HistoryCollection.Clear();
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 1"));
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 2"));
+			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 3"));
+			try
+			{
+				int inputIndex = 1;
+				ClipboardDataItem expectedClipboardDataItem = myControl.HistoryCollection[inputIndex];
+				UnitTestHelper.RunInstanceMethod(typeof(MyControl), "CopyHistoryCollectionLineToClipboard", myControl, new object[] { 0 });
 
-		}
-	}
-	#endregion
+				// Act
+				UnitTestHelper.RunInstanceMethod(typeof(MyControl), "CopyHistoryCollectionLineToClipboard", myControl, new object[] { inputIndex });
 
-
-	#region ClipboardUpdateNotifier_ClipboardUpdate Event Handler
-	[TestFixture]
-	public class MyControl_ClipboardUpdateNotifier_ClipboardUpdate_Tests
-	{
-		[Test, STAThread]
-		public void When_()
-		{
-
-		}
-	}
-	#endregion
-
-
-	#region lbHistory_KeyDown Event Handler
-	[TestFixture]
-	public class MyControl_lbHistory_KeyDown_Tests
-	{
-		[Test, STAThread]
-		public void When_()
-		{
-
+				// Assert
+				Assert.AreEqual(expectedClipboardDataItem.CopyDataFull, Clipboard.GetText());
+			}
+			catch (COMException)
+			{
+				Assert.Fail("Please Rerun this test, The COMExcepton is caused by another program hooking the Clipboard.");
+			}
 		}
 	}
 	#endregion

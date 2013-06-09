@@ -3,11 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ClipboardHistory.Classes;
-using System.Runtime.InteropServices;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 // TODO: Create an ItemTemplate in Xaml to style the ListBox Items depending on IsErrorMessage.
+// TODO: Add Configurations to Visual Studio Options Box
 
 namespace kavengagne.ClipboardHistory
 {
@@ -18,13 +17,14 @@ namespace kavengagne.ClipboardHistory
 	{
 		#region Constants
 		// TODO: Migrate this to Visual Studio Options Panel
-		private const int HISTORY_LIST_CAPACITY = 25;
+		private const int HISTORY_COLLECTION_CAPACITY = 25;
 		#endregion
 
 
 		#region Fields
-		private ClipboardUpdateNotifier _clipboardUpdateNotifier;
-		private HistoryCollection _historyCollection;
+		private IntPtr _visualStudioHandle = IntPtr.Zero;
+		private ClipboardUpdateNotifier _clipboardUpdateNotifier = null;
+		private HistoryCollection _historyCollection = null;
 		#endregion
 
 
@@ -43,7 +43,7 @@ namespace kavengagne.ClipboardHistory
 			InitializeClipboardUpdateNotifier();
 			InitializeHistoryCollection();
 			this.DataContext = this;
-			AddClipboardDataToHistoryList();
+			AddClipboardDataToHistoryCollection();
 		}
 		#endregion
 
@@ -57,30 +57,24 @@ namespace kavengagne.ClipboardHistory
 
 		private void InitializeHistoryCollection()
 		{
-			this._historyCollection = new HistoryCollection(HISTORY_LIST_CAPACITY);
+			this._historyCollection = new HistoryCollection(HISTORY_COLLECTION_CAPACITY);
 		}
 
-		private void AddClipboardDataToHistoryList()
+		private void AddClipboardDataToHistoryCollection()
 		{
-			AddStringToHistoryList(GetClipboardTextOrEmpty());
+			AddStringToHistoryCollection(GetClipboardTextOrEmpty());
 		}
 
-		private void AddStringToHistoryList(string text)
+		private void AddStringToHistoryCollection(string text)
 		{
-			this._historyCollection.Insert(0, new ClipboardDataItem(text));
+			if (string.IsNullOrEmpty(text)) return;
+			this._historyCollection.AddItem(new ClipboardDataItem(text));
 		}
 
-		private void CopySelectedLineToClipboard(int index)
+		private void CopyHistoryCollectionLineToClipboard(int lineNumber)
 		{
-			if ((index >= 0) && (index < this._historyCollection.Count))
-			{
-				SetClipboardTextOrError(this._historyCollection[index].CopyDataFull);
-			}
-		}
-
-		private static bool IsControlKeyDown()
-		{
-			return Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
+			if ((lineNumber < 0) || (lineNumber >= this._historyCollection.Count)) return;
+			SetClipboardTextOrError(this._historyCollection[lineNumber].CopyDataFull);
 		}
 
 		private string GetClipboardTextOrEmpty()
@@ -107,17 +101,44 @@ namespace kavengagne.ClipboardHistory
 			}
 			catch (Exception ex)
 			{
-				AddStringToHistoryList(string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message));
+				AddStringToHistoryCollection(string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message));
 			}
 			this._clipboardUpdateNotifier.EnableNotifications();
+		}
+
+		private static bool IsControlKeyDown()
+		{
+			return Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
 		}
 		#endregion
 
 
 		#region Event Handlers
+		private void SaveConfigurations(object sender, RoutedEventArgs e)
+		{
+			// TODO: Save Configurations to a file or something.
+			// VisualStudioClipboardOnly
+			// HistoryCollectionCapacity
+			// CopyDataShortNumLines
+		}
+
+		private void LoadConfigurations(object sender, RoutedEventArgs e)
+		{
+			// TODO: Load Configurations from a file or something.
+			this._visualStudioHandle = Process.GetCurrentProcess().MainWindowHandle;
+			// VisualStudioClipboardOnly
+			// HistoryCollectionCapacity
+			// CopyDataShortNumLines
+		}
+
 		private void ClipboardUpdateNotifier_ClipboardUpdate(object sender, EventArgs e)
 		{
-			AddClipboardDataToHistoryList();
+			ClipboardEventArgs clipboardEvent = e as ClipboardEventArgs;
+			if (this.cbVisualStudioClipboardOnly.IsChecked == true)
+			{
+				if (clipboardEvent.Hwnd != this._visualStudioHandle) return;
+			}
+			AddClipboardDataToHistoryCollection();
 		}
 
 		private void lbHistory_KeyDown(object sender, KeyEventArgs e)
@@ -125,7 +146,8 @@ namespace kavengagne.ClipboardHistory
 			ListBox listbox = (ListBox)sender;
 			if ((Key.C == e.Key) && IsControlKeyDown())
 			{
-				CopySelectedLineToClipboard(listbox.SelectedIndex);
+				CopyHistoryCollectionLineToClipboard(listbox.SelectedIndex);
+				e.Handled = true;
 			}
 		}
 		#endregion
@@ -146,5 +168,15 @@ namespace kavengagne.ClipboardHistory
 			}
 		}
 		#endregion
+
+		private void SaveConfigurations()
+		{
+
+		}
+
+		private void LoadConfigurations()
+		{
+
+		}
 	}
 }

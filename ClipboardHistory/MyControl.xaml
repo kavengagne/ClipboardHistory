@@ -9,32 +9,37 @@
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow"
              Background="{DynamicResource VsBrush.Window}"
-             Foreground="{DynamicResource VsBrush.WindowText}">
+             Foreground="{DynamicResource VsBrush.WindowText}" Loaded="LoadConfigurations">
     <UserControl.Resources>
         <Style TargetType="ListBoxItem" x:Key="ContainerStyle">
             <Style.Resources>
                 <!-- Background of selected item when focussed -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#ff3399ff"/>
                 <!-- Background of selected item when not focussed -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="LightGray" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#ffb3b3b3" />
             </Style.Resources>
             <Style.Triggers>
                 <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                    <Setter Property="Background" Value="#190000ff"></Setter>
-                    <Setter Property="BorderBrush" Value="#190000ff"></Setter>
+                    <Setter Property="Background" Value="#ffffffff"></Setter>
+                    <Setter Property="BorderBrush" Value="#ffffffff"></Setter>
                 </Trigger>
                 <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                    <Setter Property="Background" Value="#19009900"></Setter>
-                    <Setter Property="BorderBrush" Value="#19009900"></Setter>
+                    <Setter Property="Background" Value="#253399ff"></Setter>
+                    <Setter Property="BorderBrush" Value="#253399ff"></Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="26"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ListBox Name="lbHistory" KeyDown="lbHistory_KeyDown" AlternationCount="2"
-                 ItemContainerStyle="{StaticResource ContainerStyle}" ItemsSource="{Binding HistoryCollection}" DisplayMemberPath="CopyDataShort" />
+        <WrapPanel Background="#ffbcc7d8">
+            <CheckBox Name="cbVisualStudioClipboardOnly" Content="Visual Studio Clipboard Only" Margin="5,5" Click="SaveConfigurations"></CheckBox>
+        </WrapPanel>
+        <ListBox Grid.Row="1" Name="lbHistory" KeyDown="lbHistory_KeyDown" AlternationCount="2"
+                 ItemContainerStyle="{StaticResource ContainerStyle}"
+                 ItemsSource="{Binding HistoryCollection}" DisplayMemberPath="CopyDataShort" BorderThickness="0" />
     </Grid>
 </UserControl>

@@ -80,7 +80,7 @@ namespace ClipboardHistoryTests.Classes
 		}
 
 		[Test]
-		public void If_Called_When_EventHandler_Is_Valid_Should_Call_EventHandler_Delegate()
+		public void When_Called_With_Valid_EventHandler_Should_Call_EventHandler_Delegate()
 		{
 			// Prepare
 			EventHandler handler = new EventHandler(ClipboardUpdateEventHandler);
@@ -88,7 +88,8 @@ namespace ClipboardHistoryTests.Classes
 			this._eventHandlerCalled = false;
 			
 			// Act
-			UnitTestHelper.RunInstanceMethod(typeof(ClipboardUpdateNotifier), "OnClipboardUpdate", notifier, new object[1] { null });
+			UnitTestHelper.RunInstanceMethod(typeof(ClipboardUpdateNotifier), "OnClipboardUpdate",
+											 notifier, new object[1] { new ClipboardEventArgs() });
 
 			// Assert
 			Assert.IsTrue(this._eventHandlerCalled);

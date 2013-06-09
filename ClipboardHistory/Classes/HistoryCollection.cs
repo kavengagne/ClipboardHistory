@@ -10,18 +10,26 @@ namespace ClipboardHistory.Classes
 	{
 		private int _capacity;
 
-		public HistoryCollection(int capacity)
+		public HistoryCollection(int capacity) : base()
 		{
-			this._capacity = capacity;
+			if (capacity < 1)
+			{
+				throw new ArgumentException("Capacity must be greater than zero (0)", "capacity");
+			}
+			else
+			{
+				this._capacity = capacity;
+			}
 		}
 
-		protected override void InsertItem(int index, ClipboardDataItem item)
+		
+		public void AddItem(ClipboardDataItem item)
 		{
-			MaintainHistoryListCapacity(this._capacity);
-			base.InsertItem(index, item);
+			MaintainHistoryCollectionCapacity(this._capacity);
+			base.InsertItem(0, item);
 		}
 
-		private void MaintainHistoryListCapacity(int capacity)
+		private void MaintainHistoryCollectionCapacity(int capacity)
 		{
 			int count = base.Count;
 			if (count == capacity)
