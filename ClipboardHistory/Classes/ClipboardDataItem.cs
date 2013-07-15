@@ -5,17 +5,13 @@ namespace ClipboardHistory.Classes
 {
 	public class ClipboardDataItem : DependencyObject
 	{
-		// TODO: Migrate this to Visual Studio Options Panel
-		private const int COPYDATASHORT_NUM_LINES = 5;
-
-
-		#region Properties
-		public string CopyDataFull
+ 		#region Properties
+        public string CopyDataFull
 		{
 			get { return (string)GetValue(CopyDataFullProperty); }
 			set {
 				SetValue(CopyDataFullProperty, value);
-				CopyDataShort = GetStringStrippedToNumberOfLines(value, COPYDATASHORT_NUM_LINES);
+				CopyDataShort = GetStringStrippedToNumberOfLines(value, Configuration.CopyDataShortNumLines);
 			}
 		}
 		public static readonly DependencyProperty CopyDataFullProperty =

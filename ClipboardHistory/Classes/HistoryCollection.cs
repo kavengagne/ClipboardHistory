@@ -8,34 +8,37 @@ namespace ClipboardHistory.Classes
 {
 	public class HistoryCollection : ObservableCollection<ClipboardDataItem>
 	{
-		private int _capacity;
+        #region Fields
+        #endregion
 
-		public HistoryCollection(int capacity) : base()
-		{
-			if (capacity < 1)
-			{
-				throw new ArgumentException("Capacity must be greater than zero (0)", "capacity");
-			}
-			else
-			{
-				this._capacity = capacity;
-			}
-		}
 
-		
-		public void AddItem(ClipboardDataItem item)
-		{
-			MaintainHistoryCollectionCapacity(this._capacity);
-			base.InsertItem(0, item);
-		}
+        #region Constructor
+        public HistoryCollection(int capacity) : base()
+        {
+            if (capacity <= 0)
+            {
+                throw new ArgumentException("Capacity must be greater than zero (0)", "capacity");
+            }
+        }
+        #endregion
 
-		private void MaintainHistoryCollectionCapacity(int capacity)
-		{
-			int count = base.Count;
-			if (count == capacity)
-			{
-				base.RemoveAt(count - 1);
-			}
-		}
+
+        #region Methods
+        public void AddItem(ClipboardDataItem item)
+        {
+            MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
+            base.InsertItem(0, item);
+        }
+
+        private void MaintainHistoryCollectionCapacity(int capacity)
+        {
+            int count = base.Count;
+            while (count >= capacity)
+            {
+                base.RemoveAt(count - 1);
+                count = base.Count;
+            }
+        } 
+        #endregion
 	}
 }

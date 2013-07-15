@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ClipboardHistory.Classes;
-using System.Diagnostics;
+//using kavengagne.ClipboardHistory.Properties;
+
 
 // TODO: Create an ItemTemplate in Xaml to style the ListBox Items depending on IsErrorMessage.
-// TODO: Add Configurations to Visual Studio Options Box
 
 namespace kavengagne.ClipboardHistory
 {
@@ -16,8 +17,6 @@ namespace kavengagne.ClipboardHistory
 	public partial class MyControl : UserControl, IDisposable
 	{
 		#region Constants
-		// TODO: Migrate this to Visual Studio Options Panel
-		private const int HISTORY_COLLECTION_CAPACITY = 25;
 		#endregion
 
 
@@ -43,6 +42,7 @@ namespace kavengagne.ClipboardHistory
 			InitializeClipboardUpdateNotifier();
 			InitializeHistoryCollection();
 			this.DataContext = this;
+
 			AddClipboardDataToHistoryCollection();
 		}
 		#endregion
@@ -51,13 +51,13 @@ namespace kavengagne.ClipboardHistory
 		#region Private Methods
 		private void InitializeClipboardUpdateNotifier()
 		{
-			this._clipboardUpdateNotifier = new ClipboardUpdateNotifier(ClipboardUpdateNotifier_ClipboardUpdate);
-			this._clipboardUpdateNotifier.EnableNotifications();
+			_clipboardUpdateNotifier = new ClipboardUpdateNotifier(ClipboardUpdateNotifier_ClipboardUpdate);
+			_clipboardUpdateNotifier.EnableNotifications();
 		}
 
 		private void InitializeHistoryCollection()
 		{
-			this._historyCollection = new HistoryCollection(HISTORY_COLLECTION_CAPACITY);
+			_historyCollection = new HistoryCollection(Configuration.HistoryCollectionCapacity);
 		}
 
 		private void AddClipboardDataToHistoryCollection()
@@ -68,13 +68,13 @@ namespace kavengagne.ClipboardHistory
 		private void AddStringToHistoryCollection(string text)
 		{
 			if (string.IsNullOrEmpty(text)) return;
-			this._historyCollection.AddItem(new ClipboardDataItem(text));
+			_historyCollection.AddItem(new ClipboardDataItem(text));
 		}
 
 		private void CopyHistoryCollectionLineToClipboard(int lineNumber)
 		{
-			if ((lineNumber < 0) || (lineNumber >= this._historyCollection.Count)) return;
-			SetClipboardTextOrError(this._historyCollection[lineNumber].CopyDataFull);
+			if ((lineNumber < 0) || (lineNumber >= _historyCollection.Count)) return;
+			SetClipboardTextOrError(_historyCollection[lineNumber].CopyDataFull);
 		}
 
 		private string GetClipboardTextOrEmpty()
@@ -94,7 +94,7 @@ namespace kavengagne.ClipboardHistory
 
 		private void SetClipboardTextOrError(string text)
 		{
-			this._clipboardUpdateNotifier.DisableNotifications();
+			_clipboardUpdateNotifier.DisableNotifications();
 			try
 			{
 				Clipboard.SetText(text);
@@ -103,40 +103,59 @@ namespace kavengagne.ClipboardHistory
 			{
 				AddStringToHistoryCollection(string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message));
 			}
-			this._clipboardUpdateNotifier.EnableNotifications();
+			_clipboardUpdateNotifier.EnableNotifications();
 		}
 
 		private static bool IsControlKeyDown()
 		{
 			return Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
 		}
+
+        private void ValidateAndSaveConfigurations(object sender)
+        {
+            Configuration.SavePropertyOrRevert(sender);
+        }
+        
+        private void LoadConfigurations()
+        {
+            _visualStudioHandle = Process.GetCurrentProcess().MainWindowHandle;
+            LoadConfigurationElements();
+        }
+
+        private void LoadConfigurationElements()
+        {
+            this.tbHistoryCollectionCapacity.Tag = new ConfigurationPropertyInfo() {
+                PropertyName = "HistoryCollectionCapacity"
+            };
+            this.tbHistoryCollectionCapacity.Text = Configuration.HistoryCollectionCapacity.ToString();
+
+            this.tbCopyDataShortNumLines.Tag = new ConfigurationPropertyInfo()
+            {
+                PropertyName = "CopyDataShortNumLines"
+            };
+            this.tbCopyDataShortNumLines.Text = Configuration.CopyDataShortNumLines.ToString();
+
+            this.cbVisualStudioClipboardOnly.Tag = new ConfigurationPropertyInfo()
+            {
+                PropertyName = "VisualStudioClipboardOnly"
+            };
+            this.cbVisualStudioClipboardOnly.IsChecked = Configuration.VisualStudioClipboardOnly;
+        }
 		#endregion
 
 
 		#region Event Handlers
-		private void SaveConfigurations(object sender, RoutedEventArgs e)
-		{
-			// TODO: Save Configurations to a file or something.
-			// VisualStudioClipboardOnly
-			// HistoryCollectionCapacity
-			// CopyDataShortNumLines
-		}
-
-		private void LoadConfigurations(object sender, RoutedEventArgs e)
-		{
-			// TODO: Load Configurations from a file or something.
-			this._visualStudioHandle = Process.GetCurrentProcess().MainWindowHandle;
-			// VisualStudioClipboardOnly
-			// HistoryCollectionCapacity
-			// CopyDataShortNumLines
-		}
+        private void MyToolWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadConfigurations();
+        }
 
 		private void ClipboardUpdateNotifier_ClipboardUpdate(object sender, EventArgs e)
 		{
 			ClipboardEventArgs clipboardEvent = e as ClipboardEventArgs;
-			if (this.cbVisualStudioClipboardOnly.IsChecked == true)
+			if (Configuration.VisualStudioClipboardOnly == true)
 			{
-				if (clipboardEvent.Hwnd != this._visualStudioHandle) return;
+				if (clipboardEvent.Hwnd != _visualStudioHandle) return;
 			}
 			AddClipboardDataToHistoryCollection();
 		}
@@ -150,6 +169,13 @@ namespace kavengagne.ClipboardHistory
 				e.Handled = true;
 			}
 		}
+
+        private void textBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            // Needed for Control to Update correctly.
+            e.Handled = false;
+            ValidateAndSaveConfigurations(sender);
+        }
 		#endregion
 
 
@@ -162,21 +188,11 @@ namespace kavengagne.ClipboardHistory
 		{
 			if (disposing)
 			{
-				this._clipboardUpdateNotifier.Dispose();
-				this._clipboardUpdateNotifier = null;
-				this._historyCollection = null;
+				_clipboardUpdateNotifier.Dispose();
+				_clipboardUpdateNotifier = null;
+				_historyCollection = null;
 			}
 		}
 		#endregion
-
-		private void SaveConfigurations()
-		{
-
-		}
-
-		private void LoadConfigurations()
-		{
-
-		}
-	}
+    }
 }
