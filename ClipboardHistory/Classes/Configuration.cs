@@ -132,5 +132,9 @@ namespace ClipboardHistory.Classes
     public class ConfigurationPropertyInfo
     {
         public string PropertyName { get; set; }
+
+        public ConfigurationPropertyInfo()
+        {
+        }
     }
 }
