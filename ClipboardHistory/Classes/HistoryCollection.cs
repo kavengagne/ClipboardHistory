@@ -13,12 +13,8 @@ namespace ClipboardHistory.Classes
 
 
         #region Constructor
-        public HistoryCollection(int capacity) : base()
+        public HistoryCollection() : base()
         {
-            if (capacity <= 0)
-            {
-                throw new ArgumentException("Capacity must be greater than zero (0)", "capacity");
-            }
         }
         #endregion
 

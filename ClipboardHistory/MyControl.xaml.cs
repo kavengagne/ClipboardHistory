@@ -7,7 +7,7 @@ using ClipboardHistory.Classes;
 //using kavengagne.ClipboardHistory.Properties;
 
 
-// TODO: Create an ItemTemplate in Xaml to style the ListBox Items depending on IsErrorMessage.
+// TODO: KG - Create an ItemTemplate in Xaml to style the ListBox Items depending on IsErrorMessage.
 
 namespace kavengagne.ClipboardHistory
 {
@@ -16,11 +16,7 @@ namespace kavengagne.ClipboardHistory
 	/// </summary>
 	public partial class MyControl : UserControl, IDisposable
 	{
-		#region Constants
-		#endregion
-
-
-		#region Fields
+        #region Fields
 		private IntPtr _visualStudioHandle = IntPtr.Zero;
 		private ClipboardUpdateNotifier _clipboardUpdateNotifier = null;
 		private HistoryCollection _historyCollection = null;
@@ -28,10 +24,11 @@ namespace kavengagne.ClipboardHistory
 
 
 		#region Properties
+        // TODO: KG - Only used for Tests, Should be removed soon.
 		public HistoryCollection HistoryCollection
 		{
 			get { return this._historyCollection; }
-		} 
+		}
 		#endregion
 
 
@@ -42,8 +39,7 @@ namespace kavengagne.ClipboardHistory
 			InitializeClipboardUpdateNotifier();
 			InitializeHistoryCollection();
 			this.DataContext = this;
-
-			AddClipboardDataToHistoryCollection();
+            AddClipboardDataToHistoryCollection();
 		}
 		#endregion
 
@@ -57,13 +53,13 @@ namespace kavengagne.ClipboardHistory
 
 		private void InitializeHistoryCollection()
 		{
-			_historyCollection = new HistoryCollection(Configuration.HistoryCollectionCapacity);
+			_historyCollection = new HistoryCollection();
 		}
 
-		private void AddClipboardDataToHistoryCollection()
-		{
-			AddStringToHistoryCollection(GetClipboardTextOrEmpty());
-		}
+        private void AddClipboardDataToHistoryCollection()
+        {
+            AddStringToHistoryCollection(GetClipboardTextOrEmpty());
+        }
 
 		private void AddStringToHistoryCollection(string text)
 		{
@@ -116,29 +112,18 @@ namespace kavengagne.ClipboardHistory
             Configuration.SavePropertyOrRevert(sender);
         }
         
-        private void LoadConfigurations()
+        private void LoadValidationRules()
         {
-            _visualStudioHandle = Process.GetCurrentProcess().MainWindowHandle;
-            LoadConfigurationElements();
+            // TODO: KG - I hate this solution, but keeping it for now.
+            this.tbHistoryCollectionCapacity.Tag = "HistoryCollectionCapacity";
+            this.tbCopyDataShortNumLines.Tag = "CopyDataShortNumLines";
+            this.cbVisualStudioClipboardOnly.Tag = "VisualStudioClipboardOnly";
         }
 
-        private void LoadConfigurationElements()
+        private void LoadConfigurationValues()
         {
-            this.tbHistoryCollectionCapacity.Tag = new ConfigurationPropertyInfo() {
-                PropertyName = "HistoryCollectionCapacity"
-            };
             this.tbHistoryCollectionCapacity.Text = Configuration.HistoryCollectionCapacity.ToString();
-
-            this.tbCopyDataShortNumLines.Tag = new ConfigurationPropertyInfo()
-            {
-                PropertyName = "CopyDataShortNumLines"
-            };
             this.tbCopyDataShortNumLines.Text = Configuration.CopyDataShortNumLines.ToString();
-
-            this.cbVisualStudioClipboardOnly.Tag = new ConfigurationPropertyInfo()
-            {
-                PropertyName = "VisualStudioClipboardOnly"
-            };
             this.cbVisualStudioClipboardOnly.IsChecked = Configuration.VisualStudioClipboardOnly;
         }
 		#endregion
@@ -147,7 +132,9 @@ namespace kavengagne.ClipboardHistory
 		#region Event Handlers
         private void MyToolWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadConfigurations();
+            _visualStudioHandle = Process.GetCurrentProcess().MainWindowHandle;
+            LoadValidationRules();
+            LoadConfigurationValues();
         }
 
 		private void ClipboardUpdateNotifier_ClipboardUpdate(object sender, EventArgs e)
@@ -157,7 +144,7 @@ namespace kavengagne.ClipboardHistory
 			{
 				if (clipboardEvent.Hwnd != _visualStudioHandle) return;
 			}
-			AddClipboardDataToHistoryCollection();
+            AddClipboardDataToHistoryCollection();
 		}
 
 		private void lbHistory_KeyDown(object sender, KeyEventArgs e)
