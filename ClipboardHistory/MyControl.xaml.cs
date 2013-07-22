@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ClipboardHistory.Classes;
-//using kavengagne.ClipboardHistory.Properties;
 
 
 // TODO: KG - Create an ItemTemplate in Xaml to style the ListBox Items depending on IsErrorMessage.
