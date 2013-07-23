@@ -179,8 +179,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\Images\history_16px.png" />
+    <Resource Include="Resources\Images\history_16px.bmp" />
+    <Content Include="Resources\Images\history_32px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\Package.ico" />
-    <Resource Include="Resources\Images\ScreenShot_01.png" />
+    <Content Include="Resources\Images\ScreenShot_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\MyControl.xaml">

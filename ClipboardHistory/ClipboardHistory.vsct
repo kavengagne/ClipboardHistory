@@ -62,7 +62,7 @@
 
       <Button guid="guidClipboardHistoryCmdSet" id="cmdidClipboardHistory" priority="0x0100" type="Button">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1"/>
-        <Icon guid="guidImages" id="bmpPic2" />
+        <Icon guid="guidImages2" id="pngPic1" />
         <Strings>
           <CommandName>cmdidClipboardHistory</CommandName>
           <ButtonText>Clipboard History</ButtonText>
@@ -79,8 +79,9 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used 
             inside a button definition. An important aspect of this declaration is that the element id 
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\Images_32bit.bmp" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
-
+      <!--<Bitmap guid="guidImages" href="Resources\Images_32bit.bmp" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
+      -->
+      <Bitmap guid="guidImages2" href="Resources\Images\history_16px.bmp" usedList="pngPic1" />
     </Bitmaps>
  
   </Commands>
@@ -102,12 +103,13 @@
     
     
     
-    <GuidSymbol name="guidImages" value="{0e02cee0-9a9d-4807-a5db-9118ff8f4a3f}" >
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
+    <GuidSymbol name="guidImages2" value="{0e02cee0-9a9d-4807-a5db-9118ff8f4a3f}" >
+      <IDSymbol name="pngPic1" value="1" />
+      <!--<IDSymbol name="pngPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />
       <IDSymbol name="bmpPicX" value="4" />
       <IDSymbol name="bmpPicArrows" value="5" />
+    -->
     </GuidSymbol>
   </Symbols>
 
