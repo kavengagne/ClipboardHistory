@@ -6,6 +6,7 @@
     <Version>1.0</Version>
     <Description xml:space="preserve">Adds Clipboard History to Visual Studio</Description>
     <Locale>1033</Locale>
+    <License>LICENSE.txt</License>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
       <VisualStudio Version="10.0">
