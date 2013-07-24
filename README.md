@@ -16,7 +16,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 ## Getting Started
 
 * Install the extension using the vsix package and then restart Visual Studio.
-* Click **View** => **Other Windows** -- **Clipboard History**
+* Click **View** > **Other Windows** > **Clipboard History**
 
 ![ClipboardHistory Tool Window](/ClipboardHistory/Resources/Images/ScreenShot_01.png)
 
