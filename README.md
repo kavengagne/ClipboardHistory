@@ -16,6 +16,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 ## Getting Started
 
 You can get instructions on how to use this extension in the [wiki](https://github.com/kavengagne/KGVSClipboardHistory/wiki).
+![ClipboardHistory Tool Window](https://github.com/kavengagne/KGVSClipboardHistory/raw/master/ClipboardHistory/Resources/Images/ScreenShot_01.png)
 
 ## Bug Tracker
 
