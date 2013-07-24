@@ -6,6 +6,8 @@ extension that enables clipboard history.
 It keeps track of all changes to the clipboard in a configurable list using a tool window.
 You can then navigate the list to retrieve the desired clipboard data.
 
+I developed this extension for my own needs, feel free to contribute if you feel like improving it.
+
 ## Supported Platforms
 
 * Visual Studio 2010
