@@ -1,4 +1,4 @@
-# Clipboard History Extension for Visual Studio
+# Clipboard History
 
 __ClipboardHistory__ is a Visual Studio extension that enables clipboard history.
 
