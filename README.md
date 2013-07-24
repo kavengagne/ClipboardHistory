@@ -20,4 +20,4 @@ You can get instructions on how to use this extension in the [wiki](https://gith
 
 ## License
 
-KGVSClipboardHistory is released under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+KGVSClipboardHistory is released under the [Apache License, Version 2.0](https://github.com/kavengagne/KGVSClipboardHistory/blob/master/LICENSE.txt)
