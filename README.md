@@ -7,6 +7,6 @@ You can then navigate the list to retrieve the desired clipboard data.
 
 ## Compatibility
 
-It is compatible with __Visual Studio 2010__ and __Visual Studio 2012__.
+It is compatible with Visual Studio 2010 and Visual Studio 2012.
 
 #### Any constructive feedback is much appreciated.
