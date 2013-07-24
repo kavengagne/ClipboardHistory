@@ -6,9 +6,18 @@ extension that enables clipboard history.
 It keeps track of all changes to the clipboard in a configurable list using a tool window.
 You can then navigate the list to retrieve the desired clipboard data.
 
-## Compatibility
+## Supported Platforms
 
 It is compatible with Visual Studio 2010 and Visual Studio 2012.
 
-## Questions / Feedback
-Any constructive feedback is much appreciated.
+## Bug Tracker
+
+Have a bug or a feature request? [Please open a new issue](https://github.com/kavengagne/KGVSClipboardHistory/issues).
+
+## Getting Started
+
+You can get instructions on how to use this extension in the [wiki](https://github.com/kavengagne/KGVSClipboardHistory/wiki).
+
+## License
+
+KGVSClipboardHistory is released under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
