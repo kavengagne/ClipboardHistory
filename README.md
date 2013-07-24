@@ -15,11 +15,11 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 ## Bug Tracker
 
-Have a bug or a feature request? [Please open a new issue](https://github.com/kavengagne/KGVSClipboardHistory/issues).
-
 ## Getting Started
 
 You can get instructions on how to use this extension in the [wiki](https://github.com/kavengagne/KGVSClipboardHistory/wiki).
+
+Have a bug or a feature request? [Please open a new issue](https://github.com/kavengagne/KGVSClipboardHistory/issues).
 
 ## License
 
