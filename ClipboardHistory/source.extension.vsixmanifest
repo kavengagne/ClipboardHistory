@@ -2,12 +2,13 @@
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
   <Identifier Id="ce59ed1c-307e-43a2-a528-a88bde8416cf">
     <Name>ClipboardHistory</Name>
-    <Author>kavengagne</Author>
+    <Author>Kaven Gagne</Author>
     <Version>1.0</Version>
-    <Description xml:space="preserve">Adds Clipboard History to Visual Studio</Description>
+    <Description xml:space="preserve">Adds Clipboard History to Visual Studio.</Description>
     <Locale>1033</Locale>
+    <MoreInfoUrl>https://github.com/kavengagne/KGVSClipboardHistory</MoreInfoUrl>
     <License>LICENSE.txt</License>
-    <Icon>history_32px.png</Icon>
+    <Icon>history_16px.bmp</Icon>
     <PreviewImage>ScreenShot_01.png</PreviewImage>
     <InstalledByMsi>false</InstalledByMsi>
     <SupportedProducts>
