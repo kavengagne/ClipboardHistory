@@ -22,9 +22,9 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 This tool window is the core of the Clipboard History extension.
 
-TODO
+__TODO
 Explain basic operations (copy to list, copy from list, error messages).
-Explain each configuration options and the behavior associated to it.
+Explain each configuration options and the behavior associated to it.__
 
 ## Bug Tracker
 
