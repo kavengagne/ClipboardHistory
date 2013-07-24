@@ -8,7 +8,8 @@ You can then navigate the list to retrieve the desired clipboard data.
 
 ## Supported Platforms
 
-It is compatible with Visual Studio 2010 and Visual Studio 2012.
+* Visual Studio 2010
+* Visual Studio 2012.
 
 ## Bug Tracker
 
