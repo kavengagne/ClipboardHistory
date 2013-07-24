@@ -25,4 +25,4 @@ Have a bug or a feature request? [Please open a new issue](https://github.com/ka
 
 ## License
 
-KGVSClipboardHistory is released under the [Apache License, Version 2.0](https://github.com/kavengagne/KGVSClipboardHistory/blob/master/LICENSE.txt).
+KGVSClipboardHistory is released under the [Apache License, Version 2.0](/LICENSE.txt).
