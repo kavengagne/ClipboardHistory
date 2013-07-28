@@ -1,19 +1,53 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
+using System;
 
 namespace ClipboardHistory.Classes
 {
 	public class ClipboardDataItem : DependencyObject
 	{
  		#region Properties
+        public string DateAndTime
+        {
+            get { return (string)GetValue(DateAndTimeProperty); }
+            private set { SetValue(DateAndTimeProperty, value); }
+        }
+        public static readonly DependencyProperty DateAndTimeProperty =
+            DependencyProperty.Register("DateAndTime", typeof(string), typeof(ClipboardDataItem), new UIPropertyMetadata(""));
+
+        public string NumberOfLines
+        {
+            get { return (string)GetValue(NumberOfLinesProperty); }
+            private set {
+                SetValue(NumberOfLinesProperty, value);
+            }
+        }
+        public static readonly DependencyProperty NumberOfLinesProperty =
+            DependencyProperty.Register("NumberOfLines", typeof(string), typeof(ClipboardDataItem), new UIPropertyMetadata(""));
+
+        public string CopyDataSize
+        {
+            get { return (string)GetValue(CopyDataSizeProperty); }
+            private set
+            {
+                SetValue(CopyDataSizeProperty, value);
+            }
+        }
+        public static readonly DependencyProperty CopyDataSizeProperty =
+            DependencyProperty.Register("CopyDataSize", typeof(string), typeof(ClipboardDataItem), new UIPropertyMetadata(""));
+
         public string CopyDataFull
 		{
 			get { return (string)GetValue(CopyDataFullProperty); }
 			set {
 				SetValue(CopyDataFullProperty, value);
-				CopyDataShort = GetStringStrippedToNumberOfLines(value, Configuration.CopyDataShortNumLines);
+				this.CopyDataShort = GetStringStrippedToNumberOfLines(value, Configuration.CopyDataShortNumLines);
+                this.CopyDataSize = GetCopyDataSizeString(value);
+                this.NumberOfLines = GetNumberOfLinesString(GetStringLines(value).Length);
+                this.DateAndTime = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
 			}
 		}
+
 		public static readonly DependencyProperty CopyDataFullProperty =
 			DependencyProperty.Register("CopyDataFull", typeof(string), typeof(ClipboardDataItem), new UIPropertyMetadata(""));
 
@@ -36,12 +70,12 @@ namespace ClipboardHistory.Classes
 
 
 		#region Constructors
-		public ClipboardDataItem(string CopyData, bool isErrorMessage)
+		public ClipboardDataItem(string copyData, bool isErrorMessage)
 		{
-			CopyDataFull = CopyData;
-			IsErrorMessage = isErrorMessage;
+			this.CopyDataFull = copyData;
+			this.IsErrorMessage = isErrorMessage;
 		}
-		public ClipboardDataItem(string CopyData) : this(CopyData, false) { }
+		public ClipboardDataItem(string copyData) : this(copyData, false) { }
 		#endregion
 
 
@@ -62,7 +96,6 @@ namespace ClipboardHistory.Classes
 					data += System.Environment.NewLine;
 				}			
 			}
-			data += string.Format("{0}... [{1} lines] ...", System.Environment.NewLine, lines.Length);
 			return data;
 		}
 
@@ -71,6 +104,21 @@ namespace ClipboardHistory.Classes
 			string[] lines = Regex.Split(value, "\r\n|\r|\n");
 			return lines;
 		}
+
+        private string GetNumberOfLinesString(int numLines)
+        {
+            string result = string.Empty;
+            result = numLines + " line" + ((numLines != 1) ? "s" : "");
+            return result;
+        }
+
+        private string GetCopyDataSizeString(string value)
+        {
+            string result = string.Empty;
+            var size = (value.Length * sizeof(Char)) / 1024f;
+            result = size.ToString("0.000") + " kb";
+            return result;
+        }
 		#endregion
 	}
 }

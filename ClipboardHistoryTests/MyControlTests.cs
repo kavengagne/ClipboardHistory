@@ -260,7 +260,7 @@ namespace ClipboardHistoryTests
 			myControl.HistoryCollection.Insert(0, new ClipboardDataItem("line 3"));
 			try
 			{
-				int inputIndex = 1;
+				int inputIndex = 0;
 				ClipboardDataItem expectedClipboardDataItem = myControl.HistoryCollection[inputIndex];
 				UnitTestHelper.RunInstanceMethod(typeof(MyControl), "CopyHistoryCollectionLineToClipboard", myControl, new object[] { 0 });
 

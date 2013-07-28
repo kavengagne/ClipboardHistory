@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ClipboardHistory.Classes;
+using System.Collections;
 
 
 // TODO: KG - Create an ItemTemplate in Xaml to style the ListBox Items depending on IsErrorMessage.
@@ -66,6 +68,12 @@ namespace kavengagne.ClipboardHistory
 			_historyCollection.AddItem(new ClipboardDataItem(text));
 		}
 
+        private void AddErrorMessageToHistoryCollection(string errorMessage)
+        {
+            if (string.IsNullOrEmpty(errorMessage)) return;
+            _historyCollection.AddItem(new ClipboardDataItem(errorMessage, true));
+        }
+
 		private void CopyHistoryCollectionLineToClipboard(int lineNumber)
 		{
 			if ((lineNumber < 0) || (lineNumber >= _historyCollection.Count)) return;
@@ -82,7 +90,9 @@ namespace kavengagne.ClipboardHistory
 			}
 			catch (Exception ex)
 			{
-				text = string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message);
+				text = string.Empty;
+                AddErrorMessageToHistoryCollection(
+                    string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message));
 			}
 			return text;
 		}
@@ -96,7 +106,8 @@ namespace kavengagne.ClipboardHistory
 			}
 			catch (Exception ex)
 			{
-				AddStringToHistoryCollection(string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message));
+				AddErrorMessageToHistoryCollection(
+                    string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.", ex.Message));
 			}
 			_clipboardUpdateNotifier.EnableNotifications();
 		}

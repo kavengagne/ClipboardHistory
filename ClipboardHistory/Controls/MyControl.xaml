@@ -8,26 +8,49 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow"
-             Background="{DynamicResource VsBrush.Window}"
-             Foreground="{DynamicResource VsBrush.WindowText}" Loaded="MyToolWindow_Loaded">
+             Loaded="MyToolWindow_Loaded">
     <UserControl.Resources>
-        <Style TargetType="ListBoxItem" x:Key="ContainerStyle">
+        <Style TargetType="ListBoxItem" x:Key="ListBoxContainerStyle">
             <Style.Resources>
-                <!-- Background of selected item when focussed -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#ff3399ff"/>
-                <!-- Background of selected item when not focussed -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#ffb3b3b3" />
+                <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#FFE0E0E0" />
+                <SolidColorBrush x:Key="HeaderBackgroundBrush" Color="#253399ff" />
+                <Style x:Key="HeaderStyle" TargetType="Label">
+                    <Setter Property="FontSize" Value="12" />
+                    <Setter Property="Padding" Value="2 2 10 2" />
+                    <Setter Property="Foreground" Value="Black" />
+                </Style>
+                <Style x:Key="ErrorHeaderStyle" TargetType="Label" BasedOn="{StaticResource HeaderStyle}">
+                    <Setter Property="Foreground" Value="Red" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Style>
             </Style.Resources>
-            <Style.Triggers>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                    <Setter Property="Background" Value="#ffffffff"></Setter>
-                    <Setter Property="BorderBrush" Value="#ffffffff"></Setter>
-                </Trigger>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                    <Setter Property="Background" Value="#253399ff"></Setter>
-                    <Setter Property="BorderBrush" Value="#253399ff"></Setter>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border" BorderBrush="Black" BorderThickness="0 0 0 1">
+                            <StackPanel Orientation="Vertical">
+                                <Border Background="{StaticResource HeaderBackgroundBrush}" BorderThickness="0 0 0 1" BorderBrush="{StaticResource SelectedBackgroundBrush}">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ErrorIndicator" Visibility="Collapsed" />
+                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}" />
+                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding NumberOfLines}" />
+                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding CopyDataSize}" />
+                                    </StackPanel>
+                                </Border>
+                                <ContentPresenter />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsErrorMessage}" Value="true">
+                                <Setter TargetName="ErrorIndicator" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource SelectedBackgroundBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -60,7 +83,8 @@
             </Expander>
         </StackPanel>
         <ListBox Grid.Row="1" Name="lbHistory" KeyDown="lbHistory_KeyDown" AlternationCount="2"
-                 ItemContainerStyle="{StaticResource ContainerStyle}"
+                 ScrollViewer.CanContentScroll="False"
+                 ItemContainerStyle="{StaticResource ListBoxContainerStyle}"
                  ItemsSource="{Binding HistoryCollection}" DisplayMemberPath="CopyDataShort" BorderThickness="0" />
     </Grid>
 </UserControl>

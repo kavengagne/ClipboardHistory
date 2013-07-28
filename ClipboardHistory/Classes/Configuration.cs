@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace ClipboardHistory.Classes
 {
-    public class Configuration
+    public static class Configuration
     {
         #region Properties
         public static bool VisualStudioClipboardOnly
@@ -85,7 +85,7 @@ namespace ClipboardHistory.Classes
 
             try
             {
-                var convertedValue = Convert.ChangeType(propertyValue, propertyType);
+                var convertedValue = Convert.ChangeType(newValue, propertyType);
                 if (ValidateAndSavePropertyValue(convertedValue, propertyName))
                 {
                     return;

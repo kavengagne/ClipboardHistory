@@ -131,8 +131,8 @@ namespace ClipboardHistoryTests.Classes
 			Assert.AreEqual(inputString, outputString);
 		}
 
-		[Test(Description = "The additional line is used to indicate the number of lines in CopyDataFull")]
-		public void When_Given_6_Lines_Input_String_With_NumLines_Of_4_Should_Return_String_With_5_Lines()
+		[Test]
+		public void When_Given_6_Lines_Input_String_With_NumLines_Of_4_Should_Return_String_With_4_Lines()
 		{
 			// Prepare
 			int numberOfLines = 4;
@@ -146,27 +146,7 @@ namespace ClipboardHistoryTests.Classes
 
 			// Assert
 			string[] lines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { outputString });
-			Assert.AreEqual(numberOfLines + 1, lines.Length);
-		}
-
-		[Test]
-		public void When_Given_6_Lines_Input_String_With_NumLines_Of_4_Line_Number_5_Should_Indicate_Number_Of_Lines_Total()
-		{
-			// Prepare
-			int numberOfLines = 4;
-			string inputString = string.Format(
-				"Input String Line 1 {0}Input String Line 2 {0}Input String Line 3 {0}" +
-				"Input String Line 4 {0}Input String Line 5 {0}Input String Line 6",
-				System.Environment.NewLine);
-
-			// Act
-			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringStrippedToNumberOfLines", new object[2] { inputString, numberOfLines });
-
-			// Assert
-			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { inputString });
-			string[] outputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { outputString });
-			string lastLine = outputLines[outputLines.Length - 1];
-			Assert.IsTrue(lastLine.Contains(string.Format("{0} lines", inputLines.Length)));
+			Assert.AreEqual(numberOfLines, lines.Length);
 		}
 
 		[Test]
