@@ -1,6 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System;
+using System.CodeDom.Compiler;
+using System.IO;
+using System.Text;
+using System.Linq;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace ClipboardHistory.Classes
 {
@@ -41,9 +47,9 @@ namespace ClipboardHistory.Classes
 			get { return (string)GetValue(CopyDataFullProperty); }
 			set {
 				SetValue(CopyDataFullProperty, value);
-				this.CopyDataShort = GetStringStrippedToNumberOfLines(value, Configuration.CopyDataShortNumLines);
+                this.CopyDataShort = ApplyClipboardFormat(StripToNumberOfLines(value, Configuration.CopyDataShortNumLines));
                 this.CopyDataSize = GetCopyDataSizeString(value);
-                this.NumberOfLines = GetNumberOfLinesString(GetStringLines(value).Length);
+                this.NumberOfLines = GetNumberOfLinesString(GetArrayOfLines(value).Length);
                 this.DateAndTime = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
 			}
 		}
@@ -80,44 +86,48 @@ namespace ClipboardHistory.Classes
 
 
 		#region Methods
-		private static string GetStringStrippedToNumberOfLines(string value, int numberOfLines)
+		private static string StripToNumberOfLines(string text, int numberOfLines)
 		{
-			string data = string.Empty;
-			string[] lines = GetStringLines(value);
+			string result = string.Empty;
+			string[] lines = GetArrayOfLines(text);
 
 			if (numberOfLines <= 0) { return ""; }
-			if (lines.Length <= numberOfLines) { return value; }
+
+			if (lines.Length <= numberOfLines) {
+                numberOfLines = lines.Length;
+            }
 
 			for (int i = 0; i < numberOfLines; i++)
 			{
-				data += lines[i];
+				result += lines[i];
 				if ((numberOfLines - 1) != i)
 				{
-					data += System.Environment.NewLine;
+					result += Environment.NewLine;
 				}			
 			}
-			return data;
+			return result;
 		}
 
-		private static string[] GetStringLines(string value)
+		public static string[] GetArrayOfLines(string text)
 		{
-			string[] lines = Regex.Split(value, "\r\n|\r|\n");
-			return lines;
+			return Regex.Split(text, "\r\n|\r|\n");
 		}
 
-        private string GetNumberOfLinesString(int numLines)
+        private static string ApplyClipboardFormat(string text)
         {
-            string result = string.Empty;
-            result = numLines + " line" + ((numLines != 1) ? "s" : "");
-            return result;
+            ClipboardFormatter formatter = new ClipboardFormatter(text);
+            return formatter.ToString();
         }
 
-        private string GetCopyDataSizeString(string value)
+        private static string GetNumberOfLinesString(int numberOfLines)
         {
-            string result = string.Empty;
-            var size = (value.Length * sizeof(Char)) / 1024f;
-            result = size.ToString("0.000") + " kb";
-            return result;
+            return numberOfLines + " line" + ((numberOfLines != 1) ? "s" : "");
+        }
+
+        private static string GetCopyDataSizeString(string text)
+        {
+            var size = (text.Length * sizeof(Char)) / 1024f;
+            return size.ToString("0.000") + " kb";
         }
 		#endregion
 	}

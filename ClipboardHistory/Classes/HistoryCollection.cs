@@ -22,19 +22,28 @@ namespace ClipboardHistory.Classes
         #region Methods
         public void AddItem(ClipboardDataItem item)
         {
-            MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
             base.InsertItem(0, item);
+            MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
         }
 
-        private void MaintainHistoryCollectionCapacity(int capacity)
+        public void MaintainHistoryCollectionCapacity(int capacity)
         {
             int count = base.Count;
-            while (count >= capacity)
+            while (count > capacity)
             {
                 base.RemoveAt(count - 1);
                 count = base.Count;
             }
         } 
+
+        public void Refresh()
+        {
+            foreach (ClipboardDataItem item in base.Items)
+            {
+                item.CopyDataFull = item.CopyDataFull;
+            }
+            MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
+        }
         #endregion
 	}
 }

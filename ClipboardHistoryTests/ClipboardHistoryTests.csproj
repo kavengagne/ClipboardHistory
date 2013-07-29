@@ -43,8 +43,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnitTestHelperBase">
-      <HintPath>.\UnitTestHelperBase.dll</HintPath>
+    <Reference Include="UnitTestHelperBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\UnitTestHelper\UnitTestHelper\bin\Release\UnitTestHelperBase.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

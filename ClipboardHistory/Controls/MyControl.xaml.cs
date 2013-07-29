@@ -8,7 +8,8 @@ using ClipboardHistory.Classes;
 using System.Collections;
 
 
-// TODO: KG - Create an ItemTemplate in Xaml to style the ListBox Items depending on IsErrorMessage.
+// TODO: KG - Add a view on CopyDataFull when Double-Click item in ListBox.
+// TODO: KG - Add something to show that we are not displaying the full text.
 
 namespace kavengagne.ClipboardHistory
 {
@@ -120,6 +121,7 @@ namespace kavengagne.ClipboardHistory
         private void ValidateAndSaveConfigurations(object sender)
         {
             Configuration.SavePropertyOrRevert(sender);
+            this.HistoryCollection.Refresh();
         }
         
         private void LoadValidationRules()

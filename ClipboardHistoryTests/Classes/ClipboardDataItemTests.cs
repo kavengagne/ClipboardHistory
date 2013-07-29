@@ -4,9 +4,9 @@ using UnitTestHelperBase;
 
 namespace ClipboardHistoryTests.Classes
 {
-	#region GetStringLines Method
+	#region GetArrayOfLines Method
 	[TestFixture]
-	public class ClipboardDataItem_GetStringLines_Tests
+	public class ClipboardDataItem_GetArrayOfLines_Tests
 	{
 		[Test]
 		public void When_Given_Empty_Input_String_Should_Return_Array_Of_1_Line()
@@ -16,7 +16,7 @@ namespace ClipboardHistoryTests.Classes
 			string inputString = string.Empty;
 
 			// Act
-			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { inputString });
+			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { inputString });
 
 			// Assert
 			Assert.AreEqual(numberOfLines, inputLines.Length);
@@ -30,7 +30,7 @@ namespace ClipboardHistoryTests.Classes
 			string inputString = "Input String Line1";
 
 			// Act
-			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { inputString });
+			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { inputString });
 
 			// Assert
 			Assert.AreEqual(numberOfLines, inputLines.Length);
@@ -44,7 +44,7 @@ namespace ClipboardHistoryTests.Classes
 			string inputString = string.Format("Input String Line 1 {0}Input String Line 2", System.Environment.NewLine);
 
 			// Act
-			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { inputString });
+			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { inputString });
 
 			// Assert
 			Assert.AreEqual(numberOfLines, inputLines.Length);
@@ -58,7 +58,7 @@ namespace ClipboardHistoryTests.Classes
 			string inputString = string.Format("Input String Line 1 {0}Input String Line 2", System.Environment.NewLine);
 
 			// Act
-			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { inputString });
+			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { inputString });
 
 			// Assert
 			Assert.AreEqual(numberOfLines, inputLines.Length);
@@ -72,7 +72,7 @@ namespace ClipboardHistoryTests.Classes
 			string inputString = string.Format("Input String Line 1 {0}Input String Line 2", System.Environment.NewLine);
 
 			// Act
-			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { inputString });
+			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { inputString });
 
 			// Assert
 			Assert.AreEqual(numberOfLines, inputLines.Length);
@@ -90,7 +90,7 @@ namespace ClipboardHistoryTests.Classes
 				"\r", "\r", "\n", "\r", "\r\n", "\n", "\n", "\r\n", "\r\n", "\r");
 
 			// Act
-			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { inputString });
+			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { inputString });
 
 			// Assert
 			Assert.AreEqual(numberOfLines, inputLines.Length);
@@ -101,7 +101,7 @@ namespace ClipboardHistoryTests.Classes
 
 	#region GetCopyDataLinesByNumber Method
 	[TestFixture]
-	public class ClipboardDataItem_GetStringStrippedToNumberOfLines_Tests
+	public class ClipboardDataItem_StripToNumberOfLines_Tests
 	{
 		[Test]
 		public void When_Given_Empty_Input_String_With_NumLines_Of_4_Should_Return_Input_String()
@@ -111,7 +111,7 @@ namespace ClipboardHistoryTests.Classes
 			string inputString = string.Empty;
 
 			// Act
-			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringStrippedToNumberOfLines", new object[2] { inputString, numberOfLines });
+			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "StripToNumberOfLines", new object[2] { inputString, numberOfLines });
 
 			// Assert
 			Assert.AreEqual(inputString, outputString);
@@ -125,7 +125,7 @@ namespace ClipboardHistoryTests.Classes
 			string inputString = string.Format("Input String Line 1 {0}Input String Line 2", System.Environment.NewLine);
 
 			// Act
-			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringStrippedToNumberOfLines", new object[2] { inputString, numberOfLines });
+			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "StripToNumberOfLines", new object[2] { inputString, numberOfLines });
 
 			// Assert
 			Assert.AreEqual(inputString, outputString);
@@ -142,10 +142,10 @@ namespace ClipboardHistoryTests.Classes
 				System.Environment.NewLine);
 
 			// Act
-			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringStrippedToNumberOfLines", new object[2] { inputString, numberOfLines });
+			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "StripToNumberOfLines", new object[2] { inputString, numberOfLines });
 
 			// Assert
-			string[] lines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { outputString });
+			string[] lines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { outputString });
 			Assert.AreEqual(numberOfLines, lines.Length);
 		}
 
@@ -160,7 +160,7 @@ namespace ClipboardHistoryTests.Classes
 				System.Environment.NewLine);
 
 			// Act
-			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringStrippedToNumberOfLines", new object[2] { inputString, numberOfLines });
+			string outputString = (string)UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "StripToNumberOfLines", new object[2] { inputString, numberOfLines });
 
 			// Assert
 			Assert.AreEqual(string.Empty, outputString);
@@ -222,8 +222,8 @@ namespace ClipboardHistoryTests.Classes
 			ClipboardDataItem clipboardDataItem = new ClipboardDataItem(inputString);
 
 			// Assert
-			string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { inputString });
-			string[] shortLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetStringLines", new object[1] { clipboardDataItem.CopyDataShort });
+            string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { inputString });
+            string[] shortLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { clipboardDataItem.CopyDataShort });
 			Assert.AreEqual(inputLines[0], shortLines[0]);
 		}
 
@@ -267,13 +267,14 @@ namespace ClipboardHistoryTests.Classes
 			string inputString1 = "Input1 String Line1 \n-Maybe1 Line2 \r-Maybe1 Line 3 \r\n-Maybe1 Line 4";
 			string inputString2 = "Input2 String Line1 \n-Maybe2 Line2 \r-Maybe2 Line 3 \r\n-Maybe2 Line 4";
 			ClipboardDataItem clipboardDataItem = new ClipboardDataItem(inputString1);
+            string oldItemString = clipboardDataItem.CopyDataShort;
 
 			// Act
 			clipboardDataItem.CopyDataFull = inputString2;
 
 			// Assert
 			Assert.AreEqual(inputString2, clipboardDataItem.CopyDataFull);
-			Assert.AreEqual(inputString2, clipboardDataItem.CopyDataShort);
+			Assert.AreNotEqual(oldItemString, clipboardDataItem.CopyDataShort);
 		}
 	}
 	#endregion

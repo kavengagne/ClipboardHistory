@@ -37,7 +37,7 @@ namespace ClipboardHistory.Classes
         public static bool SaveCopyDataShortNumLines(int numlines)
         {
             var result = false;
-            if (numlines > 0 && numlines <= 500)
+            if (numlines > 0 && numlines <= 50)
             {
                 Settings.Default.CopyDataShortNumLines = numlines;
                 Settings.Default.Save();
@@ -49,7 +49,7 @@ namespace ClipboardHistory.Classes
         public static bool SaveHistoryCollectionCapacity(int capacity)
         {
             var result = false;
-            if (capacity > 0 && capacity <= 500)
+            if (capacity > 0 && capacity <= 200)
             {
                 Settings.Default.HistoryCollectionCapacity = capacity;
                 Settings.Default.Save();
