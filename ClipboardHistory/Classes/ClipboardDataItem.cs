@@ -16,7 +16,7 @@ namespace ClipboardHistory.Classes
         public string DateAndTime
         {
             get { return (string)GetValue(DateAndTimeProperty); }
-            private set { SetValue(DateAndTimeProperty, value); }
+            set { SetValue(DateAndTimeProperty, value); }
         }
         public static readonly DependencyProperty DateAndTimeProperty =
             DependencyProperty.Register("DateAndTime", typeof(string), typeof(ClipboardDataItem), new UIPropertyMetadata(""));

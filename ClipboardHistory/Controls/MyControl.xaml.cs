@@ -130,6 +130,7 @@ namespace kavengagne.ClipboardHistory
             this.tbHistoryCollectionCapacity.Tag = "HistoryCollectionCapacity";
             this.tbCopyDataShortNumLines.Tag = "CopyDataShortNumLines";
             this.cbVisualStudioClipboardOnly.Tag = "VisualStudioClipboardOnly";
+            this.cbPreventDuplicateItems.Tag = "PreventDuplicateItems";
         }
 
         private void LoadConfigurationValues()
@@ -137,6 +138,7 @@ namespace kavengagne.ClipboardHistory
             this.tbHistoryCollectionCapacity.Text = Configuration.HistoryCollectionCapacity.ToString();
             this.tbCopyDataShortNumLines.Text = Configuration.CopyDataShortNumLines.ToString();
             this.cbVisualStudioClipboardOnly.IsChecked = Configuration.VisualStudioClipboardOnly;
+            this.cbPreventDuplicateItems.IsChecked = Configuration.PreventDuplicateItems;
         }
 		#endregion
 

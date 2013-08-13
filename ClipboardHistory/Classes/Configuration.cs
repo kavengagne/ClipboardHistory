@@ -10,11 +10,6 @@ namespace ClipboardHistory.Classes
     public static class Configuration
     {
         #region Properties
-        public static bool VisualStudioClipboardOnly
-        {
-            get { return Settings.Default.VisualStudioClipboardOnly; }
-        }
-
         public static int HistoryCollectionCapacity
         {
             get { return Settings.Default.HistoryCollectionCapacity; }
@@ -24,16 +19,20 @@ namespace ClipboardHistory.Classes
         {
             get { return Settings.Default.CopyDataShortNumLines; }
         }
+
+        public static bool VisualStudioClipboardOnly
+        {
+            get { return Settings.Default.VisualStudioClipboardOnly; }
+        }
+
+        public static bool PreventDuplicateItems
+        {
+            get { return Settings.Default.PreventDuplicateItems; }
+        }
         #endregion
 
 
         #region Public Methods
-        public static void SaveVisualStudioClipboardOnly(bool vsonly)
-        {
-            Settings.Default.VisualStudioClipboardOnly = vsonly;
-            Settings.Default.Save();
-        }
-
         public static bool SaveCopyDataShortNumLines(int numlines)
         {
             var result = false;
@@ -56,6 +55,18 @@ namespace ClipboardHistory.Classes
                 result = true;
             }
             return result;
+        }
+
+        public static void SaveVisualStudioClipboardOnly(bool vsonly)
+        {
+            Settings.Default.VisualStudioClipboardOnly = vsonly;
+            Settings.Default.Save();
+        }
+
+        public static void SavePreventDuplicateItems(bool preventduplicate)
+        {
+            Settings.Default.PreventDuplicateItems = preventduplicate;
+            Settings.Default.Save();
         }
 
         public static void SavePropertyOrRevert(object sender)
@@ -110,15 +121,19 @@ namespace ClipboardHistory.Classes
             var result = false;
             switch (propertyName)
             {
-                case "VisualStudioClipboardOnly":
-                    Configuration.SaveVisualStudioClipboardOnly((bool)propertyValue);
-                    result = true;
-                    break;
                 case "HistoryCollectionCapacity":
                     result = Configuration.SaveHistoryCollectionCapacity((int)propertyValue);
                     break;
                 case "CopyDataShortNumLines":
                     result = Configuration.SaveCopyDataShortNumLines((int)propertyValue);
+                    break;
+                case "VisualStudioClipboardOnly":
+                    Configuration.SaveVisualStudioClipboardOnly((bool)propertyValue);
+                    result = true;
+                    break;
+                case "PreventDuplicateItems":
+                    Configuration.SavePreventDuplicateItems((bool)propertyValue);
+                    result = true;
                     break;
                 default:
                     break;

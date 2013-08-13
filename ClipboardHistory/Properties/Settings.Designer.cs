@@ -58,5 +58,17 @@ namespace kavengagne.ClipboardHistory.Properties {
                 this["CopyDataShortNumLines"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PreventDuplicateItems {
+            get {
+                return ((bool)(this["PreventDuplicateItems"]));
+            }
+            set {
+                this["PreventDuplicateItems"] = value;
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using ClipboardHistory.Classes;
 using NUnit.Framework;
-using UnitTestHelperBase;
+
 
 namespace ClipboardHistoryTests.Classes
 {

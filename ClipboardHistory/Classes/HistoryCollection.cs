@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -22,8 +23,16 @@ namespace ClipboardHistory.Classes
         #region Methods
         public void AddItem(ClipboardDataItem item)
         {
-            base.InsertItem(0, item);
-            MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
+            bool canInsertItem = true;
+            if (Configuration.PreventDuplicateItems)
+            {
+                canInsertItem = !base.Items.Take(1).Any(i => i.CopyDataFull.Equals(item.CopyDataFull));
+            }
+            if (canInsertItem)
+            {
+                base.InsertItem(0, item);
+                MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
+            }
         }
 
         public void MaintainHistoryCollectionCapacity(int capacity)
@@ -40,7 +49,9 @@ namespace ClipboardHistory.Classes
         {
             foreach (ClipboardDataItem item in base.Items)
             {
+                var date = item.DateAndTime;
                 item.CopyDataFull = item.CopyDataFull;
+                item.DateAndTime = date;
             }
             MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
         }

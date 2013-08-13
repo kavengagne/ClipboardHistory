@@ -43,9 +43,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnitTestHelperBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\UnitTestHelper\UnitTestHelper\bin\Release\UnitTestHelperBase.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +51,7 @@
     <Compile Include="Classes\HistoryCollectionTests.cs" />
     <Compile Include="MyControlTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClipboardHistory\ClipboardHistory.csproj">

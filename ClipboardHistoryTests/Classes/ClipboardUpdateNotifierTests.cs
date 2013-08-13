@@ -5,7 +5,7 @@ using NUnit.Framework;
 using ClipboardHistory.Classes;
 using System.Reflection;
 using System.Windows.Forms;
-using UnitTestHelperBase;
+
 
 namespace ClipboardHistoryTests.Classes
 {

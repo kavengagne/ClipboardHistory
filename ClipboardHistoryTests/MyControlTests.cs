@@ -7,10 +7,10 @@ using System.Reflection;
 using System.Threading;
 using ClipboardHistory.Classes;
 using System.Collections.ObjectModel;
-using UnitTestHelperBase;
 using System.Windows;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
+
 
 namespace ClipboardHistoryTests
 {
