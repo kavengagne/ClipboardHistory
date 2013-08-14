@@ -24,7 +24,7 @@ namespace ClipboardHistoryTests.Classes
 
 			// Assert
 			Assert.IsNotNull(notifier);
-			Assert.IsInstanceOfType(typeof(ClipboardUpdateNotifier), notifier);
+			Assert.IsInstanceOf(typeof(ClipboardUpdateNotifier), notifier);
 		}
 	} 
 	#endregion
