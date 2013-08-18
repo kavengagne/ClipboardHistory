@@ -26,6 +26,8 @@ This tool window is the core of the Clipboard History extension.
 
 `Explain basic operations (copy to list, copy from list, error messages).`
 
+## Settings
+
 ![ClipboardHistory Settings Window](/ClipboardHistory/Resources/Images/ScreenShot_Settings.png)
 
 `Explain each configuration options and the behavior associated to it.`
