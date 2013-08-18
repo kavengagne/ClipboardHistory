@@ -18,13 +18,15 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Install the extension using the vsix package and then restart Visual Studio.
 * Click **View** > **Other Windows** > **Clipboard History**
 
-![ClipboardHistory Tool Window](/ClipboardHistory/Resources/Images/ScreenShot_01.png)
+![ClipboardHistory Tool Window](/ClipboardHistory/Resources/Images/ScreenShot_ToolWindow.png)
 
 This tool window is the core of the Clipboard History extension.
 
 `TODO`
 
 `Explain basic operations (copy to list, copy from list, error messages).`
+
+![ClipboardHistory Settings Window](/ClipboardHistory/Resources/Images/ScreenShot_Settings.png)
 
 `Explain each configuration options and the behavior associated to it.`
 
