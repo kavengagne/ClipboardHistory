@@ -74,12 +74,14 @@
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Margin="3,3,0,0" ToolTip="Number of items that the History List can hold.">History List Maximum Capacity :</Label>
                         <TextBox Name="tbHistoryCollectionCapacity" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="40" HorizontalAlignment="Left" Margin="2,5,2,2" BorderBrush="Black" TextAlignment="Center" LostFocus="textBoxLostFocus" ToolTip="Min. 1, Max. 200">25</TextBox>
-                        <Label Grid.Row="1" Margin="3,0,0,0" ToolTip="Maximum number of lines displayed per item in the History List." Focusable="True">Number of Lines Displayed per Item :</Label>
+                        <Label Grid.Row="1" Grid.Column="0" Margin="3,0,0,0" ToolTip="Maximum number of lines displayed per item in the History List." Focusable="True">Number of Lines Displayed per Item :</Label>
                         <TextBox Name="tbCopyDataShortNumLines" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="textBoxLostFocus" ToolTip="Min. 1, Max. 50">5</TextBox>
-                        <WrapPanel Grid.Row="2" Margin="3,0,0,2" Orientation="Vertical" Grid.ColumnSpan="2">
+                        <WrapPanel Grid.Row="2" Margin="3,0,0,2" Orientation="Vertical" Grid.ColumnSpan="2"
+                                   Grid.Column="0">
                             <CheckBox Name="cbVisualStudioClipboardOnly" Content="Visual Studio Clipboard Only" Margin="5,4,5,3" Click="textBoxLostFocus" ToolTip="Only track clipboard changes in the current Visual Studio instance."></CheckBox>
                         </WrapPanel>
-                        <WrapPanel Grid.Row="3" Margin="3,0,0,2" Orientation="Vertical" Grid.ColumnSpan="2">
+                        <WrapPanel Grid.Row="3" Margin="3,0,0,2" Orientation="Vertical" Grid.ColumnSpan="2"
+                                   Grid.Column="0">
                             <CheckBox Name="cbPreventDuplicateItems" Content="Prevent Duplicate Items" Margin="5,4,5,4" Click="textBoxLostFocus" ToolTip="Do not show duplicate entries in the History List."></CheckBox>
                         </WrapPanel>
                     </Grid>
