@@ -1,8 +1,8 @@
 ﻿using System.Runtime.InteropServices;
-using ClipboardHistoryApp.Controls;
 using Microsoft.VisualStudio.Shell;
+using ClipboardHistoryApp.AppResources;
 
-namespace ClipboardHistoryApp
+namespace ClipboardHistoryApp.Controls
 {
     /// <summary>
     /// This class implements the tool window exposed by this package and hosts a user control.
@@ -16,19 +16,12 @@ namespace ClipboardHistoryApp
     [Guid("f5065328-2c0d-41f8-a374-8de3f0f19b3b")]
     public class MyToolWindow : ToolWindowPane
     {
-        /// <summary>
-        /// Standard constructor for the tool window.
-        /// </summary>
-        public MyToolWindow() :
-            base(null)
+        public MyToolWindow() : base(null)
         {
-            // Set the window title reading it from the resources.
             this.Caption = Resources.ToolWindowTitle;
-            // Set the image that will appear on the tab of the window frame
-            // when docked with an other window
-            // The resource ID correspond to the one defined in the resx file
-            // while the Index is the offset in the bitmap strip. Each image in
-            // the strip being 16x16.
+            // Set the image that will appear on the tab of the window frame when docked with an other window
+            // The resource ID correspond to the one defined in the resx file while the Index is the offset
+            // in the bitmap strip. Each image in the strip being 16x16.
             this.BitmapResourceID = 301;
             this.BitmapIndex = 1;
 

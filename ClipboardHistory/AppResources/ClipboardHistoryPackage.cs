@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
+using ClipboardHistoryApp.Controls;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 
-// ReSharper disable once CheckNamespace
 namespace ClipboardHistoryApp.AppResources
 {
     /// <summary>

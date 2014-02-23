@@ -151,25 +151,25 @@
     <Compile Include="Controls\MyControl.xaml.cs">
       <DependentUpon>MyControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyToolWindow.cs" />
-    <Compile Include="Resources\Guids.cs" />
+    <Compile Include="Controls\MyToolWindow.cs" />
+    <Compile Include="AppResources\Guids.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Resources.Designer.cs">
+    <Compile Include="AppResources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\GlobalSuppressions.cs" />
-    <Compile Include="Resources\ClipboardHistoryPackage.cs" />
+    <Compile Include="AppResources\GlobalSuppressions.cs" />
+    <Compile Include="AppResources\ClipboardHistoryPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\PkgCmdID.cs" />
+    <Compile Include="AppResources\PkgCmdID.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="AppResources\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -200,26 +200,26 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Images_32bit.bmp" />
-    <None Include="Resources\Images_24bit.bmp" />
+    <None Include="AppResources\Images_32bit.bmp" />
+    <None Include="AppResources\Images_24bit.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\history_16px.png" />
+    <Resource Include="AppResources\Images\history_16px.png" />
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\Images\history_16px.bmp">
+    <Content Include="AppResources\Images\history_16px.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\Images\history_32px.png">
+    <Content Include="AppResources\Images\history_32px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Resource Include="Resources\Images\Screenshot_Settings.png" />
-    <Resource Include="Resources\Images\ScreenShot_ToolWindow.png" />
-    <Content Include="Resources\Package.ico">
+    <Resource Include="AppResources\Images\Screenshot_Settings.png" />
+    <Resource Include="AppResources\Images\ScreenShot_ToolWindow.png" />
+    <Content Include="AppResources\Package.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

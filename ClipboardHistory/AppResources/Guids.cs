@@ -2,7 +2,6 @@
 // MUST match guids.h
 using System;
 
-// ReSharper disable once CheckNamespace
 namespace ClipboardHistoryApp.AppResources
 {
     static class GuidList
