@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using ClipboardHistoryApp.Classes;
+using ClipboardHistoryApp.Controls;
 using NUnit.Framework;
-using kavengagne.ClipboardHistory;
 using System.Reflection;
-using System.Threading;
-using ClipboardHistory.Classes;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Runtime.InteropServices;
-using System.Windows.Input;
 
 
 namespace ClipboardHistoryTests

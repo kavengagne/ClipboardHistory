@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Windows.Controls;
-using kavengagne.ClipboardHistory.Properties;
-using System.Diagnostics;
 using System.Reflection;
-using System.ComponentModel;
+using System.Windows.Controls;
+using ClipboardHistoryApp.Properties;
 
-namespace ClipboardHistory.Classes
+namespace ClipboardHistoryApp.Classes
 {
     public static class Configuration
     {
@@ -87,9 +85,8 @@ namespace ClipboardHistory.Classes
         #region Private Methods
         private static void SaveTextBoxConfigurationProperty(TextBox tb)
         {
-            var propertyName = tb.Tag as string;
-            var propertyInfo = typeof(Configuration).GetProperty(propertyName,
-                                                                 BindingFlags.Public | BindingFlags.Static);
+            var propertyName = (String)tb.Tag;
+            var propertyInfo = typeof(Configuration).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Static);
             var propertyValue = propertyInfo.GetValue(null, null);
             var propertyType = propertyInfo.PropertyType;
             var newValue = tb.Text;
@@ -102,7 +99,10 @@ namespace ClipboardHistory.Classes
                     return;
                 }
             }
-            catch (Exception) { }
+            catch
+            {
+                tb.Text = propertyValue.ToString();
+            }
             
             // Restore original data.
             // if execution comes here, something wrong happened.
@@ -112,7 +112,7 @@ namespace ClipboardHistory.Classes
         private static void SaveCheckBoxConfigurationProperty(CheckBox cb)
         {
             var propertyName = cb.Tag as string;
-            var propertyValue = (cb.IsChecked.HasValue) ? cb.IsChecked.Value : false;
+            var propertyValue = cb.IsChecked.HasValue && cb.IsChecked.Value;
             ValidateAndSavePropertyValue(propertyValue, propertyName);
         }
 
@@ -122,20 +122,18 @@ namespace ClipboardHistory.Classes
             switch (propertyName)
             {
                 case "HistoryCollectionCapacity":
-                    result = Configuration.SaveHistoryCollectionCapacity((int)propertyValue);
+                    result = SaveHistoryCollectionCapacity((int)propertyValue);
                     break;
                 case "CopyDataShortNumLines":
-                    result = Configuration.SaveCopyDataShortNumLines((int)propertyValue);
+                    result = SaveCopyDataShortNumLines((int)propertyValue);
                     break;
                 case "VisualStudioClipboardOnly":
-                    Configuration.SaveVisualStudioClipboardOnly((bool)propertyValue);
+                    SaveVisualStudioClipboardOnly((bool)propertyValue);
                     result = true;
                     break;
                 case "PreventDuplicateItems":
-                    Configuration.SavePreventDuplicateItems((bool)propertyValue);
+                    SavePreventDuplicateItems((bool)propertyValue);
                     result = true;
-                    break;
-                default:
                     break;
             }
             return result;

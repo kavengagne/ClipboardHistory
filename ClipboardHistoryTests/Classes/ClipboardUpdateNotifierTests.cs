@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ClipboardHistoryApp.Classes;
 using NUnit.Framework;
-using ClipboardHistory.Classes;
 using System.Reflection;
 using System.Windows.Forms;
 

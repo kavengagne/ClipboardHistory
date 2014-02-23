@@ -15,13 +15,13 @@
         defining some of the constants that we will use inside the file. -->
 
   <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
-  <Extern href="stdidcmd.h"/>
+  <Extern href="stdidcmd.h" />
 
   <!--This header contains the command ids for the menus provided by the shell. -->
-  <Extern href="vsshlids.h"/>
+  <Extern href="vsshlids.h" />
 
   <!--Definition of some VSCT specific constants. In this sample we use it for the IDs inside the guidOfficeIcon group. -->
-  <Extern href="msobtnid.h"/>
+  <!--<Extern href="msobtnid.h" xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" />-->
 
 
 
@@ -61,7 +61,7 @@
 
 
       <Button guid="guidClipboardHistoryCmdSet" id="cmdidClipboardHistory" priority="0x0100" type="Button">
-        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1"/>
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
         <Icon guid="guidImages2" id="pngPic1" />
         <Strings>
           <CommandName>cmdidClipboardHistory</CommandName>
@@ -103,7 +103,7 @@
     
     
     
-    <GuidSymbol name="guidImages2" value="{0e02cee0-9a9d-4807-a5db-9118ff8f4a3f}" >
+    <GuidSymbol name="guidImages2" value="{0e02cee0-9a9d-4807-a5db-9118ff8f4a3f}">
       <IDSymbol name="pngPic1" value="1" />
       <!--<IDSymbol name="pngPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />

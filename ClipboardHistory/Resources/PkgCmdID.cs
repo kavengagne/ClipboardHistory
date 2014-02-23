@@ -1,13 +1,11 @@
 ﻿// PkgCmdID.cs
 // MUST match PkgCmdID.h
-using System;
 
-namespace kavengagne.ClipboardHistory
+// ReSharper disable once CheckNamespace
+namespace ClipboardHistoryApp.AppResources
 {
     static class PkgCmdIDList
     {
-
-        public const uint cmdidClipboardHistory =    0x101;
-
+        public const uint CmdidClipboardHistory =    0x101;
     };
 }

@@ -3,13 +3,12 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
-using Microsoft.Win32;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 
-namespace kavengagne.ClipboardHistory
+// ReSharper disable once CheckNamespace
+namespace ClipboardHistoryApp.AppResources
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -31,7 +30,8 @@ namespace kavengagne.ClipboardHistory
     [ProvideMenuResource("Menus.ctmenu", 1)]
     // This attribute registers a tool window exposed by this package.
     [ProvideToolWindow(typeof(MyToolWindow))]
-    [Guid(GuidList.guidClipboardHistoryPkgString)]
+    [Guid(GuidList.GuidClipboardHistoryPkgString)]
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     public sealed class ClipboardHistoryPackage : Package
     {
         /// <summary>
@@ -43,7 +43,7 @@ namespace kavengagne.ClipboardHistory
         /// </summary>
         public ClipboardHistoryPackage()
         {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this));
         }
 
         /// <summary>
@@ -61,12 +61,11 @@ namespace kavengagne.ClipboardHistory
             {
                 throw new NotSupportedException(Resources.CanNotCreateWindow);
             }
-            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            var windowFrame = (IVsWindowFrame)window.Frame;
+            ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
 
 
-        /////////////////////////////////////////////////////////////////////////////
         // Overriden Package Implementation
         #region Package Members
 
@@ -76,17 +75,17 @@ namespace kavengagne.ClipboardHistory
         /// </summary>
         protected override void Initialize()
         {
-            Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
+            Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this));
             base.Initialize();
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
-            OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if ( null != mcs )
+            var mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            if (null != mcs)
             {
                 // Create the command for the tool window
-                CommandID toolwndCommandID = new CommandID(GuidList.guidClipboardHistoryCmdSet, (int)PkgCmdIDList.cmdidClipboardHistory);
-                MenuCommand menuToolWin = new MenuCommand(ShowToolWindow, toolwndCommandID);
-                mcs.AddCommand( menuToolWin );
+                var toolwndCommandID = new CommandID(GuidList.GuidClipboardHistoryCmdSet, (int)PkgCmdIDList.CmdidClipboardHistory);
+                var menuToolWin = new MenuCommand(ShowToolWindow, toolwndCommandID);
+                mcs.AddCommand(menuToolWin);
             }
         }
         #endregion

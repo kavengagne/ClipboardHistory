@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace ClipboardHistory.Classes
+namespace ClipboardHistoryApp.Classes
 {
 	public sealed class ClipboardEventArgs : EventArgs
 	{
-		private IntPtr _hwnd = IntPtr.Zero;
+		private readonly IntPtr _hwnd = IntPtr.Zero;
 
 		public IntPtr Hwnd
 		{

@@ -1,13 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardHistory", "ClipboardHistory\ClipboardHistory.csproj", "{47451735-F7FB-4A93-8591-858B54A2376F}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C80E3EC8-F9EA-4067-9C0E-52B613E8B2A1}"
 	ProjectSection(SolutionItems) = preProject
 		ClipboardHistory\LICENSE.txt = ClipboardHistory\LICENSE.txt
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardHistory", "ClipboardHistory\ClipboardHistory.csproj", "{47451735-F7FB-4A93-8591-858B54A2376F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardHistoryTests", "ClipboardHistoryTests\ClipboardHistoryTests.csproj", "{863F0BA4-DD29-4D72-BFE0-87A78904B288}"
 EndProject

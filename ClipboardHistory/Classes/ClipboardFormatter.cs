@@ -1,47 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
-namespace ClipboardHistory.Classes
+namespace ClipboardHistoryApp.Classes
 {
     public class ClipboardFormatter
     {
         #region Constants
-        public const char TAB = '\t';
-        public const char SPACE = '\u0020';
-        public const char DEFAULT_CHARACTER = SPACE;
-        public const int DEFAULT_NUMBER = 4; 
+        public const char Tab = '\t';
+        public const char Space = '\u0020';
+        public const char DefaultCharacter = Space;
+        public const int DefaultNumber = 4; 
         #endregion
 
 
         #region Fields
-        private string _text;
-        private char _indentationCharacter = DEFAULT_CHARACTER;
-        private int _indentationNumber = DEFAULT_NUMBER;
+        private char _indentationCharacter = DefaultCharacter;
+        private int _indentationNumber = DefaultNumber;
         #endregion
 
 
         #region Properties
-        public string Text
+        public string Text { get; set; }
+
+        public char IndentationCharacter
         {
-            get { return _text; }
-            set { _text = value; }
-        }
-        public char IndentationCharacter {
             get { return _indentationCharacter; }
             set { _indentationCharacter = value; }
         }
-        public int IndentationNumber {
+        
+        public int IndentationNumber
+        {
             get { return _indentationNumber; }
-            set { _indentationNumber = (value > 0) ? value : DEFAULT_NUMBER; }
+            set { _indentationNumber = (value > 0) ? value : DefaultNumber; }
         }
         #endregion
 
 
         #region Constructors
-        public ClipboardFormatter(string text) : this(text, DEFAULT_CHARACTER, DEFAULT_NUMBER) { }
+        public ClipboardFormatter(string text) : this(text, DefaultCharacter, DefaultNumber)
+        {
+        }
+        
         public ClipboardFormatter(string text, char indentationCharacter, int indentationNumber)
         {
             this.Text = text;
@@ -51,7 +52,7 @@ namespace ClipboardHistory.Classes
         #endregion
 
 
-        #region Methods
+        #region ToString Overrides
         public override string ToString()
         {
             Dictionary<int, int> indentationLevels = GetIndentationLevels(this.Text);
@@ -59,7 +60,10 @@ namespace ClipboardHistory.Classes
             string unindentedText = RemoveIndentation(this.Text);
             return ApplyIndentation(unindentedText, indentationLevels);
         }
+        #endregion
 
+
+        #region Methods
         private string ApplyIndentation(string text, Dictionary<int, int> levels)
         {
             string result = string.Empty;
@@ -87,7 +91,7 @@ namespace ClipboardHistory.Classes
         private static Dictionary<int, int> NormalizeIndentationLevels(Dictionary<int, int> levels)
         {
             int lowestLevel = FindLowestIndentationLevel(levels);
-            Dictionary<int, int> newLevels = new Dictionary<int, int>();
+            var newLevels = new Dictionary<int, int>();
             foreach (var level in levels)
             {
                 int diff = level.Value - lowestLevel;
@@ -98,7 +102,7 @@ namespace ClipboardHistory.Classes
 
         private static Dictionary<int, int> GetIndentationLevels(string text)
         {
-            Dictionary<int, int> levels = new Dictionary<int, int>();
+            var levels = new Dictionary<int, int>();
             string[] lines = ClipboardDataItem.GetArrayOfLines(text);
 
             for (int i = 0; i < lines.Length; i++)
@@ -119,12 +123,8 @@ namespace ClipboardHistory.Classes
 
         private static int FindLowestIndentationLevel(Dictionary<int, int> levels)
         {
-            int lowestLevel = int.MaxValue;
             var indentLevels = (levels.ContainsKey(0) && levels[0] == 0) ? levels.Skip(1) : levels;
-            foreach (var level in indentLevels)
-            {
-                lowestLevel = (level.Value < lowestLevel) ? level.Value : lowestLevel;
-            }
+            int lowestLevel = indentLevels.Aggregate(int.MaxValue, (current, level) => (level.Value < current) ? level.Value : current);
             return (lowestLevel == int.MaxValue) ? 0 : lowestLevel;
         } 
         #endregion

@@ -2,22 +2,23 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace ClipboardHistory.Classes
+// Resharper disable All
+namespace ClipboardHistoryApp.Classes
 {
     internal static class NativeMethods
     {
         public delegate IntPtr HookProc(int code, IntPtr wParam, KBLLHOOKSTRUCT lParam);
 
-		public enum GetWindow_Cmd : uint
-		{
-			GW_HWNDFIRST = 0,
-			GW_HWNDLAST = 1,
-			GW_HWNDNEXT = 2,
-			GW_HWNDPREV = 3,
-			GW_OWNER = 4,
-			GW_CHILD = 5,
-			GW_ENABLEDPOPUP = 6
-		}
+        public enum GetWindow_Cmd : uint
+        {
+            GW_HWNDFIRST = 0,
+            GW_HWNDLAST = 1,
+            GW_HWNDNEXT = 2,
+            GW_HWNDPREV = 3,
+            GW_OWNER = 4,
+            GW_CHILD = 5,
+            GW_ENABLEDPOPUP = 6
+        }
 
         [StructLayout(LayoutKind.Sequential)]
         public class KBLLHOOKSTRUCT
@@ -75,11 +76,11 @@ namespace ClipboardHistory.Classes
         [DllImport("user32.dll")]
         public static extern IntPtr GetOpenClipboardWindow();
 
-		[DllImport("user32.dll")]
-		public static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
 
-		[DllImport("user32.dll", SetLastError = true)]
-		public static extern IntPtr GetWindow(IntPtr hWnd, GetWindow_Cmd uCmd);
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr GetWindow(IntPtr hWnd, GetWindow_Cmd uCmd);
         #endregion
     }
 }

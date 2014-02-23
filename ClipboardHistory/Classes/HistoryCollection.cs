@@ -1,32 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 
-namespace ClipboardHistory.Classes
+namespace ClipboardHistoryApp.Classes
 {
-	public class HistoryCollection : ObservableCollection<ClipboardDataItem>
-	{
-        #region Fields
-        #endregion
-
-
-        #region Constructor
-        public HistoryCollection() : base()
-        {
-        }
-        #endregion
-
-
-        #region Methods
+    public class HistoryCollection : ObservableCollection<ClipboardDataItem>
+    {
+        #region Public Methods
         public void AddItem(ClipboardDataItem item)
         {
             bool canInsertItem = true;
             if (Configuration.PreventDuplicateItems)
             {
-                canInsertItem = !base.Items.Take(1).Any(i => i.CopyDataFull.Equals(item.CopyDataFull));
+                canInsertItem = !Items.Take(1).Any(i => i.CopyDataFull.Equals(item.CopyDataFull));
             }
             if (canInsertItem)
             {
@@ -37,17 +22,17 @@ namespace ClipboardHistory.Classes
 
         public void MaintainHistoryCollectionCapacity(int capacity)
         {
-            int count = base.Count;
+            int count = Count;
             while (count > capacity)
             {
-                base.RemoveAt(count - 1);
-                count = base.Count;
+                RemoveAt(count - 1);
+                count = Count;
             }
         } 
 
         public void Refresh()
         {
-            foreach (ClipboardDataItem item in base.Items)
+            foreach (ClipboardDataItem item in Items)
             {
                 var date = item.DateAndTime;
                 item.CopyDataFull = item.CopyDataFull;
@@ -56,5 +41,5 @@ namespace ClipboardHistory.Classes
             MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
         }
         #endregion
-	}
+    }
 }

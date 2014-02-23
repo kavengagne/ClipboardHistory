@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms;
 
-namespace ClipboardHistory.Classes
+namespace ClipboardHistoryApp.Classes
 {
     public sealed class ClipboardUpdateNotifier : IDisposable
     {
@@ -38,7 +38,7 @@ namespace ClipboardHistory.Classes
         #region Event Handler
         private void OnClipboardUpdate(ClipboardEventArgs e)
         {
-			Debug.WriteLine(e.Hwnd.ToString());
+            Debug.WriteLine(e.Hwnd.ToString());
             var handler = this.ClipboardUpdate;
             if (handler != null)
             {
@@ -52,6 +52,7 @@ namespace ClipboardHistory.Classes
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
         ~ClipboardUpdateNotifier()
         {
@@ -77,7 +78,7 @@ namespace ClipboardHistory.Classes
         #region NotificationForm Class
         private class NotificationForm : Form
         {
-            private ClipboardUpdateNotifier _parent;
+            private readonly ClipboardUpdateNotifier _parent;
             public NotificationForm(ClipboardUpdateNotifier parent)
             {
                 this._parent = parent;

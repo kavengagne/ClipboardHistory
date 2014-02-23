@@ -1,10 +1,9 @@
-﻿<UserControl x:Class="kavengagne.ClipboardHistory.MyControl"
+﻿<UserControl x:Class="ClipboardHistoryApp.Controls.MyControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.10.0"
-             xmlns:c="clr-namespace:ClipboardHistory.Classes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow"
@@ -73,24 +72,21 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Margin="3,3,0,0" ToolTip="Number of items that the History List can hold.">History List Maximum Capacity :</Label>
-                        <TextBox Name="tbHistoryCollectionCapacity" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="40" HorizontalAlignment="Left" Margin="2,5,2,2" BorderBrush="Black" TextAlignment="Center" LostFocus="textBoxLostFocus" ToolTip="Min. 1, Max. 200">25</TextBox>
+                        <TextBox Name="TextBoxHistoryCollectionCapacity" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="40" HorizontalAlignment="Left" Margin="2,5,2,2" BorderBrush="Black" TextAlignment="Center" LostFocus="TextBoxLostFocus" ToolTip="Min. 1, Max. 200">25</TextBox>
                         <Label Grid.Row="1" Grid.Column="0" Margin="3,0,0,0" ToolTip="Maximum number of lines displayed per item in the History List." Focusable="True">Number of Lines Displayed per Item :</Label>
-                        <TextBox Name="tbCopyDataShortNumLines" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="textBoxLostFocus" ToolTip="Min. 1, Max. 50">5</TextBox>
-                        <WrapPanel Grid.Row="2" Margin="3,0,0,2" Orientation="Vertical" Grid.ColumnSpan="2"
-                                   Grid.Column="0">
-                            <CheckBox Name="cbVisualStudioClipboardOnly" Content="Visual Studio Clipboard Only" Margin="5,4,5,3" Click="textBoxLostFocus" ToolTip="Only track clipboard changes in the current Visual Studio instance."></CheckBox>
+                        <TextBox Name="TextBoxCopyDataShortNumLines" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="TextBoxLostFocus" ToolTip="Min. 1, Max. 50">5</TextBox>
+                        <WrapPanel Grid.Row="2" Margin="3,0,0,2" Orientation="Vertical" Grid.ColumnSpan="2" Grid.Column="0">
+                            <CheckBox Name="CheckBoxVisualStudioClipboardOnly" Content="Visual Studio Clipboard Only" Margin="5,4,5,3" Click="TextBoxLostFocus" ToolTip="Only track clipboard changes in the current Visual Studio instance."></CheckBox>
                         </WrapPanel>
-                        <WrapPanel Grid.Row="3" Margin="3,0,0,2" Orientation="Vertical" Grid.ColumnSpan="2"
-                                   Grid.Column="0">
-                            <CheckBox Name="cbPreventDuplicateItems" Content="Prevent Duplicate Items" Margin="5,4,5,4" Click="textBoxLostFocus" ToolTip="Do not show duplicate entries in the History List."></CheckBox>
+                        <WrapPanel Grid.Row="3" Margin="3,0,0,2" Orientation="Vertical" Grid.ColumnSpan="2" Grid.Column="0">
+                            <CheckBox Name="CheckBoxPreventDuplicateItems" Content="Prevent Duplicate Items" Margin="5,4,5,4" Click="TextBoxLostFocus" ToolTip="Do not show duplicate entries in the History List."></CheckBox>
                         </WrapPanel>
                     </Grid>
                 </Border>
             </Expander>
         </StackPanel>
-        <ListBox Grid.Row="1" Name="lbHistory" KeyDown="lbHistory_KeyDown" AlternationCount="2"
-                 ScrollViewer.CanContentScroll="False"
-                 ItemContainerStyle="{StaticResource ListBoxContainerStyle}"
+        <ListBox Grid.Row="1" Name="ListBoxHistory" KeyDown="lbHistory_KeyDown" AlternationCount="2"
+                 ScrollViewer.CanContentScroll="False" ItemContainerStyle="{StaticResource ListBoxContainerStyle}"
                  ItemsSource="{Binding HistoryCollection}" DisplayMemberPath="CopyDataShort" BorderThickness="0" FontFamily="Consolas" />
     </Grid>
 </UserControl>
