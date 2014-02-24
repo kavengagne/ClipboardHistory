@@ -12,17 +12,22 @@ namespace ClipboardHistoryApp.Classes
         {
             get { return Settings.Default.HistoryCollectionCapacity; }
         }
-
+        
         public static int CopyDataShortNumLines
         {
             get { return Settings.Default.CopyDataShortNumLines; }
+        }
+
+        public static int ToolTipHoverDelay
+        {
+            get { return Settings.Default.ToolTipHoverDelay; }
         }
 
         public static bool VisualStudioClipboardOnly
         {
             get { return Settings.Default.VisualStudioClipboardOnly; }
         }
-
+        
         public static bool PreventDuplicateItems
         {
             get { return Settings.Default.PreventDuplicateItems; }
@@ -31,6 +36,18 @@ namespace ClipboardHistoryApp.Classes
 
 
         #region Public Methods
+        public static bool SaveHistoryCollectionCapacity(int capacity)
+        {
+            var result = false;
+            if (capacity > 0 && capacity <= 200)
+            {
+                Settings.Default.HistoryCollectionCapacity = capacity;
+                Settings.Default.Save();
+                result = true;
+            }
+            return result;
+        }
+
         public static bool SaveCopyDataShortNumLines(int numlines)
         {
             var result = false;
@@ -43,12 +60,12 @@ namespace ClipboardHistoryApp.Classes
             return result;
         }
 
-        public static bool SaveHistoryCollectionCapacity(int capacity)
+        private static bool SaveToolTipHoverDelay(int delay)
         {
             var result = false;
-            if (capacity > 0 && capacity <= 200)
+            if (delay >= 0 && delay <= 9999)
             {
-                Settings.Default.HistoryCollectionCapacity = capacity;
+                Settings.Default.ToolTipHoverDelay = delay;
                 Settings.Default.Save();
                 result = true;
             }
@@ -67,23 +84,23 @@ namespace ClipboardHistoryApp.Classes
             Settings.Default.Save();
         }
 
-        public static void SavePropertyOrRevert(object sender)
+        public static bool SavePropertyOrRevert(object sender)
         {
             if (sender is TextBox)
             {
-                SaveTextBoxConfigurationProperty(sender as TextBox);
+                return SaveTextBoxConfigurationProperty(sender as TextBox);
             }
-
             if (sender is CheckBox)
             {
-                SaveCheckBoxConfigurationProperty(sender as CheckBox);
+                return SaveCheckBoxConfigurationProperty(sender as CheckBox);
             }
+            return false;
         }
         #endregion
 
 
         #region Private Methods
-        private static void SaveTextBoxConfigurationProperty(TextBox tb)
+        private static bool SaveTextBoxConfigurationProperty(TextBox tb)
         {
             var propertyName = (String)tb.Tag;
             var propertyInfo = typeof(Configuration).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Static);
@@ -96,7 +113,7 @@ namespace ClipboardHistoryApp.Classes
                 var convertedValue = Convert.ChangeType(newValue, propertyType);
                 if (ValidateAndSavePropertyValue(convertedValue, propertyName))
                 {
-                    return;
+                    return true;
                 }
             }
             catch
@@ -107,13 +124,14 @@ namespace ClipboardHistoryApp.Classes
             // Restore original data.
             // if execution comes here, something wrong happened.
             tb.Text = propertyValue.ToString();
+            return false;
         }
 
-        private static void SaveCheckBoxConfigurationProperty(CheckBox cb)
+        private static bool SaveCheckBoxConfigurationProperty(CheckBox cb)
         {
             var propertyName = cb.Tag as string;
             var propertyValue = cb.IsChecked.HasValue && cb.IsChecked.Value;
-            ValidateAndSavePropertyValue(propertyValue, propertyName);
+            return ValidateAndSavePropertyValue(propertyValue, propertyName);
         }
 
         private static bool ValidateAndSavePropertyValue(object propertyValue, string propertyName)
@@ -126,6 +144,9 @@ namespace ClipboardHistoryApp.Classes
                     break;
                 case "CopyDataShortNumLines":
                     result = SaveCopyDataShortNumLines((int)propertyValue);
+                    break;
+                case "ToolTipHoverDelay":
+                    result = SaveToolTipHoverDelay((int)propertyValue);
                     break;
                 case "VisualStudioClipboardOnly":
                     SaveVisualStudioClipboardOnly((bool)propertyValue);

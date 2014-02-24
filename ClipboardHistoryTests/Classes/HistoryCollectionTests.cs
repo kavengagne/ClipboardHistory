@@ -2,6 +2,7 @@
 using ClipboardHistoryApp.Classes;
 using NUnit.Framework;
 
+// Resharper disable All
 namespace ClipboardHistoryTests.Classes
 {	
     #region MaintainHistoryCollectionCapacity Method

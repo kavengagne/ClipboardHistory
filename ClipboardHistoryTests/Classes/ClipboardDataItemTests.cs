@@ -1,7 +1,7 @@
 ﻿using ClipboardHistoryApp.Classes;
 using NUnit.Framework;
 
-
+// Resharper disable All
 namespace ClipboardHistoryTests.Classes
 {
     #region GetArrayOfLines Method
@@ -84,7 +84,7 @@ namespace ClipboardHistoryTests.Classes
             // Prepare
             int numberOfLines = 11;
             string inputString = string.Format(
-                "Input String Line 1 {0}Input String Line 2{1}Input String Line 3{4}Input String Line 4{3}" +
+                "Input String Line 1 {0}Input String Line 2{1}Input String Line 3{2}Input String Line 4{3}" +
                 "Input String Line 5{4}Input String Line 6{5}Input String Line 7{6}Input String Line 8{7}" +
                 "Input String Line 9{8}Input String Line 10{9}Input String Line 11",
                 "\r", "\r", "\n", "\r", "\r\n", "\n", "\n", "\r\n", "\r\n", "\r");

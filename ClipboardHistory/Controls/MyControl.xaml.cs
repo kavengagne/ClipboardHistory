@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
@@ -8,9 +9,6 @@ using ClipboardHistoryApp.Classes;
 
 namespace ClipboardHistoryApp.Controls
 {
-    // TODO: KG - Add a view on CopyDataFull when Double-Click item in ListBox.
-    // TODO: KG - Add something to show that we are not displaying the full text.
-
     public partial class MyControl : IDisposable
     {
         #region Fields
@@ -34,7 +32,10 @@ namespace ClipboardHistoryApp.Controls
             InitializeComponent();
             InitializeClipboardUpdateNotifier();
             InitializeHistoryCollection();
-            DataContext = this;
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                DataContext = this;
+            }
             AddClipboardDataToHistoryCollection();
         }
         #endregion
@@ -112,10 +113,12 @@ namespace ClipboardHistoryApp.Controls
             return Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
         }
 
-        private void ValidateAndSaveConfigurations(object sender)
+        private void SaveConfigurationWithRefresh(object sender)
         {
-            Configuration.SavePropertyOrRevert(sender);
-            this.HistoryCollection.Refresh();
+            if (Configuration.SavePropertyOrRevert(sender))
+            {
+                this.HistoryCollection.Refresh();
+            }
         }
         
         private void LoadValidationRules()
@@ -123,6 +126,7 @@ namespace ClipboardHistoryApp.Controls
             // TODO: KG - I hate this solution, but keeping it for now.
             this.TextBoxHistoryCollectionCapacity.Tag = "HistoryCollectionCapacity";
             this.TextBoxCopyDataShortNumLines.Tag = "CopyDataShortNumLines";
+            this.TextBoxToolTipHoverDelay.Tag = "ToolTipHoverDelay";
             this.CheckBoxVisualStudioClipboardOnly.Tag = "VisualStudioClipboardOnly";
             this.CheckBoxPreventDuplicateItems.Tag = "PreventDuplicateItems";
         }
@@ -131,6 +135,8 @@ namespace ClipboardHistoryApp.Controls
         {
             this.TextBoxHistoryCollectionCapacity.Text = Configuration.HistoryCollectionCapacity.ToString(CultureInfo.InvariantCulture);
             this.TextBoxCopyDataShortNumLines.Text = Configuration.CopyDataShortNumLines.ToString(CultureInfo.InvariantCulture);
+            this.TextBoxToolTipHoverDelay.Text = Configuration.ToolTipHoverDelay.ToString(CultureInfo.InvariantCulture);
+            ToolTipService.SetInitialShowDelay(ListBoxHistory, Configuration.ToolTipHoverDelay);
             this.CheckBoxVisualStudioClipboardOnly.IsChecked = Configuration.VisualStudioClipboardOnly;
             this.CheckBoxPreventDuplicateItems.IsChecked = Configuration.PreventDuplicateItems;
         }
@@ -165,11 +171,16 @@ namespace ClipboardHistoryApp.Controls
             }
         }
 
-        private void TextBoxLostFocus(object sender, RoutedEventArgs e)
+        private void UpdateToolTipHoverDelay(object sender, RoutedEventArgs e)
         {
-            // Needed for Control to Update correctly.
-            e.Handled = false;
-            ValidateAndSaveConfigurations(sender);
+            e.Handled = false; // Needed for Control to Update correctly.
+            Configuration.SavePropertyOrRevert(sender);
+        }
+
+        private void UpdateConfiguration(object sender, RoutedEventArgs e)
+        {
+            e.Handled = false; // Needed for Control to Update correctly.
+            SaveConfigurationWithRefresh(sender);
         }
         #endregion
 

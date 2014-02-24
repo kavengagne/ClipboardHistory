@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Controls\MyToolWindow.cs" />
     <Compile Include="AppResources\Guids.cs" />
+    <Compile Include="Design\MockData.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

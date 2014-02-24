@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Windows;
 using System.Runtime.InteropServices;
 
-
+//Resharper disable All
 namespace ClipboardHistoryTests
 {
 	#region Properties
@@ -52,7 +52,7 @@ namespace ClipboardHistoryTests
 			MyControl myControl = new MyControl();
 
 			// Act
-			FieldInfo info = typeof(MyControl).GetField("lbHistory", BindingFlags.Instance | BindingFlags.NonPublic);
+			FieldInfo info = typeof(MyControl).GetField("ListBoxHistory", BindingFlags.Instance | BindingFlags.NonPublic);
 
 			// Assert
 			Assert.IsNotNull(info, "Field does not exist.");

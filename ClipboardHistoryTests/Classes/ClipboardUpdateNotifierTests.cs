@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ClipboardHistoryApp.Classes;
 using NUnit.Framework;
 using System.Reflection;
 using System.Windows.Forms;
 
-
+// Resharper disable All
 namespace ClipboardHistoryTests.Classes
 {
 	#region Constructors
