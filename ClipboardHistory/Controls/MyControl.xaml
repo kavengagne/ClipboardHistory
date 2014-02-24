@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.10.0"
+             xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.11.0"
              xmlns:local="clr-namespace:ClipboardHistoryApp.Design"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300"
@@ -11,12 +11,15 @@
              Name="MyToolWindow"
              Loaded="MyToolWindow_Loaded">
     <UserControl.Resources>
+        <Style TargetType="ListBox" x:Key="ListBoxStyle">
+            <Setter Property="Background" Value="{DynamicResource VsBrush.ToolWindowBackground}" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
         <Style TargetType="ListBoxItem" x:Key="ListBoxContainerStyle">
             <Style.Resources>
-                <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#FFE0E0E0" />
+                <SolidColorBrush x:Key="HeaderBorderBrush" Color="#FFE0E0E0" />
                 <SolidColorBrush x:Key="HeaderBackgroundBrush" Color="#253399ff" />
-                <SolidColorBrush x:Key="ListBackgroundBrush" Color="White" />
-                <SolidColorBrush x:Key="ListFontBrush" Color="Black" />
                 <Style x:Key="HeaderStyle" TargetType="Label">
                     <Setter Property="FontSize" Value="12" />
                     <Setter Property="Padding" Value="2 2 10 2" />
@@ -30,15 +33,15 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="Border" BorderBrush="Black" BorderThickness="0 0 0 1">
+                        <Border BorderBrush="{DynamicResource VsBrush.ToolWindowText}" BorderThickness="0 0 0 1">
                             <StackPanel Orientation="Vertical"
                                         ToolTipService.InitialShowDelay="{Binding ElementName=TextBoxToolTipHoverDelay, Path=Text, FallbackValue=300}"
                                         ToolTipService.ShowDuration="20000">
                                 <StackPanel.ToolTip>
-                                    <ToolTip MaxWidth="800" Padding="0" BorderThickness="1" BorderBrush="White" FontFamily="Consolas" Foreground="{StaticResource ListBackgroundBrush}">
+                                    <ToolTip MaxWidth="800" MaxHeight="800" Padding="0" BorderThickness="1" BorderBrush="White" FontFamily="Consolas" Foreground="{DynamicResource VsBrushes.ToolWindowBackground}">
                                         <Border BorderThickness="1" BorderBrush="Black">
                                             <StackPanel Orientation="Vertical">
-                                                <Border Background="{StaticResource HeaderBackgroundBrush}" BorderThickness="0 0 0 1" BorderBrush="{StaticResource SelectedBackgroundBrush}">
+                                                <Border Background="{StaticResource HeaderBackgroundBrush}" BorderThickness="0 0 0 1" BorderBrush="{StaticResource HeaderBorderBrush}">
                                                     <StackPanel Orientation="Horizontal">
                                                         <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ToolTipErrorIndicator" Visibility="Collapsed" />
                                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}" />
@@ -46,12 +49,12 @@
                                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding CopyDataSize}" />
                                                     </StackPanel>
                                                 </Border>
-                                                <TextBlock Padding="5" Background="{StaticResource ListBackgroundBrush}" Foreground="{StaticResource ListFontBrush}" Text="{Binding CopyDataFull}"></TextBlock>
+                                                <TextBlock Padding="5" Background="{DynamicResource VsBrush.ToolWindowBackground}" Foreground="{DynamicResource VsBrush.ToolWindowText}" Text="{Binding CopyDataFull}"></TextBlock>
                                             </StackPanel>
                                         </Border>
                                     </ToolTip>
                                 </StackPanel.ToolTip>
-                                <Border Background="White" BorderThickness="0 0 0 1" BorderBrush="{StaticResource SelectedBackgroundBrush}">
+                                <Border Background="White" BorderThickness="0 0 0 1" BorderBrush="{StaticResource HeaderBorderBrush}">
                                     <StackPanel Orientation="Horizontal" Background="{StaticResource HeaderBackgroundBrush}">
                                         <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ErrorIndicator" Visibility="Collapsed" />
                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}" />
@@ -61,7 +64,7 @@
                                 </Border>
                                 <ContentPresenter>
                                     <ContentPresenter.Content>
-                                        <TextBlock Text="{Binding CopyDataShort}" Background="{StaticResource ListBackgroundBrush}" Foreground="{StaticResource ListFontBrush}"></TextBlock>
+                                        <TextBlock Name="ContentTextBlock" Text="{Binding CopyDataShort}" Background="{DynamicResource VsBrush.ToolWindowBackground}" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowTextKey}}"></TextBlock>
                                     </ContentPresenter.Content>
                                 </ContentPresenter>
                             </StackPanel>
@@ -72,7 +75,7 @@
                                 <Setter TargetName="ToolTipErrorIndicator" Property="Visibility" Value="Visible" />
                             </DataTrigger>
                             <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource SelectedBackgroundBrush}"/>
+                                <Setter TargetName="ContentTextBlock" Property="Background" Value="{DynamicResource VsBrush.Highlight}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -130,6 +133,6 @@
         </StackPanel>
         <ListBox Grid.Row="1" Name="ListBoxHistory" KeyDown="lbHistory_KeyDown" ScrollViewer.CanContentScroll="False"
                  ItemContainerStyle="{StaticResource ListBoxContainerStyle}" ItemsSource="{Binding HistoryCollection}"
-                 DisplayMemberPath="CopyDataShort" BorderThickness="0" FontFamily="Consolas" Background="Black" />
+                 DisplayMemberPath="CopyDataShort" Style="{StaticResource ListBoxStyle}" />
     </Grid>
 </UserControl>
