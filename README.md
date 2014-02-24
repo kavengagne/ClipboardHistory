@@ -19,6 +19,8 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Install the extension using the vsix package and then restart Visual Studio.
 * Click **View** | **Other Windows** | **Clipboard History**.
 
+| Image | Description |
+|-------|-------------|
 | ![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png) | adadadadadadad afasdae awew wfaf. eweqweqrq wewwe wweqfv er wwew qw weqeqwe. qeqwe weeewfd ew. |
 
 This tool window is the core of the Clipboard History extension.
