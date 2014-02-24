@@ -21,7 +21,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 <table>
     <tr>
-        <td>![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png)</td>
+        <td><img src="/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png" /></td>
         <td>Text here</td>
     </tr>
 </table>
