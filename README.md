@@ -19,7 +19,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Install the extension using the vsix package and then restart Visual Studio.
 * Click **View** | **Other Windows** | **Clipboard History**.
 
-<table>
+<table width="100%" border="0">
     <tr>
         <td><img src="/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png" /></td>
         <td>Text here</td>
