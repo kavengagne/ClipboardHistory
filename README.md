@@ -10,21 +10,21 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 ## Supported Platforms
 
-* Visual Studio 2010
-* Visual Studio 2012
+* Visual Studio 2010 (Not so sure right now)
+* Visual Studio 2012 (For sure!)
+* Visual Studio 2013 (Untested)
 
 ## Getting Started
 
 * Install the extension using the vsix package and then restart Visual Studio.
-* Click **View** > **Other Windows** > **Clipboard History**
+* Click **View** | **Other Windows** | **Clipboard History**
 
 ![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png)
 
 This tool window is the core of the Clipboard History extension.
+It shows a list of past clipboard items ordered from the newest to the oldest.
 
-`TODO`
-
-`Explain basic operations (copy to list, copy from list, error messages).`
+To retrieve an item from the History List, simply Select this item and Press Ctrl + C. The item will be copied back into the Windows Clipboard so you can Paste it (Ctrl + V) back anywhere you'd like!
 
 ## Settings
 

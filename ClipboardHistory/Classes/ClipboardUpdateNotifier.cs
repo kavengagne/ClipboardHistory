@@ -54,10 +54,12 @@ namespace ClipboardHistoryApp.Classes
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         ~ClipboardUpdateNotifier()
         {
             Dispose(false);
         }
+
         private void Dispose(bool disposing)
         {
             if (disposing)
@@ -79,10 +81,12 @@ namespace ClipboardHistoryApp.Classes
         private class NotificationForm : Form
         {
             private readonly ClipboardUpdateNotifier _parent;
+            
             public NotificationForm(ClipboardUpdateNotifier parent)
             {
                 this._parent = parent;
             }
+
             protected override void WndProc(ref Message m)
             {
                 if (m.Msg == NativeMethods.WM_CLIPBOARDUPDATE)
@@ -97,10 +101,12 @@ namespace ClipboardHistoryApp.Classes
                 Dispose(true);
                 GC.SuppressFinalize(this);
             }
+            
             ~NotificationForm()
             {
                 Dispose(false);
             }
+            
             protected override void Dispose(bool disposing)
             {
                 if (disposing)
