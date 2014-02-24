@@ -15,6 +15,8 @@
             <Style.Resources>
                 <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#FFE0E0E0" />
                 <SolidColorBrush x:Key="HeaderBackgroundBrush" Color="#253399ff" />
+                <SolidColorBrush x:Key="ListBackgroundBrush" Color="White" />
+                <SolidColorBrush x:Key="ListFontBrush" Color="Black" />
                 <Style x:Key="HeaderStyle" TargetType="Label">
                     <Setter Property="FontSize" Value="12" />
                     <Setter Property="Padding" Value="2 2 10 2" />
@@ -33,31 +35,35 @@
                                         ToolTipService.InitialShowDelay="{Binding ElementName=TextBoxToolTipHoverDelay, Path=Text, FallbackValue=300}"
                                         ToolTipService.ShowDuration="20000">
                                 <StackPanel.ToolTip>
-                                    <ToolTip MaxWidth="800" Padding="0" BorderThickness="1" BorderBrush="White" FontFamily="Consolas" Foreground="Black">
+                                    <ToolTip MaxWidth="800" Padding="0" BorderThickness="1" BorderBrush="White" FontFamily="Consolas" Foreground="{StaticResource ListBackgroundBrush}">
                                         <Border BorderThickness="1" BorderBrush="Black">
                                             <StackPanel Orientation="Vertical">
                                                 <Border Background="{StaticResource HeaderBackgroundBrush}" BorderThickness="0 0 0 1" BorderBrush="{StaticResource SelectedBackgroundBrush}">
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                    <StackPanel Orientation="Horizontal">
                                                         <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ToolTipErrorIndicator" Visibility="Collapsed" />
                                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}" />
                                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding NumberOfLines}" />
                                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding CopyDataSize}" />
                                                     </StackPanel>
                                                 </Border>
-                                                <TextBlock Padding="5" Background="White" Text="{Binding CopyDataFull}"></TextBlock>
+                                                <TextBlock Padding="5" Background="{StaticResource ListBackgroundBrush}" Foreground="{StaticResource ListFontBrush}" Text="{Binding CopyDataFull}"></TextBlock>
                                             </StackPanel>
                                         </Border>
                                     </ToolTip>
                                 </StackPanel.ToolTip>
-                                <Border Background="{StaticResource HeaderBackgroundBrush}" BorderThickness="0 0 0 1" BorderBrush="{StaticResource SelectedBackgroundBrush}">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Border Background="White" BorderThickness="0 0 0 1" BorderBrush="{StaticResource SelectedBackgroundBrush}">
+                                    <StackPanel Orientation="Horizontal" Background="{StaticResource HeaderBackgroundBrush}">
                                         <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ErrorIndicator" Visibility="Collapsed" />
                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}" />
                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding NumberOfLines}" />
                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding CopyDataSize}" />
                                     </StackPanel>
                                 </Border>
-                                <ContentPresenter/>
+                                <ContentPresenter>
+                                    <ContentPresenter.Content>
+                                        <TextBlock Text="{Binding CopyDataShort}" Background="{StaticResource ListBackgroundBrush}" Foreground="{StaticResource ListFontBrush}"></TextBlock>
+                                    </ContentPresenter.Content>
+                                </ContentPresenter>
                             </StackPanel>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -124,6 +130,6 @@
         </StackPanel>
         <ListBox Grid.Row="1" Name="ListBoxHistory" KeyDown="lbHistory_KeyDown" ScrollViewer.CanContentScroll="False"
                  ItemContainerStyle="{StaticResource ListBoxContainerStyle}" ItemsSource="{Binding HistoryCollection}"
-                 DisplayMemberPath="CopyDataShort" BorderThickness="0" FontFamily="Consolas" Foreground="Black" />
+                 DisplayMemberPath="CopyDataShort" BorderThickness="0" FontFamily="Consolas" Background="Black" />
     </Grid>
 </UserControl>
