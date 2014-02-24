@@ -32,6 +32,21 @@ To retrieve an item from the History List, simply Select this item and Press Ctr
 
 `Explain each configuration options and the behavior associated to it.`
 
+<u>History Max. Capacity:</u><br>
+aaaaaaaaaa
+
+<u>Lines Displayed per Item:</u><br>
+bbbbbbb
+
+<u>ToolTip Hover Delay (in ms):</u><br>
+ccccccccccc
+
+<u>Visual Studio Clipboard Only:</u><br>
+ddddddddd
+
+<u>Prevent Duplicate Items:</u><br>
+eeeeee
+
 ## Bug Tracker
 
 Have a bug or a feature request? [Please open a new issue](https://github.com/kavengagne/KGVSClipboardHistory/issues).
