@@ -21,12 +21,10 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 | Image | Description |
 |-------|-------------|
-| ![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png) | adadadadadadad afasdae awew wfaf. eweqweqrq wewwe wweqfv er wwew qw weqeqwe. qeqwe weeewfd ew. |
-
-This tool window is the core of the Clipboard History extension.
+| ![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png) | This tool window is the core of the Clipboard History extension.
 It shows a list of past clipboard items ordered from the newest to the oldest.
 
-To retrieve an item from the History List, simply Select this item and Press Ctrl + C. The item will be copied back into the Windows Clipboard so you can Paste it (Ctrl + V) back anywhere you'd like!
+To retrieve an item from the History List, simply Select this item and Press Ctrl + C. The item will be copied back into the Windows Clipboard so you can Paste it (Ctrl + V) back anywhere you'd like! |
 
 ## Settings
 
