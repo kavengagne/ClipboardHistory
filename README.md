@@ -19,7 +19,12 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Install the extension using the vsix package and then restart Visual Studio.
 * Click **View** | **Other Windows** | **Clipboard History**.
 
-![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png)
+<table>
+    <tr>
+        <td>![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png)</td>
+        <td>Text here</td>
+    </tr>
+</table>
 
 This tool window is the core of the Clipboard History extension.
 It shows a list of past clipboard items ordered from the newest to the oldest.
