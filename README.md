@@ -25,24 +25,9 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 ## Settings
 
-![ClipboardHistory Settings Window](/ClipboardHistory/AppResources/Images/ScreenShot_Settings.png)
-
-`Explain each configuration options and the behavior associated to it.`
-
-History Max. Capacity:<br>
-aaaaaaaaaa
-
-Lines Displayed per Item:<br>
-bbbbbbb
-
-ToolTip Hover Delay (in ms):<br>
-ccccccccccc
-
-Visual Studio Clipboard Only:<br>
-ddddddddd
-
-Prevent Duplicate Items:<br>
-eeeeee
+| Image | Description |
+|-------|-------------|
+| ![ClipboardHistory Settings Window](/ClipboardHistory/AppResources/Images/ScreenShot_Settings.png) | History Max. Capacity:<br>aaaaaaaaaa  <br><br>Lines Displayed per Item:<br>bbbbbbb  <br><br>ToolTip Hover Delay (in ms):<br>ccccccccccc  <br><br>Visual Studio Clipboard Only:<br>ddddddddd  <br><br>Prevent Duplicate Items:<br>eeeeee |
 
 ## Bug Tracker
 
