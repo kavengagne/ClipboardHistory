@@ -25,7 +25,8 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 ## Settings
 
-You can view and change the Settings of this extension by clicking on the "Setting" expander at the top of the Tool Window.
+You can view and change the Settings of this extension by clicking on the "Settings" expander at the top of the Tool Window.
+All Settings take effect immediately. Invalid values will be ignored.
 
 | Image | Description |
 |-------|-------------|
