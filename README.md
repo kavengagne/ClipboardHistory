@@ -30,7 +30,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 | Picture | Description |
 |---------|-------------|
-| **Tool Window**<br>![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png) | This tool window is the core of the Clipboard History extension. It keeps a list of past clipboard items ordered from the newest to the oldest.<br><br>To retrieve an item from the History List, simply Select this item and Press Ctrl + C. The item will be copied back into the Clipboard so you can Paste it (Ctrl + V) back anywhere you'd like!<br><br>You can also change the extension's settings from that window. (See **Settings** section) |
+| **Tool Window**<br>![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png) | This tool window is the core of the Clipboard History extension. It keeps a list of past clipboard items ordered from the newest to the oldest.<br><br>To retrieve an item from the History List, simply Select this item and Press Ctrl + C. The item will be copied back into the Clipboard so that it can be Pasted (Ctrl + V) anywhere!<br><br>You can also change the extension's settings from that window. (See **Settings** section) |
 | **MouseOver ToolTip**<br>![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolTip.png) | This ToolTip Window will display the Full Text contained in the Clipboard Item below the mouse cursor. It is configurable with a delay up to 99 seconds so it won't bother you if unwanted. |
 
 ## Settings
