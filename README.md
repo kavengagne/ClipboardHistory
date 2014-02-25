@@ -27,7 +27,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 | Image | Description |
 |-------|-------------|
-| ![ClipboardHistory Settings Window](/ClipboardHistory/AppResources/Images/ScreenShot_Settings.png) | History Max. Capacity:<br>aaaaaaaaaa  <br><br>Lines Displayed per Item:<br>bbbbbbb  <br><br>ToolTip Hover Delay (in ms):<br>ccccccccccc  <br><br>Visual Studio Clipboard Only:<br>ddddddddd  <br><br>Prevent Duplicate Items:<br>eeeeee |
+| ![ClipboardHistory Settings Window](/ClipboardHistory/AppResources/Images/ScreenShot_Settings.png) | **History Max. Capacity**<br>Maximum number of items that the History List can contain.  <br><br>**Lines Displayed per Item**<br>Maximum number of Lines displayed for each item in the list.  <br><br>**ToolTip Hover Delay (in ms)**<br>Delay in milliseconds before the ToolTip appears when you leave the mouse over an item in the list.  <br><br>**Visual Studio Clipboard Only**<br>Limit History List entries to those copied from the current Visual Studio instance.  <br><br>**Prevent Duplicate Items**<br>Ignores successive copy operations if the item data is the same as the last time.  |
 
 ## Bug Tracker
 
