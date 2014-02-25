@@ -116,7 +116,7 @@
                         <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
                         
                         <Label Grid.Row="4" Grid.Column="0" Margin="3,0,0,0" ToolTip="Delay before the ToolTip appears when you Mouve over it. (in milliseconds)" Focusable="True">ToolTip Hover Delay (in ms):</Label>
-                        <TextBox Name="TextBoxToolTipHoverDelay" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="UpdateToolTipHoverDelay" ToolTip="Min. 0, Max. 9999" MaxLength="4">300</TextBox>
+                        <TextBox Name="TextBoxToolTipHoverDelay" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="UpdateToolTipHoverDelay" ToolTip="Min. 0, Max. 99999" MaxLength="5">300</TextBox>
                         <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
                         
                         <StackPanel Grid.Row="6" Grid.Column="0" Margin="3,0,0,2" Orientation="Vertical">

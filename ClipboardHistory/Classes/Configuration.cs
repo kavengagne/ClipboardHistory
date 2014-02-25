@@ -63,7 +63,7 @@ namespace ClipboardHistoryApp.Classes
         private static bool SaveToolTipHoverDelay(int delay)
         {
             var result = false;
-            if (delay >= 0 && delay <= 9999)
+            if (delay >= 0 && delay <= 99999)
             {
                 Settings.Default.ToolTipHoverDelay = delay;
                 Settings.Default.Save();
