@@ -9,7 +9,7 @@
         <GettingStartedGuide>README.md</GettingStartedGuide>
         <Icon>AppResources\Images\history_32px.png</Icon>
         <PreviewImage>AppResources\Images\ScreenShot_ToolWindow.png</PreviewImage>
-        <Tags>Clipboard, History, </Tags>
+        <Tags>Clipboard, History, Tool</Tags>
     </Metadata>
     <Installation InstalledByMsi="false">
         <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0,12.0)" />
