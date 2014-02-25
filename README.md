@@ -19,8 +19,8 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Install the extension using the vsix package and then restart Visual Studio.
 * Click **View** | **Other Windows** | **Clipboard History**.
 
-| Image | Description |
-|-------|-------------|
+| Picture | Description |
+|---------|-------------|
 | **Tool Window**<br>![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png) | This tool window is the core of the Clipboard History extension. It keeps a list of past clipboard items ordered from the newest to the oldest.<br><br>To retrieve an item from the History List, simply Select this item and Press Ctrl + C. The item will be copied back into the Clipboard so you can Paste it (Ctrl + V) back anywhere you'd like!<br><br>You can also change the extension's settings from that window. (See **Settings** section) |
 | **ToolTip**<br>![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolTip.png) | This ToolTip Window will display the Full Text contained in the Clipboard Item below the mouse cursor. It is configurable with a delay up to 9.999 seconds so it won't bother you if unwanted. |
 
@@ -29,8 +29,8 @@ I developed this extension for my own needs, feel free to contribute if you can 
 You can view and change the Settings of this extension by clicking on the "Settings" expander at the top of the Tool Window.
 All Settings take effect immediately. Invalid values will be ignored.
 
-| Image | Description |
-|-------|-------------|
+| Picture | Description |
+|---------|-------------|
 | ![ClipboardHistory Settings Window](/ClipboardHistory/AppResources/Images/ScreenShot_Settings.png) | **History Max. Capacity**<br>Maximum number of items that the History List can contain.  <br><br>**Lines Displayed per Item**<br>Maximum number of Lines displayed for each item in the list.  <br><br>**ToolTip Hover Delay (in ms)**<br>Delay in milliseconds before the ToolTip appears when you leave the mouse over an item in the list.  <br><br>**Visual Studio Clipboard Only**<br>Limit History List entries to those copied from the current Visual Studio instance.  <br><br>**Prevent Duplicate Items**<br>Ignores successive copy operations if the item data is the same as the last one. |
 
 ## Bug Tracker
