@@ -23,6 +23,10 @@ I developed this extension for my own needs, feel free to contribute if you can 
 |-------|-------------|
 | ![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolWindow.png) | This tool window is the core of the Clipboard History extension.<br>It shows a list of past clipboard items ordered from the newest to the oldest.<br><br>To retrieve an item from the History List, simply Select this item and Press Ctrl + C. The item will be copied back into the Clipboard so you can Paste it (Ctrl + V) back anywhere you'd like!<br><br>You can also change the extension's settings from that window. (See **Settings** section) |
 
+| Image | Description |
+|-------|-------------|
+| ![ClipboardHistory Tool Window](/ClipboardHistory/AppResources/Images/ScreenShot_ToolTip.png) | ToolTip Windows |
+
 ## Settings
 
 You can view and change the Settings of this extension by clicking on the "Settings" expander at the top of the Tool Window.
