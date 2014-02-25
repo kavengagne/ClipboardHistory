@@ -209,10 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="AppResources\Images\history_16px.png" />
-    <Content Include="LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="AppResources\Images\history_16px.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
