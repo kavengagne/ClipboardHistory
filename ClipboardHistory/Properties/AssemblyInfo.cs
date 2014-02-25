@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ClipboardHistory")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("kavengagne")]
+[assembly: AssemblyCompany("KavenGagne")]
 [assembly: AssemblyProduct("ClipboardHistory")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

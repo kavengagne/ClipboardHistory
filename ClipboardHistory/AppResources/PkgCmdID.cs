@@ -5,6 +5,6 @@ namespace ClipboardHistoryApp.AppResources
 {
     static class PkgCmdIDList
     {
-        public const uint CmdidClipboardHistory =    0x101;
+        public const uint CmdidClipboardHistory = 0x101;
     };
 }

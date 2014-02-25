@@ -11,7 +11,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 ## Supported Platforms
 
 * Visual Studio 2012 (For sure!)
-* Visual Studio 2013 (Untested)
+* Visual Studio 2013 (Working on it)
 
 ## Features
 

@@ -43,7 +43,7 @@ namespace ClipboardHistoryApp.AppResources
         /// </summary>
         public ClipboardHistoryPackage()
         {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this));
+            Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this));
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace ClipboardHistoryApp.AppResources
         /// </summary>
         protected override void Initialize()
         {
-            Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this));
+            Debug.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this));
             base.Initialize();
 
             // Add our command handlers for menu (commands must exist in the .vsct file)

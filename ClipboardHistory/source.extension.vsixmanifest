@@ -1,40 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
-  <Identifier Id="ce59ed1c-307e-43a2-a528-a88bde8416cf">
-    <Name>ClipboardHistory</Name>
-    <Author>Kaven Gagne</Author>
-    <Version>1.0</Version>
-    <Description xml:space="preserve">Adds Clipboard History to Visual Studio.</Description>
-    <Locale>1033</Locale>
-    <MoreInfoUrl>https://github.com/kavengagne/KGVSClipboardHistory</MoreInfoUrl>
-    <License>LICENSE.txt</License>
-    <Icon>history_16px.bmp</Icon>
-    <PreviewImage>ScreenShot_01.png</PreviewImage>
-    <InstalledByMsi>false</InstalledByMsi>
-    <SupportedProducts>
-      <VisualStudio Version="10.0">
-        <Edition>Ultimate</Edition>
-        <Edition>Premium</Edition>
-        <Edition>Pro</Edition>
-        <Edition>Express_All</Edition>
-        <Edition>IntegratedShell</Edition>
-      </VisualStudio>
-      <VisualStudio Version="11.0">
-        <Edition>Ultimate</Edition>
-        <Edition>Premium</Edition>
-        <Edition>Pro</Edition>
-        <Edition>Express_All</Edition>
-        <Edition>IntegratedShell</Edition>
-      </VisualStudio>
-    </SupportedProducts>
-    <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
-  </Identifier>
-  <References>
-    <Reference Id="Microsoft.VisualStudio.MPF" MinVersion="10.0">
-      <Name>Visual Studio MPF</Name>
-    </Reference>
-  </References>
-  <Content>
-    <VsPackage>|%CurrentProject%;PkgdefProjectOutputGroup|</VsPackage>
-  </Content>
-</Vsix>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="ce59ed1c-307e-43a2-a528-a88bde8416cf" Version="1.0" Language="en-US" Publisher="Kaven Gagne" />
+        <DisplayName>ClipboardHistory</DisplayName>
+        <Description xml:space="preserve">Adds a configurable Clipboard History List to Visual Studio.</Description>
+        <MoreInfo>https://github.com/kavengagne/KGVSClipboardHistory</MoreInfo>
+        <License>LICENSE.txt</License>
+        <GettingStartedGuide>README.md</GettingStartedGuide>
+        <Icon>AppResources\Images\history_32px.png</Icon>
+        <PreviewImage>AppResources\Images\ScreenShot_ToolWindow.png</PreviewImage>
+        <Tags>Clipboard, History, </Tags>
+    </Metadata>
+    <Installation InstalledByMsi="false">
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0,12.0)" />
+        <InstallationTarget Version="[11.0,12.0)" Id="Microsoft.VisualStudio.Premium" />
+        <InstallationTarget Version="[11.0,12.0)" Id="Microsoft.VisualStudio.Ultimate" />
+        <InstallationTarget Version="[11.0,12.0)" Id="Microsoft.VisualStudio.IntegratedShell" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="4.5" />
+        <Dependency Id="Microsoft.VisualStudio.MPF.11.0" DisplayName="Visual Studio MPF 11.0" d:Source="Installed" Version="11.0" />
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
+</PackageManifest>
