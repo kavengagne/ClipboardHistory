@@ -3,7 +3,7 @@
 KGVSClipboardHistory is a <a href="http://www.microsoft.com/visualstudio/eng" target="_blank">Visual Studio</a>
 extension that enables clipboard history.
 
-It keeps track of all changes to the clipboard in a configurable list using a tool window.
+It keeps track of all changes to the clipboard in a configurable list using a Tool Window.
 You can then navigate the list to retrieve the desired clipboard data.
 
 I developed this extension for my own needs, feel free to contribute if you can improve it.
@@ -12,6 +12,15 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 * Visual Studio 2012 (For sure!)
 * Visual Studio 2013 (Untested)
+
+## Features
+
+* Never lose code in the clipboard again!
+* Simple Tool Window with a configurable Clipboard History List.
+* Configurable clipboard events detection. (Global / Visual Studio instance).
+* Duplicate entries prevention for the History List.
+* Adaptable color scheme to fit with the selected theme in Visual Studio.
+* Configurable ToolTip allows you to peak at the full clipboard item text.
 
 ## Getting Started
 
