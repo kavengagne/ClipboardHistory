@@ -6,9 +6,8 @@
         <Description xml:space="preserve">Adds a configurable Clipboard History List to Visual Studio.</Description>
         <MoreInfo>https://github.com/kavengagne/KGVSClipboardHistory</MoreInfo>
         <License>LICENSE.txt</License>
-        <GettingStartedGuide>README.md</GettingStartedGuide>
-        <Icon>AppResources\Images\history_32px.png</Icon>
-        <PreviewImage>AppResources\Images\ScreenShot_ToolWindow.png</PreviewImage>
+        <Icon>history_32px.png</Icon>
+        <PreviewImage>ScreenShot_ToolWindow.png</PreviewImage>
         <Tags>Clipboard, History, Tool</Tags>
     </Metadata>
     <Installation InstalledByMsi="false">
