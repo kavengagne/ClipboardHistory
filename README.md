@@ -35,7 +35,8 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 ## Settings
 
-You can view and change the Settings of this extension by clicking on the "Settings" expander at the top of the Tool Window.
+You can view and change the Settings of this extension by clicking on the "Settings" expander at the top of the ClipboardHistory Tool Window.
+See more details on reach setting by putting your mouse over it.
 > *All Settings take effect immediately.*<br>
 > *Invalid values will be ignored.*
 
