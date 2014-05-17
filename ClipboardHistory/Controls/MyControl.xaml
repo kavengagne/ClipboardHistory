@@ -107,15 +107,15 @@
                             <RowDefinition Height="Auto" /><!-- Separator -->
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Margin="3,3,0,0" ToolTip="Number of items that the History List can hold.">History Max. Capacity :</Label>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="3,3,0,0" ToolTip="Maximum number of items the history list can contain.">History Max. Capacity :</Label>
                         <TextBox Name="TextBoxHistoryCollectionCapacity" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="40" HorizontalAlignment="Left" Margin="2,5,2,2" BorderBrush="Black" TextAlignment="Center" LostFocus="UpdateConfiguration" ToolTip="Min. 1, Max. 200" MaxLength="3">25</TextBox>
                         <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
                         
-                        <Label Grid.Row="2" Grid.Column="0" Margin="3,0,0,0" ToolTip="Maximum number of lines displayed per item in the History List." Focusable="True">Lines Displayed per Item :</Label>
+                        <Label Grid.Row="2" Grid.Column="0" Margin="3,0,0,0" ToolTip="Maximum number of lines displayed for each item in the list." Focusable="True">Lines Displayed per Item :</Label>
                         <TextBox Name="TextBoxCopyDataShortNumLines" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="UpdateConfiguration" ToolTip="Min. 1, Max. 50" MaxLength="2">5</TextBox>
                         <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
-                        
-                        <Label Grid.Row="4" Grid.Column="0" Margin="3,0,0,0" ToolTip="Delay before the ToolTip appears when you Mouve over it. (in milliseconds)" Focusable="True">ToolTip Hover Delay (in ms):</Label>
+
+                        <Label Grid.Row="4" Grid.Column="0" Margin="3,0,0,0" ToolTip="Delay in milliseconds before the tooltip appears when you leave your mouse over an item in the list." Focusable="True">ToolTip Hover Delay (in ms):</Label>
                         <TextBox Name="TextBoxToolTipHoverDelay" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="UpdateToolTipHoverDelay" ToolTip="Min. 0, Max. 99999" MaxLength="5">300</TextBox>
                         <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
                         
@@ -125,7 +125,7 @@
                         <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
                         
                         <StackPanel Grid.Row="8" Grid.Column="0" Margin="3,0,0,2" Orientation="Vertical">
-                            <CheckBox Name="CheckBoxPreventDuplicateItems" Content="Prevent Duplicate Items" Margin="5,4,5,4" Click="UpdateConfiguration" ToolTip="Do not show duplicate entries in the History List."></CheckBox>
+                            <CheckBox Name="CheckBoxPreventDuplicateItems" Content="Prevent Duplicate Items" Margin="5,4,5,4" Click="UpdateConfiguration" ToolTip="Ignores successive copy operations if the item data is the same as the last one."></CheckBox>
                         </StackPanel>
                     </Grid>
                 </Border>
