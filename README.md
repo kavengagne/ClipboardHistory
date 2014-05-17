@@ -25,7 +25,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 ## Getting Started
 
 * Download VSIX file from <a href="http://www.microsoft.com/visualstudio/eng" target="_blank">Visual Studio Extensions Gallery</a>.
-* Install the extension using the vsix package and then restart Visual Studio.
+* Install the extension using the vsix package and then **Restart Visual Studio**.
 * Click **View** | **Other Windows** | **Clipboard History**.
 
 | Picture | Description |
