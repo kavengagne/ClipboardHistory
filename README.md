@@ -1,6 +1,6 @@
 # Clipboard History
 
-KGVSClipboardHistory is a <a href="http://www.microsoft.com/visualstudio/eng" target="_blank">Visual Studio</a>
+ClipboardHistory is a <a href="http://www.microsoft.com/visualstudio/eng" target="_blank">Visual Studio</a>
 extension that enables clipboard history.
 
 It keeps track of all changes to the clipboard in a configurable list using a Tool Window.
@@ -10,8 +10,8 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 ## Supported Platforms
 
-* Visual Studio 2012 (For sure!)
-* Visual Studio 2013 (Working on it)
+* Visual Studio 2012
+* Visual Studio 2013
 
 ## Features
 
@@ -45,8 +45,8 @@ You can view and change the Settings of this extension by clicking on the "Setti
 
 ## Bug Tracker / Feature Request
 
-Have a bug or a feature request? [Please open a new issue](https://github.com/kavengagne/KGVSClipboardHistory/issues).
+Have a bug or a feature request? [Please open a new issue](https://github.com/kavengagne/ClipboardHistory/issues).
 
 ## License
 
-KGVSClipboardHistory is released under the [Apache License, Version 2.0](/LICENSE.txt).
+ClipboardHistory is released under the [Apache License, Version 2.0](/LICENSE.txt).
