@@ -209,22 +209,23 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Resource Include="AppResources\Images\ScreenShot_ToolTip.png" />
-    <Resource Include="AppResources\Images\history_16px.png" />
+    <Content Include="AppResources\Images\ScreenShot_ToolTip.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AppResources\Images\history_16px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="AppResources\Images\history_16px.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="AppResources\Images\history_32px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Resource Include="AppResources\Images\Screenshot_Settings.png" />
-    <Content Include="AppResources\Images\ScreenShot_ToolWindow.png">
+    <Content Include="AppResources\Images\Screenshot_Settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="AppResources\Package.ico">
+    <Content Include="AppResources\Images\ScreenShot_ToolWindow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
