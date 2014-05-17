@@ -20,7 +20,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Configurable clipboard events detection. (Global / Visual Studio instance).
 * Duplicate entries prevention for the History List.
 * Adaptable color scheme to fit with the selected theme in Visual Studio.
-* Configurable ToolTip allows you to peak at the full clipboard item text.
+* Configurable ToolTip allows you to peek at the full clipboard item text.
 
 ## Getting Started
 
