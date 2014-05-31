@@ -131,8 +131,8 @@
                 </Border>
             </Expander>
         </StackPanel>
-        <ListBox Grid.Row="1" Name="ListBoxHistory" KeyDown="lbHistory_KeyDown" ScrollViewer.CanContentScroll="False"
+        <ListBox Grid.Row="1" Name="ListBoxHistory" KeyDown="ListBoxHistory_KeyDown" ScrollViewer.CanContentScroll="False"
                  ItemContainerStyle="{StaticResource ListBoxContainerStyle}" ItemsSource="{Binding HistoryCollection}"
-                 DisplayMemberPath="CopyDataShort" Style="{StaticResource ListBoxStyle}" />
+                 DisplayMemberPath="CopyDataShort" Style="{StaticResource ListBoxStyle}" MouseDoubleClick="ListBoxHistory_MouseDoubleClick" />
     </Grid>
 </UserControl>

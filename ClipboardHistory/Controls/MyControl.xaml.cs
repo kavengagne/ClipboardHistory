@@ -161,13 +161,23 @@ namespace ClipboardHistoryApp.Controls
             AddClipboardDataToHistoryCollection();
         }
 
-        private void lbHistory_KeyDown(object sender, KeyEventArgs e)
+        private void ListBoxHistory_KeyDown(object sender, KeyEventArgs e)
         {
             var listbox = (ListBox)sender;
             if ((Key.C == e.Key) && IsControlKeyDown())
             {
                 CopyHistoryCollectionLineToClipboard(listbox.SelectedIndex);
                 e.Handled = true;
+            }
+        }
+
+        private void ListBoxHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var listbox = (ListBox)sender;
+            var lineNumber = listbox.SelectedIndex;
+            if ((lineNumber >= 0) && (lineNumber < _historyCollection.Count))
+            {
+                SetClipboardTextOrError(_historyCollection[lineNumber].CopyDataFull);
             }
         }
 
