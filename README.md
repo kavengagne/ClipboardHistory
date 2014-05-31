@@ -21,7 +21,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Duplicate entries prevention for the History List.
 * Adaptable color scheme to fit with the selected theme in Visual Studio.
 * Configurable ToolTip allows you to peek at the full clipboard item text.
-* Double-Click on an item in the History List to put it back into the Clipboard. (1.1)
+* Double-Click on an item in the History List to put it back into the Clipboard. (v1.1+)
 
 ## Getting Started
 

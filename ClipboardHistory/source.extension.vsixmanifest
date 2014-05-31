@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="ce59ed1c-307e-43a2-a528-a88bde8416cf" Version="1.0" Language="en-US" Publisher="Kaven Gagne" />
+        <Identity Id="ce59ed1c-307e-43a2-a528-a88bde8416cf" Version="1.1" Language="en-US" Publisher="Kaven Gagne" />
         <DisplayName>ClipboardHistory</DisplayName>
         <Description xml:space="preserve">Adds a configurable Clipboard History List to Visual Studio.</Description>
         <MoreInfo>https://github.com/kavengagne/ClipboardHistory</MoreInfo>
