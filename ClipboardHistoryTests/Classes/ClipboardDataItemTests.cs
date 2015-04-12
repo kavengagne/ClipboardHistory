@@ -99,7 +99,7 @@ namespace ClipboardHistoryTests.Classes
     #endregion
 
 
-    #region GetCopyDataLinesByNumber Method
+    #region GetDataLinesByNumber Method
     [TestFixture]
     public class ClipboardDataItem_StripToNumberOfLines_Tests
     {
@@ -183,7 +183,7 @@ namespace ClipboardHistoryTests.Classes
             ClipboardDataItem clipboardDataItem = new ClipboardDataItem(inputString);
 
             // Assert
-            Assert.AreEqual(inputString, clipboardDataItem.CopyDataFull);
+            Assert.AreEqual(inputString, clipboardDataItem.Data);
         }
 
         [Test]
@@ -196,7 +196,7 @@ namespace ClipboardHistoryTests.Classes
             ClipboardDataItem clipboardDataItem = new ClipboardDataItem(inputString);
 
             // Assert
-            Assert.AreEqual(inputString, clipboardDataItem.CopyDataFull);
+            Assert.AreEqual(inputString, clipboardDataItem.Data);
         }
 
         [Test]
@@ -209,7 +209,7 @@ namespace ClipboardHistoryTests.Classes
             ClipboardDataItem clipboardDataItem = new ClipboardDataItem(inputString);
 
             // Assert
-            Assert.IsFalse(string.IsNullOrEmpty(clipboardDataItem.CopyDataShort));
+            Assert.IsFalse(string.IsNullOrEmpty(clipboardDataItem.Snippet));
         }
 
         [Test]
@@ -223,7 +223,7 @@ namespace ClipboardHistoryTests.Classes
 
             // Assert
             string[] inputLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { inputString });
-            string[] shortLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { clipboardDataItem.CopyDataShort });
+            string[] shortLines = (string[])UnitTestHelper.RunStaticMethod(typeof(ClipboardDataItem), "GetArrayOfLines", new object[1] { clipboardDataItem.Snippet });
             Assert.AreEqual(inputLines[0], shortLines[0]);
         }
 
@@ -267,14 +267,14 @@ namespace ClipboardHistoryTests.Classes
             string inputString1 = "Input1 String Line1 \n-Maybe1 Line2 \r-Maybe1 Line 3 \r\n-Maybe1 Line 4";
             string inputString2 = "Input2 String Line1 \n-Maybe2 Line2 \r-Maybe2 Line 3 \r\n-Maybe2 Line 4";
             ClipboardDataItem clipboardDataItem = new ClipboardDataItem(inputString1);
-            string oldItemString = clipboardDataItem.CopyDataShort;
+            string oldItemString = clipboardDataItem.Snippet;
 
             // Act
-            clipboardDataItem.CopyDataFull = inputString2;
+            clipboardDataItem.Data = inputString2;
 
             // Assert
-            Assert.AreEqual(inputString2, clipboardDataItem.CopyDataFull);
-            Assert.AreNotEqual(oldItemString, clipboardDataItem.CopyDataShort);
+            Assert.AreEqual(inputString2, clipboardDataItem.Data);
+            Assert.AreNotEqual(oldItemString, clipboardDataItem.Snippet);
         }
     }
     #endregion

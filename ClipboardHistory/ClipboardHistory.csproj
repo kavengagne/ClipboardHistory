@@ -64,7 +64,20 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
     <Reference Include="Microsoft.VisualStudio.Shell.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
@@ -84,6 +97,10 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -147,19 +164,21 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ClipboardDataItem.cs" />
+    <Compile Include="Helpers\ExceptionHelper.cs" />
+    <Compile Include="Models\ClipboardDataItem.cs" />
     <Compile Include="Classes\ClipboardEventArgs.cs" />
     <Compile Include="Classes\ClipboardFormatter.cs" />
     <Compile Include="Classes\ClipboardUpdateNotifier.cs" />
     <Compile Include="Classes\Configuration.cs" />
-    <Compile Include="Classes\HistoryCollection.cs" />
+    <Compile Include="Models\HistoryCollection.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
     <Compile Include="Controls\HistoryListControl.xaml.cs">
       <DependentUpon>HistoryListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ClipboardHistoryWindow.cs" />
     <Compile Include="AppResources\Guids.cs" />
-    <Compile Include="Design\MockData.cs" />
+    <Compile Include="Models\HistoryConfiguration.cs" />
+    <Compile Include="ViewModels\HistoryListViewModel.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

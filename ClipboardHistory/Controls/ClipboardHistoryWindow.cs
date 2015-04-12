@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using ClipboardHistoryApp.AppResources;
+using ClipboardHistoryApp.ViewModels;
 
 namespace ClipboardHistoryApp.Controls
 {
@@ -28,7 +29,12 @@ namespace ClipboardHistoryApp.Controls
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on 
             // the object returned by the Content property.
-            base.Content = new HistoryListControl();
+            var historyListControl = new HistoryListControl();
+
+            var historyListViewModel = new HistoryListViewModel();
+            historyListControl.DataContext = historyListViewModel;
+
+            base.Content = historyListControl;
         }
     }
 }

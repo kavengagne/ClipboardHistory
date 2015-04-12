@@ -136,7 +136,7 @@ namespace ClipboardHistoryTests
 
             // Assert
             ClipboardDataItem item = historyListControl.HistoryCollection[0];
-            Assert.AreEqual(inputString, item.CopyDataFull);
+            Assert.AreEqual(inputString, item.Data);
         }
     }
     #endregion
@@ -173,7 +173,7 @@ namespace ClipboardHistoryTests
             // Assert
             int count = historyListControl.HistoryCollection.Count;
             ClipboardDataItem item = historyListControl.HistoryCollection[count - 1];
-            Assert.AreEqual(clipboardContent, item.CopyDataFull);
+            Assert.AreEqual(clipboardContent, item.Data);
         }
     }
     #endregion
@@ -262,7 +262,7 @@ namespace ClipboardHistoryTests
                 UnitTestHelper.RunInstanceMethod(typeof(HistoryListControl), "CopyHistoryCollectionLineToClipboard", historyListControl, new object[] { inputIndex });
 
                 // Assert
-                Assert.AreEqual(expectedClipboardDataItem.CopyDataFull, Clipboard.GetText());
+                Assert.AreEqual(expectedClipboardDataItem.Data, Clipboard.GetText());
             }
             catch (COMException)
             {

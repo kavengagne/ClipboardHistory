@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Linq;
 
 namespace ClipboardHistoryApp.Classes
 {
 	public sealed class ClipboardEventArgs : EventArgs
 	{
-		private readonly IntPtr _hwnd = IntPtr.Zero;
+		private readonly IntPtr _hwnd;
 
 		public IntPtr Hwnd
 		{
-			get { return this._hwnd; }
+			get { return _hwnd; }
 		}
 
 		public ClipboardEventArgs()
@@ -20,7 +19,7 @@ namespace ClipboardHistoryApp.Classes
 			{
 				topWindow = ownerWindow;
 			}
-			this._hwnd = topWindow;
+			_hwnd = topWindow;
 		}
 	}
 }

@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using ClipboardHistoryApp.Classes;
 
-namespace ClipboardHistoryApp.Classes
+namespace ClipboardHistoryApp.Models
 {
     public class HistoryCollection : ObservableCollection<ClipboardDataItem>
     {
@@ -11,12 +12,12 @@ namespace ClipboardHistoryApp.Classes
             bool canInsertItem = true;
             if (Configuration.PreventDuplicateItems)
             {
-                canInsertItem = !Items.Take(1).Any(i => i.CopyDataFull.Equals(item.CopyDataFull));
+                canInsertItem = !Items.Take(1).Any(i => i.Data.Equals(item.Data));
             }
             if (canInsertItem)
             {
-                base.InsertItem(0, item);
-                MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
+                InsertItem(0, item);
+                MaintainHistoryCollectionCapacity(Configuration.CollectionCapacity);
             }
         }
 
@@ -32,13 +33,13 @@ namespace ClipboardHistoryApp.Classes
 
         public void Refresh()
         {
-            foreach (ClipboardDataItem item in Items)
+            foreach (var item in Items)
             {
                 var date = item.DateAndTime;
-                item.CopyDataFull = item.CopyDataFull;
+                item.Data = item.Data;
                 item.DateAndTime = date;
             }
-            MaintainHistoryCollectionCapacity(Configuration.HistoryCollectionCapacity);
+            MaintainHistoryCollectionCapacity(Configuration.CollectionCapacity);
         }
         #endregion
     }

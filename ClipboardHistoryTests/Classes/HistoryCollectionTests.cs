@@ -51,7 +51,7 @@ namespace ClipboardHistoryTests.Classes
             // Assert
             int count = historyCollection.Count;
             ClipboardDataItem lastItem = historyCollection[count - 1];
-            Assert.AreEqual("Line 5", lastItem.CopyDataFull);
+            Assert.AreEqual("Line 5", lastItem.Data);
             Configuration.SaveHistoryCollectionCapacity(savedCapacity);
         }
     }

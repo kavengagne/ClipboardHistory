@@ -38,24 +38,24 @@ namespace ClipboardHistoryApp.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("25")]
-        public int HistoryCollectionCapacity {
+        public int CollectionCapacity {
             get {
-                return ((int)(this["HistoryCollectionCapacity"]));
+                return ((int)(this["CollectionCapacity"]));
             }
             set {
-                this["HistoryCollectionCapacity"] = value;
+                this["CollectionCapacity"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int CopyDataShortNumLines {
+        public int SnippetNumLines {
             get {
-                return ((int)(this["CopyDataShortNumLines"]));
+                return ((int)(this["SnippetNumLines"]));
             }
             set {
-                this["CopyDataShortNumLines"] = value;
+                this["SnippetNumLines"] = value;
             }
         }
         

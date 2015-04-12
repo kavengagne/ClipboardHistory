@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.11.0"
-             xmlns:local="clr-namespace:ClipboardHistoryApp.Design"
+             xmlns:viewModels="clr-namespace:ClipboardHistoryApp.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance Type=local:MockData, IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance Type=viewModels:HistoryListViewModel, IsDesignTimeCreatable=True}"
              Name="ClipboardHistoryWindow"
              Loaded="MyToolWindow_Loaded">
     <UserControl.Resources>
@@ -35,21 +35,26 @@
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border BorderBrush="{DynamicResource VsBrush.ToolWindowText}" BorderThickness="0 0 0 1">
                             <StackPanel Orientation="Vertical"
-                                        ToolTipService.InitialShowDelay="{Binding ElementName=TextBoxToolTipHoverDelay, Path=Text, FallbackValue=300}"
+                                        ToolTipService.InitialShowDelay="{Binding ElementName=ListBoxHistory, Path=DataContext.HistoryConfiguration.ToolTipHoverDelay}"
                                         ToolTipService.ShowDuration="20000">
                                 <StackPanel.ToolTip>
-                                    <ToolTip MaxWidth="800" MaxHeight="800" Padding="0" BorderThickness="1" BorderBrush="White" FontFamily="Consolas" Foreground="{DynamicResource VsBrushes.ToolWindowBackground}">
+                                    <ToolTip MaxWidth="800" MaxHeight="800" Padding="0" BorderThickness="1" BorderBrush="White"
+                                             FontFamily="Consolas" Foreground="{DynamicResource VsBrushes.ToolWindowBackground}">
                                         <Border BorderThickness="1" BorderBrush="Black">
                                             <StackPanel Orientation="Vertical">
-                                                <Border Background="{StaticResource HeaderBackgroundBrush}" BorderThickness="0 0 0 1" BorderBrush="{StaticResource HeaderBorderBrush}">
+                                                <Border Background="{StaticResource HeaderBackgroundBrush}" BorderThickness="0 0 0 1"
+                                                        BorderBrush="{StaticResource HeaderBorderBrush}">
                                                     <StackPanel Orientation="Horizontal">
-                                                        <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ToolTipErrorIndicator" Visibility="Collapsed" />
+                                                        <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ToolTipErrorIndicator"
+                                                               Visibility="Collapsed" />
                                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}" />
                                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding NumberOfLines}" />
-                                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding CopyDataSize}" />
+                                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding DataSize}" />
                                                     </StackPanel>
                                                 </Border>
-                                                <TextBlock Padding="5" Background="{DynamicResource VsBrush.ToolWindowBackground}" Foreground="{DynamicResource VsBrush.ToolWindowText}" Text="{Binding CopyDataFull}"></TextBlock>
+                                                <TextBlock Padding="5" Background="{DynamicResource VsBrush.ToolWindowBackground}"
+                                                           Foreground="{DynamicResource VsBrush.ToolWindowText}"
+                                                           Text="{Binding Data}"></TextBlock>
                                             </StackPanel>
                                         </Border>
                                     </ToolTip>
@@ -59,12 +64,14 @@
                                         <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ErrorIndicator" Visibility="Collapsed" />
                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}" />
                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding NumberOfLines}" />
-                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding CopyDataSize}" />
+                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding DataSize}" />
                                     </StackPanel>
                                 </Border>
                                 <ContentPresenter>
                                     <ContentPresenter.Content>
-                                        <TextBlock Name="ContentTextBlock" Text="{Binding CopyDataShort}" Background="{DynamicResource VsBrush.ToolWindowBackground}" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowTextKey}}"></TextBlock>
+                                        <TextBlock Name="ContentTextBlock" Text="{Binding Snippet}"
+                                                   Background="{DynamicResource VsBrush.ToolWindowBackground}"
+                                                   Foreground="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowTextKey}}"></TextBlock>
                                     </ContentPresenter.Content>
                                 </ContentPresenter>
                             </StackPanel>
@@ -107,32 +114,66 @@
                             <RowDefinition Height="Auto" /><!-- Separator -->
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Margin="3,3,0,0" ToolTip="Maximum number of items the history list can contain.">History Max. Capacity :</Label>
-                        <TextBox Name="TextBoxHistoryCollectionCapacity" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="40" HorizontalAlignment="Left" Margin="2,5,2,2" BorderBrush="Black" TextAlignment="Center" LostFocus="UpdateConfiguration" ToolTip="Min. 1, Max. 200" MaxLength="3">25</TextBox>
-                        <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
-                        
-                        <Label Grid.Row="2" Grid.Column="0" Margin="3,0,0,0" ToolTip="Maximum number of lines displayed for each item in the list." Focusable="True">Lines Displayed per Item :</Label>
-                        <TextBox Name="TextBoxCopyDataShortNumLines" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="UpdateConfiguration" ToolTip="Min. 1, Max. 50" MaxLength="2">5</TextBox>
-                        <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
 
-                        <Label Grid.Row="4" Grid.Column="0" Margin="3,0,0,0" ToolTip="Delay in milliseconds before the tooltip appears when you leave your mouse over an item in the list." Focusable="True">ToolTip Hover Delay (in ms):</Label>
-                        <TextBox Name="TextBoxToolTipHoverDelay" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="40" HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center" LostFocus="UpdateToolTipHoverDelay" ToolTip="Min. 0, Max. 99999" MaxLength="5">300</TextBox>
-                        <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
-                        
+
+                        <Label Grid.Row="0" Grid.Column="0" Margin="3,3,0,0" Content="History Max. Capacity :"
+                               ToolTip="Maximum number of items the history list can contain." />
+                        <TextBox Name="TextBoxHistoryCollectionCapacity" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"
+                                 Width="40" HorizontalAlignment="Left" Margin="2,5,2,2" BorderBrush="Black" TextAlignment="Center"
+                                 ToolTip="Min. 1, Max. 200" MaxLength="3" Text="{Binding HistoryConfiguration.CollectionCapacity}"/>
+                        <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+
+                        <Label Grid.Row="2" Grid.Column="0" Margin="3,0,0,0" Focusable="True" Content="Lines Displayed per Item :"
+                               ToolTip="Maximum number of lines displayed for each item in the list."/>
+                        <TextBox Name="TextBoxSnippetNumLines" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="40"
+                                 HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center"
+                                 ToolTip="Min. 1, Max. 50" MaxLength="2" Text="{Binding HistoryConfiguration.SnippetNumLines}"/>
+                        <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+
+                        <Label Grid.Row="4" Grid.Column="0" Margin="3,0,0,0"
+                               ToolTip="Delay in milliseconds before the tooltip appears when you leave your mouse over an item in the list."
+                               Focusable="True" Content="ToolTip Hover Delay (in ms):"/>
+                        <TextBox Name="TextBoxToolTipHoverDelay" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="40"
+                                 HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center"
+                                 ToolTip="Min. 0, Max. 99999" MaxLength="5" Text="{Binding HistoryConfiguration.ToolTipHoverDelay}">
+                        </TextBox>
+                        <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+
                         <StackPanel Grid.Row="6" Grid.Column="0" Margin="3,0,0,2" Orientation="Vertical">
-                            <CheckBox Name="CheckBoxVisualStudioClipboardOnly" Content="Visual Studio Clipboard Only" Margin="5,4,5,3" Click="UpdateConfiguration" ToolTip="Only track clipboard changes in the current Visual Studio instance."></CheckBox>
+                            <CheckBox Name="CheckBoxVisualStudioClipboardOnly" Content="Visual Studio Clipboard Only" Margin="5,4,5,3"
+                                      ToolTip="Only track clipboard changes in the current Visual Studio instance."
+                                      IsChecked="{Binding HistoryConfiguration.VisualStudioClipboardOnly}"/>
                         </StackPanel>
-                        <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"></Separator>
-                        
+                        <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+
                         <StackPanel Grid.Row="8" Grid.Column="0" Margin="3,0,0,2" Orientation="Vertical">
-                            <CheckBox Name="CheckBoxPreventDuplicateItems" Content="Prevent Duplicate Items" Margin="5,4,5,4" Click="UpdateConfiguration" ToolTip="Ignores successive copy operations if the item data is the same as the last one."></CheckBox>
+                            <CheckBox Name="CheckBoxPreventDuplicateItems" Content="Prevent Duplicate Items" Margin="5,4,5,4"
+                                      ToolTip="Ignores successive copy operations if the item data is the same as the last one."
+                                      IsChecked="{Binding HistoryConfiguration.PreventDuplicateItems}"/>
                         </StackPanel>
                     </Grid>
                 </Border>
             </Expander>
         </StackPanel>
-        <ListBox Grid.Row="1" Name="ListBoxHistory" KeyDown="ListBoxHistory_KeyDown" ScrollViewer.CanContentScroll="False"
-                 ItemContainerStyle="{StaticResource ListBoxContainerStyle}" ItemsSource="{Binding HistoryCollection}"
-                 DisplayMemberPath="CopyDataShort" Style="{StaticResource ListBoxStyle}" MouseDoubleClick="ListBoxHistory_MouseDoubleClick" />
+        <ListBox Grid.Row="1" Name="ListBoxHistory"
+                 Style="{StaticResource ListBoxStyle}"
+                 ScrollViewer.CanContentScroll="False"
+                 ItemContainerStyle="{StaticResource ListBoxContainerStyle}"
+                 ItemsSource="{Binding HistoryCollection}"
+                 DisplayMemberPath="Snippet"
+                 MouseDoubleClick="ListBoxHistory_OnMouseDoubleClick">
+            <ListBox.InputBindings>
+                <KeyBinding Key="C" Modifiers="Control"
+                            Command="{Binding CopyToClipboardCommand}"
+                            CommandParameter="{Binding ElementName=ListBoxHistory, Path=SelectedItem}"/>
+                <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding CopyToClipboardCommand}"
+                              CommandParameter="{Binding ElementName=ListBoxHistory, Path=SelectedItem}"/>
+            </ListBox.InputBindings>
+        </ListBox>
     </Grid>
 </UserControl>

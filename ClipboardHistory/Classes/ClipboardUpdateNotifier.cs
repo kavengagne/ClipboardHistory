@@ -15,8 +15,8 @@ namespace ClipboardHistoryApp.Classes
         #region Constructors
         public ClipboardUpdateNotifier(EventHandler handler)
         {
-            this._form = new NotificationForm(this);
-            this.ClipboardUpdate += handler;
+            _form = new NotificationForm(this);
+            ClipboardUpdate += handler;
         } 
         #endregion
 
@@ -24,13 +24,13 @@ namespace ClipboardHistoryApp.Classes
         #region Public Methods
         public void DisableNotifications()
         {
-            NativeMethods.RemoveClipboardFormatListener(this._form.Handle);
+            NativeMethods.RemoveClipboardFormatListener(_form.Handle);
         }
 
         public void EnableNotifications()
         {
-            NativeMethods.SetParent(this._form.Handle, NativeMethods.HWND_MESSAGE);
-            NativeMethods.AddClipboardFormatListener(this._form.Handle);
+            NativeMethods.SetParent(_form.Handle, NativeMethods.HWND_MESSAGE);
+            NativeMethods.AddClipboardFormatListener(_form.Handle);
         } 
         #endregion
 
@@ -39,7 +39,7 @@ namespace ClipboardHistoryApp.Classes
         private void OnClipboardUpdate(ClipboardEventArgs e)
         {
             Debug.WriteLine(e.Hwnd.ToString());
-            var handler = this.ClipboardUpdate;
+            var handler = ClipboardUpdate;
             if (handler != null)
             {
                 handler(null, e);
@@ -64,14 +64,14 @@ namespace ClipboardHistoryApp.Classes
         {
             if (disposing)
             {
-                if (this._form != null)
+                if (_form != null)
                 {
-                    this.DisableNotifications();
-                    this._form.Close();
-                    this._form.Dispose();
-                    this._form = null;
+                    DisableNotifications();
+                    _form.Close();
+                    _form.Dispose();
+                    _form = null;
                 }
-                this.ClipboardUpdate = null;
+                ClipboardUpdate = null;
             }
         } 
         #endregion
@@ -84,14 +84,14 @@ namespace ClipboardHistoryApp.Classes
             
             public NotificationForm(ClipboardUpdateNotifier parent)
             {
-                this._parent = parent;
+                _parent = parent;
             }
 
             protected override void WndProc(ref Message m)
             {
                 if (m.Msg == NativeMethods.WM_CLIPBOARDUPDATE)
                 {
-                    this._parent.OnClipboardUpdate(new ClipboardEventArgs());
+                    _parent.OnClipboardUpdate(new ClipboardEventArgs());
                 }
                 base.WndProc(ref m);
             }
@@ -111,7 +111,7 @@ namespace ClipboardHistoryApp.Classes
             {
                 if (disposing)
                 {
-                    this.Parent = null;
+                    Parent = null;
                 }
                 base.Dispose(disposing);
             }
