@@ -6,7 +6,7 @@
              xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.11.0"
              xmlns:viewModels="clr-namespace:ClipboardHistoryApp.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="300"
+             d:DesignHeight="600" d:DesignWidth="500"
              d:DataContext="{d:DesignInstance Type=viewModels:HistoryListViewModel, IsDesignTimeCreatable=True}"
              Name="ClipboardHistoryWindow"
              Loaded="MyToolWindow_Loaded">
@@ -98,64 +98,51 @@
         <StackPanel Background="#ffbcc7d8">
             <Expander Padding="3" Header="Settings" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <Border BorderThickness="1" BorderBrush="#ffa0a0a0">
-                    <Grid Background="WhiteSmoke">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition MinWidth="50" Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" /><!-- Separator -->
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" /><!-- Separator -->
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" /><!-- Separator -->
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" /><!-- Separator -->
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical" Background="WhiteSmoke">
+                        <DockPanel LastChildFill="False" Margin="0,0,6,0">
+                            <Label DockPanel.Dock="Left" Margin="3,3,0,0" Content="History Max. Capacity :"
+                                   ToolTip="Maximum number of items the history list can contain." />
+                            <TextBox DockPanel.Dock="Right" Name="TextBoxHistoryCollectionCapacity" VerticalAlignment="Center"
+                                     Width="40" HorizontalAlignment="Left" Margin="2,5,2,2" BorderBrush="Black" TextAlignment="Center"
+                                     ToolTip="Min. 1, Max. 200" MaxLength="3" Text="{Binding HistoryConfiguration.CollectionCapacity}"/>
+                        </DockPanel>
 
+                        <Separator />
 
-                        <Label Grid.Row="0" Grid.Column="0" Margin="3,3,0,0" Content="History Max. Capacity :"
-                               ToolTip="Maximum number of items the history list can contain." />
-                        <TextBox Name="TextBoxHistoryCollectionCapacity" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"
-                                 Width="40" HorizontalAlignment="Left" Margin="2,5,2,2" BorderBrush="Black" TextAlignment="Center"
-                                 ToolTip="Min. 1, Max. 200" MaxLength="3" Text="{Binding HistoryConfiguration.CollectionCapacity}"/>
-                        <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <DockPanel LastChildFill="False" Margin="0,0,6,0">
+                            <Label DockPanel.Dock="Left" Margin="3,0,0,0" Focusable="True" Content="Lines Displayed per Item :"
+                                   ToolTip="Maximum number of lines displayed for each item in the list."/>
+                            <TextBox DockPanel.Dock="Right" Name="TextBoxSnippetNumLines" VerticalAlignment="Center" Width="40"
+                                     HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center"
+                                     ToolTip="Min. 1, Max. 50" MaxLength="2" Text="{Binding HistoryConfiguration.SnippetNumLines}"/>
+                        </DockPanel>
 
+                        <Separator />
 
-                        <Label Grid.Row="2" Grid.Column="0" Margin="3,0,0,0" Focusable="True" Content="Lines Displayed per Item :"
-                               ToolTip="Maximum number of lines displayed for each item in the list."/>
-                        <TextBox Name="TextBoxSnippetNumLines" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Width="40"
+                        <DockPanel LastChildFill="False" Margin="0,0,6,0">
+                            <Label DockPanel.Dock="Left" Margin="3,0,0,0" Focusable="True" Content="ToolTip Hover Delay (in ms):"
+                               ToolTip="Delay in milliseconds before the tooltip appears when you leave your mouse over an item in the list." />
+                            <TextBox DockPanel.Dock="Right" Name="TextBoxToolTipHoverDelay" VerticalAlignment="Center" Width="40"
                                  HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center"
-                                 ToolTip="Min. 1, Max. 50" MaxLength="2" Text="{Binding HistoryConfiguration.SnippetNumLines}"/>
-                        <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+                                 ToolTip="Min. 0, Max. 99999" MaxLength="5" Text="{Binding HistoryConfiguration.ToolTipHoverDelay}"/>
+                        </DockPanel>
 
+                        <Separator />
 
-                        <Label Grid.Row="4" Grid.Column="0" Margin="3,0,0,0"
-                               ToolTip="Delay in milliseconds before the tooltip appears when you leave your mouse over an item in the list."
-                               Focusable="True" Content="ToolTip Hover Delay (in ms):"/>
-                        <TextBox Name="TextBoxToolTipHoverDelay" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="40"
-                                 HorizontalAlignment="Left" Margin="2" BorderBrush="Black" TextAlignment="Center"
-                                 ToolTip="Min. 0, Max. 99999" MaxLength="5" Text="{Binding HistoryConfiguration.ToolTipHoverDelay}">
-                        </TextBox>
-                        <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
-
-
-                        <StackPanel Grid.Row="6" Grid.Column="0" Margin="3,0,0,2" Orientation="Vertical">
+                        <StackPanel Margin="3,0,0,2" Orientation="Vertical">
                             <CheckBox Name="CheckBoxVisualStudioClipboardOnly" Content="Visual Studio Clipboard Only" Margin="5,4,5,3"
                                       ToolTip="Only track clipboard changes in the current Visual Studio instance."
                                       IsChecked="{Binding HistoryConfiguration.VisualStudioClipboardOnly}"/>
                         </StackPanel>
-                        <Separator Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
 
+                        <Separator />
 
-                        <StackPanel Grid.Row="8" Grid.Column="0" Margin="3,0,0,2" Orientation="Vertical">
+                        <StackPanel Margin="3,0,0,2" Orientation="Vertical">
                             <CheckBox Name="CheckBoxPreventDuplicateItems" Content="Prevent Duplicate Items" Margin="5,4,5,4"
                                       ToolTip="Ignores successive copy operations if the item data is the same as the last one."
                                       IsChecked="{Binding HistoryConfiguration.PreventDuplicateItems}"/>
                         </StackPanel>
-                    </Grid>
+                    </StackPanel>
                 </Border>
             </Expander>
         </StackPanel>
