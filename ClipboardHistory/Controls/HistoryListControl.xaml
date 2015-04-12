@@ -6,7 +6,7 @@
              xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.11.0"
              xmlns:viewModels="clr-namespace:ClipboardHistoryApp.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="500"
+             d:DesignHeight="600" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance Type=viewModels:HistoryListViewModel, IsDesignTimeCreatable=True}"
              Name="ClipboardHistoryWindow"
              Loaded="MyToolWindow_Loaded">
@@ -151,15 +151,11 @@
                  ScrollViewer.CanContentScroll="False"
                  ItemContainerStyle="{StaticResource ListBoxContainerStyle}"
                  ItemsSource="{Binding HistoryCollection}"
-                 DisplayMemberPath="Snippet"
                  MouseDoubleClick="ListBoxHistory_OnMouseDoubleClick">
             <ListBox.InputBindings>
                 <KeyBinding Key="C" Modifiers="Control"
                             Command="{Binding CopyToClipboardCommand}"
                             CommandParameter="{Binding ElementName=ListBoxHistory, Path=SelectedItem}"/>
-                <MouseBinding MouseAction="LeftDoubleClick"
-                              Command="{Binding CopyToClipboardCommand}"
-                              CommandParameter="{Binding ElementName=ListBoxHistory, Path=SelectedItem}"/>
             </ListBox.InputBindings>
         </ListBox>
     </Grid>
