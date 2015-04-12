@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ClipboardHistoryApp.Controls.MyControl"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+﻿<UserControl x:Class="ClipboardHistoryApp.Controls.HistoryListControl"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type=local:MockData, IsDesignTimeCreatable=True}"
-             Name="MyToolWindow"
+             Name="ClipboardHistoryWindow"
              Loaded="MyToolWindow_Loaded">
     <UserControl.Resources>
         <Style TargetType="ListBox" x:Key="ListBoxStyle">

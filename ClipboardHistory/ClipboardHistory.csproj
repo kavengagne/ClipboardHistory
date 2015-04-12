@@ -152,10 +152,10 @@
     <Compile Include="Classes\Configuration.cs" />
     <Compile Include="Classes\HistoryCollection.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
-    <Compile Include="Controls\MyControl.xaml.cs">
-      <DependentUpon>MyControl.xaml</DependentUpon>
+    <Compile Include="Controls\HistoryListControl.xaml.cs">
+      <DependentUpon>HistoryListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MyToolWindow.cs" />
+    <Compile Include="Controls\ClipboardHistoryWindow.cs" />
     <Compile Include="AppResources\Guids.cs" />
     <Compile Include="Design\MockData.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -231,7 +231,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\MyControl.xaml">
+    <Page Include="Controls\HistoryListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>

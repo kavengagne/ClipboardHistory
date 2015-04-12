@@ -55,7 +55,7 @@
     <Compile Include="Classes\ClipboardDataItemTests.cs" />
     <Compile Include="Classes\ClipboardUpdateNotifierTests.cs" />
     <Compile Include="Classes\HistoryCollectionTests.cs" />
-    <Compile Include="MyControlTests.cs" />
+    <Compile Include="HistoryListControlTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestHelper.cs" />
   </ItemGroup>

@@ -16,7 +16,7 @@ namespace ClipboardHistoryTests
             return method.Invoke(null, methodParameters);
         }
 
-        // typeof(MyControl),
+        // typeof(HistoryListControl),
         // "AddStringToHistoryCollection",
         // myControl,
         // new object[] { inputString }

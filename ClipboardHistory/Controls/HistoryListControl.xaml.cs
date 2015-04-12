@@ -9,25 +9,21 @@ using ClipboardHistoryApp.Classes;
 
 namespace ClipboardHistoryApp.Controls
 {
-    public partial class MyControl : IDisposable
+    public partial class HistoryListControl : IDisposable
     {
         #region Fields
         private IntPtr _visualStudioHandle = IntPtr.Zero;
         private ClipboardUpdateNotifier _clipboardUpdateNotifier;
-        private HistoryCollection _historyCollection;
         #endregion
 
 
         #region Properties
-        public HistoryCollection HistoryCollection
-        {
-            get { return _historyCollection; }
-        }
+        public HistoryCollection HistoryCollection { get; private set; }
         #endregion
 
 
         #region Constructor
-        public MyControl()
+        public HistoryListControl()
         {
             InitializeComponent();
             InitializeClipboardUpdateNotifier();
@@ -50,7 +46,7 @@ namespace ClipboardHistoryApp.Controls
 
         private void InitializeHistoryCollection()
         {
-            _historyCollection = new HistoryCollection();
+            HistoryCollection = new HistoryCollection();
         }
 
         private void AddClipboardDataToHistoryCollection()
@@ -61,19 +57,19 @@ namespace ClipboardHistoryApp.Controls
         private void AddStringToHistoryCollection(string text)
         {
             if (string.IsNullOrEmpty(text)) return;
-            _historyCollection.AddItem(new ClipboardDataItem(text));
+            HistoryCollection.AddItem(new ClipboardDataItem(text));
         }
 
         private void AddErrorMessageToHistoryCollection(string errorMessage)
         {
             if (string.IsNullOrEmpty(errorMessage)) return;
-            _historyCollection.AddItem(new ClipboardDataItem(errorMessage, true));
+            HistoryCollection.AddItem(new ClipboardDataItem(errorMessage, true));
         }
 
         private void CopyHistoryCollectionLineToClipboard(int lineNumber)
         {
-            if ((lineNumber < 0) || (lineNumber >= _historyCollection.Count)) return;
-            SetClipboardTextOrError(_historyCollection[lineNumber].CopyDataFull);
+            if ((lineNumber < 0) || (lineNumber >= HistoryCollection.Count)) return;
+            SetClipboardTextOrError(HistoryCollection[lineNumber].CopyDataFull);
         }
 
         private string GetClipboardTextOrEmpty()
@@ -175,9 +171,9 @@ namespace ClipboardHistoryApp.Controls
         {
             var listbox = (ListBox)sender;
             var lineNumber = listbox.SelectedIndex;
-            if ((lineNumber >= 0) && (lineNumber < _historyCollection.Count))
+            if ((lineNumber >= 0) && (lineNumber < HistoryCollection.Count))
             {
-                SetClipboardTextOrError(_historyCollection[lineNumber].CopyDataFull);
+                SetClipboardTextOrError(HistoryCollection[lineNumber].CopyDataFull);
             }
         }
 
@@ -202,7 +198,7 @@ namespace ClipboardHistoryApp.Controls
             GC.SuppressFinalize(this);
         }
 
-        ~MyControl()
+        ~HistoryListControl()
         {
             Dispose(false);
         }
@@ -213,7 +209,7 @@ namespace ClipboardHistoryApp.Controls
             {
                 _clipboardUpdateNotifier.Dispose();
                 _clipboardUpdateNotifier = null;
-                _historyCollection = null;
+                HistoryCollection = null;
             }
         }
         #endregion
