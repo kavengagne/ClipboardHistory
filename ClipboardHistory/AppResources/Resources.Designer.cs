@@ -70,6 +70,15 @@ namespace ClipboardHistoryApp.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception: {0}\nMost likely, another application is hooking the clipboard..
+        /// </summary>
+        internal static string ClipboardException {
+            get {
+                return ResourceManager.GetString("ClipboardException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clipboard History.
         /// </summary>
         internal static string ToolWindowTitle {

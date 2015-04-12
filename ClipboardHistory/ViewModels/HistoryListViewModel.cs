@@ -1,6 +1,4 @@
 using System;
-using System.Diagnostics;
-using System.Windows;
 using System.Windows.Input;
 using ClipboardHistoryApp.Classes;
 using ClipboardHistoryApp.Models;
@@ -12,8 +10,7 @@ namespace ClipboardHistoryApp.ViewModels
     public class HistoryListViewModel : ViewModelBase, IDisposable
     {
         #region Fields
-        private readonly IntPtr _visualStudioHandle;
-        private ClipboardUpdateNotifier _clipboardUpdateNotifier;
+        private ClipboardService _clipboardService;
         #endregion Fields
 
 
@@ -32,18 +29,17 @@ namespace ClipboardHistoryApp.ViewModels
             HistoryConfiguration = new HistoryConfiguration(HistoryCollection);
             
             InitializeClipboardUpdateNotifier();
-            AddClipboardDataToHistoryCollection();
-            
-            _visualStudioHandle = Process.GetCurrentProcess().MainWindowHandle;
-
             InitializeCommands();
         }
-
-        private void InitializeCommands()
-        {
-            CopyToClipboardCommand = new RelayCommand<ClipboardDataItem>(CopyToClipboard, CanCopyToClipboard);
-        }
         #endregion Constructors
+
+
+        #region Public Methods
+        public void SetVisualStudioHandle(IntPtr mainWindowHandle)
+        {
+            _clipboardService.SetWindowHandle(mainWindowHandle);
+        }
+        #endregion Public Methods
 
 
         #region Commands
@@ -54,7 +50,10 @@ namespace ClipboardHistoryApp.ViewModels
 
         private void CopyToClipboard(ClipboardDataItem item)
         {
-            SetClipboardTextOrError(item.Data);
+            _clipboardService.SetClipboardText(item.Data, errorItem =>
+            {
+                HistoryCollection.AddItem(errorItem);
+            });
         }
         #endregion Commands
 
@@ -62,69 +61,27 @@ namespace ClipboardHistoryApp.ViewModels
         #region Private Methods
         private void InitializeClipboardUpdateNotifier()
         {
-            _clipboardUpdateNotifier = new ClipboardUpdateNotifier(ClipboardUpdateNotifier_ClipboardUpdate);
-            _clipboardUpdateNotifier.EnableNotifications();
+            _clipboardService = new ClipboardService(OnClipboardUpdate);
+            _clipboardService.EnableNotifications();
+            AddStringToHistoryCollection(_clipboardService.GetClipboardDataItem());
         }
 
-        private void ClipboardUpdateNotifier_ClipboardUpdate(object sender, EventArgs e)
+        private void InitializeCommands()
         {
-            var clipboardEvent = e as ClipboardEventArgs;
-            if (Configuration.VisualStudioClipboardOnly)
+            CopyToClipboardCommand = new RelayCommand<ClipboardDataItem>(CopyToClipboard, CanCopyToClipboard);
+        }
+
+        private void OnClipboardUpdate(ClipboardDataItem item)
+        {
+            AddStringToHistoryCollection(item);
+        }
+
+        private void AddStringToHistoryCollection(ClipboardDataItem item)
+        {
+            if (!String.IsNullOrEmpty(item.Data))
             {
-                if (clipboardEvent != null && clipboardEvent.Hwnd != _visualStudioHandle) return;
+                HistoryCollection.AddItem(item);
             }
-            AddClipboardDataToHistoryCollection();
-        }
-
-        private void AddClipboardDataToHistoryCollection()
-        {
-            AddStringToHistoryCollection(GetClipboardTextOrEmpty());
-        }
-
-        private void AddStringToHistoryCollection(string text)
-        {
-            if (string.IsNullOrEmpty(text)) return;
-            HistoryCollection.AddItem(new ClipboardDataItem(text));
-        }
-
-        private void AddErrorMessageToHistoryCollection(string errorMessage)
-        {
-            if (string.IsNullOrEmpty(errorMessage)) return;
-            HistoryCollection.AddItem(new ClipboardDataItem(errorMessage, true));
-        }
-
-        private string GetClipboardTextOrEmpty()
-        {
-            string text = string.Empty;
-            if (!Clipboard.ContainsText()) return text;
-            try
-            {
-                text = Clipboard.GetText();
-            }
-            catch (Exception ex)
-            {
-                text = string.Empty;
-                AddErrorMessageToHistoryCollection(
-                    string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.",
-                                  ex.Message));
-            }
-            return text;
-        }
-
-        private void SetClipboardTextOrError(string text)
-        {
-            _clipboardUpdateNotifier.DisableNotifications();
-            try
-            {
-                Clipboard.SetText(text);
-            }
-            catch (Exception ex)
-            {
-                AddErrorMessageToHistoryCollection(
-                    string.Format("Exception: {0}\nMost likely, another application is hooking the clipboard.",
-                                  ex.Message));
-            }
-            _clipboardUpdateNotifier.EnableNotifications();
         }
         #endregion Private Methods
 
@@ -145,10 +102,10 @@ namespace ClipboardHistoryApp.ViewModels
         {
             if (disposing)
             {
-                if (_clipboardUpdateNotifier != null)
+                if (_clipboardService != null)
                 {
-                    _clipboardUpdateNotifier.Dispose();
-                    _clipboardUpdateNotifier = null;
+                    _clipboardService.Dispose();
+                    _clipboardService = null;
                 }
             }
         }

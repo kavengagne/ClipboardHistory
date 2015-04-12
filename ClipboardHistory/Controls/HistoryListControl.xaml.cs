@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,9 +30,12 @@ namespace ClipboardHistoryApp.Controls
         private void MyToolWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadConfigurationValues();
+            var viewModel = DataContext as HistoryListViewModel;
+            if (viewModel != null)
+            {
+                viewModel.SetVisualStudioHandle(Process.GetCurrentProcess().MainWindowHandle);
+            }
         }
-        #endregion
-
 
         private void ListBoxHistory_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -45,6 +49,7 @@ namespace ClipboardHistoryApp.Controls
                 }
             }
         }
+        #endregion
 
 
         #region Implement IDisposable Interface

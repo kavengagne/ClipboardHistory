@@ -165,10 +165,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\ExceptionHelper.cs" />
+    <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Models\ClipboardDataItem.cs" />
-    <Compile Include="Classes\ClipboardEventArgs.cs" />
     <Compile Include="Classes\ClipboardFormatter.cs" />
-    <Compile Include="Classes\ClipboardUpdateNotifier.cs" />
+    <Compile Include="Classes\ClipboardService.cs" />
     <Compile Include="Classes\Configuration.cs" />
     <Compile Include="Models\HistoryCollection.cs" />
     <Compile Include="Classes\NativeMethods.cs" />
