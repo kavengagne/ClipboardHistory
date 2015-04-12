@@ -10,11 +10,11 @@
         <PreviewImage>AppResources\Images\ScreenShot_ToolWindow.png</PreviewImage>
         <Tags>Clipboard, History, Tool</Tags>
     </Metadata>
-    <Installation InstalledByMsi="false">
-        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0,12.0]" />
-        <InstallationTarget Version="[11.0,12.0]" Id="Microsoft.VisualStudio.Premium" />
-        <InstallationTarget Version="[11.0,12.0]" Id="Microsoft.VisualStudio.Ultimate" />
-        <InstallationTarget Version="[11.0,12.0]" Id="Microsoft.VisualStudio.IntegratedShell" />
+    <Installation InstalledByMsi="true">
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />
+        <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.Premium" />
+        <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.Ultimate" />
+        <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.IntegratedShell" />
     </Installation>
     <Dependencies>
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="4.5" />

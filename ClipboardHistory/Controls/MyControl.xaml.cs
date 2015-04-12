@@ -21,7 +21,7 @@ namespace ClipboardHistoryApp.Controls
         #region Properties
         public HistoryCollection HistoryCollection
         {
-            get { return this._historyCollection; }
+            get { return _historyCollection; }
         }
         #endregion
 
@@ -117,28 +117,28 @@ namespace ClipboardHistoryApp.Controls
         {
             if (Configuration.SavePropertyOrRevert(sender))
             {
-                this.HistoryCollection.Refresh();
+                HistoryCollection.Refresh();
             }
         }
         
         private void LoadValidationRules()
         {
             // TODO: KG - I hate this solution, but keeping it for now.
-            this.TextBoxHistoryCollectionCapacity.Tag = "HistoryCollectionCapacity";
-            this.TextBoxCopyDataShortNumLines.Tag = "CopyDataShortNumLines";
-            this.TextBoxToolTipHoverDelay.Tag = "ToolTipHoverDelay";
-            this.CheckBoxVisualStudioClipboardOnly.Tag = "VisualStudioClipboardOnly";
-            this.CheckBoxPreventDuplicateItems.Tag = "PreventDuplicateItems";
+            TextBoxHistoryCollectionCapacity.Tag = "HistoryCollectionCapacity";
+            TextBoxCopyDataShortNumLines.Tag = "CopyDataShortNumLines";
+            TextBoxToolTipHoverDelay.Tag = "ToolTipHoverDelay";
+            CheckBoxVisualStudioClipboardOnly.Tag = "VisualStudioClipboardOnly";
+            CheckBoxPreventDuplicateItems.Tag = "PreventDuplicateItems";
         }
 
         private void LoadConfigurationValues()
         {
-            this.TextBoxHistoryCollectionCapacity.Text = Configuration.HistoryCollectionCapacity.ToString(CultureInfo.InvariantCulture);
-            this.TextBoxCopyDataShortNumLines.Text = Configuration.CopyDataShortNumLines.ToString(CultureInfo.InvariantCulture);
-            this.TextBoxToolTipHoverDelay.Text = Configuration.ToolTipHoverDelay.ToString(CultureInfo.InvariantCulture);
+            TextBoxHistoryCollectionCapacity.Text = Configuration.HistoryCollectionCapacity.ToString(CultureInfo.InvariantCulture);
+            TextBoxCopyDataShortNumLines.Text = Configuration.CopyDataShortNumLines.ToString(CultureInfo.InvariantCulture);
+            TextBoxToolTipHoverDelay.Text = Configuration.ToolTipHoverDelay.ToString(CultureInfo.InvariantCulture);
             ToolTipService.SetInitialShowDelay(ListBoxHistory, Configuration.ToolTipHoverDelay);
-            this.CheckBoxVisualStudioClipboardOnly.IsChecked = Configuration.VisualStudioClipboardOnly;
-            this.CheckBoxPreventDuplicateItems.IsChecked = Configuration.PreventDuplicateItems;
+            CheckBoxVisualStudioClipboardOnly.IsChecked = Configuration.VisualStudioClipboardOnly;
+            CheckBoxPreventDuplicateItems.IsChecked = Configuration.PreventDuplicateItems;
         }
         #endregion
 
