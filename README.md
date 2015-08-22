@@ -12,6 +12,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 * Visual Studio 2012
 * Visual Studio 2013
+* Visual Studio 2015
 
 ## Features
 

@@ -1,26 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="ce59ed1c-307e-43a2-a528-a88bde8416cf" Version="1.1" Language="en-US" Publisher="Kaven Gagne" />
-        <DisplayName>ClipboardHistory</DisplayName>
-        <Description xml:space="preserve">Adds a configurable Clipboard History List to Visual Studio.</Description>
-        <MoreInfo>https://github.com/kavengagne/ClipboardHistory</MoreInfo>
-        <License>LICENSE.txt</License>
-        <Icon>AppResources\Images\history_32px.png</Icon>
-        <PreviewImage>AppResources\Images\ScreenShot_ToolWindow.png</PreviewImage>
-        <Tags>Clipboard, History, Tool</Tags>
-    </Metadata>
-    <Installation InstalledByMsi="true">
-        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />
-        <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.Premium" />
-        <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.Ultimate" />
-        <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.IntegratedShell" />
-    </Installation>
-    <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="4.5" />
-        <Dependency Id="Microsoft.VisualStudio.MPF.11.0" DisplayName="Visual Studio MPF 11.0" d:Source="Installed" Version="11.0" />
-    </Dependencies>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-    </Assets>
+  <Metadata>
+    <Identity Id="ce59ed1c-307e-43a2-a528-a88bde8416cf" Version="2.0" Language="en-US" Publisher="Kaven Gagne" />
+    <DisplayName>ClipboardHistory</DisplayName>
+    <Description xml:space="preserve">Adds a configurable Clipboard History List to Visual Studio.</Description>
+    <MoreInfo>https://github.com/kavengagne/ClipboardHistory</MoreInfo>
+    <License>LICENSE.txt</License>
+    <Icon>AppResources\Images\history_32px.png</Icon>
+    <PreviewImage>AppResources\Images\ScreenShot_ToolWindow.png</PreviewImage>
+    <Tags>Clipboard, History, Tool</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0,]" />
+    <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.Premium" />
+    <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.Ultimate" />
+    <InstallationTarget Version="[12.0]" Id="Microsoft.VisualStudio.IntegratedShell" />
+    <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Enterprise" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,]" />
+    <Dependency Id="Microsoft.VisualStudio.MPF.11.0" DisplayName="Visual Studio MPF 11.0" d:Source="Installed" Version="11.0" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
 </PackageManifest>

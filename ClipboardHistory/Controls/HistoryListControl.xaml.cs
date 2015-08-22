@@ -31,10 +31,7 @@ namespace ClipboardHistoryApp.Controls
         {
             LoadConfigurationValues();
             var viewModel = DataContext as HistoryListViewModel;
-            if (viewModel != null)
-            {
-                viewModel.SetVisualStudioHandle(Process.GetCurrentProcess().MainWindowHandle);
-            }
+            viewModel?.SetVisualStudioHandle(Process.GetCurrentProcess().MainWindowHandle);
         }
 
         private void ListBoxHistory_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -43,10 +40,7 @@ namespace ClipboardHistoryApp.Controls
             if (selectedItem != null)
             {
                 var viewModel = DataContext as HistoryListViewModel;
-                if (viewModel != null)
-                {
-                    viewModel.CopyToClipboardCommand.Execute(selectedItem);
-                }
+                viewModel?.CopyToClipboardCommand.Execute(selectedItem);
             }
         }
         #endregion
@@ -69,10 +63,7 @@ namespace ClipboardHistoryApp.Controls
             if (disposing)
             {
                 var viewModel = DataContext as HistoryListViewModel;
-                if (viewModel != null)
-                {
-                    viewModel.Dispose();
-                }
+                viewModel?.Dispose();
             }
         }
         #endregion
