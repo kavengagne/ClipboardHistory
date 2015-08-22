@@ -13,6 +13,7 @@ namespace ClipboardHistoryApp.Models
         private int _toolTipHoverDelay = Configuration.ToolTipHoverDelay;
         private bool _visualStudioClipboardOnly = Configuration.VisualStudioClipboardOnly;
         private bool _preventDuplicateItems = Configuration.PreventDuplicateItems;
+        private bool _displayTimestamp = Configuration.DisplayTimestamp;
         #endregion Fields
 
         
@@ -22,7 +23,7 @@ namespace ClipboardHistoryApp.Models
             get { return _collectionCapacity; }
             set
             {
-                if (_collectionCapacity != value && Configuration.SaveProperty("CollectionCapacity", value))
+                if (_collectionCapacity != value && Configuration.SaveProperty(() => Configuration.CollectionCapacity, value))
                 {
                     _collectionCapacity = value;
                     RaisePropertyChanged(() => CollectionCapacity);
@@ -36,7 +37,7 @@ namespace ClipboardHistoryApp.Models
             get { return _snippetNumLines; }
             set
             {
-                if (_snippetNumLines != value && Configuration.SaveProperty("SnippetNumLines", value))
+                if (_snippetNumLines != value && Configuration.SaveProperty(() => Configuration.SnippetNumLines, value))
                 {
                     _snippetNumLines = value;
                     RaisePropertyChanged(() => SnippetNumLines);
@@ -50,7 +51,7 @@ namespace ClipboardHistoryApp.Models
             get { return _toolTipHoverDelay; }
             set
             {
-                if (_toolTipHoverDelay != value && Configuration.SaveProperty("ToolTipHoverDelay", value))
+                if (_toolTipHoverDelay != value && Configuration.SaveProperty(() => Configuration.ToolTipHoverDelay, value))
                 {
                     _toolTipHoverDelay = value;
                     RaisePropertyChanged(() => ToolTipHoverDelay);
@@ -63,8 +64,8 @@ namespace ClipboardHistoryApp.Models
             get { return _visualStudioClipboardOnly; }
             set
             {
-                if (_visualStudioClipboardOnly != value &&
-                    Configuration.SaveProperty("VisualStudioClipboardOnly", value))
+                if (_visualStudioClipboardOnly != value
+                    && Configuration.SaveProperty(() => Configuration.VisualStudioClipboardOnly, value))
                 {
                     _visualStudioClipboardOnly = value;
                     RaisePropertyChanged(() => VisualStudioClipboardOnly);
@@ -77,10 +78,23 @@ namespace ClipboardHistoryApp.Models
             get { return _preventDuplicateItems; }
             set
             {
-                if (_preventDuplicateItems != value && Configuration.SaveProperty("PreventDuplicateItems", value))
+                if (_preventDuplicateItems != value && Configuration.SaveProperty(() => Configuration.PreventDuplicateItems, value))
                 {
                     _preventDuplicateItems = value;
                     RaisePropertyChanged(() => PreventDuplicateItems);
+                }
+            }
+        }
+
+        public bool DisplayTimestamp
+        {
+            get { return _displayTimestamp; }
+            set
+            {
+                if (_displayTimestamp != value && Configuration.SaveProperty(() => Configuration.DisplayTimestamp, value))
+                {
+                    _displayTimestamp = value;
+                    RaisePropertyChanged(() => DisplayTimestamp);
                 }
             }
         }

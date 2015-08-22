@@ -2,9 +2,9 @@
 
 namespace ClipboardHistoryApp.Helpers
 {
-    public static class ExceptionHelper
+    public static class ExceptionWrapper
     {
-        public static bool TrySafe<TException>(Action methodToExecute, Action<TException> methodOnError = null)
+        internal static bool TrySafe<TException>(Action methodToExecute, Action<TException> methodOnError = null)
             where TException : Exception
         {
             try
@@ -22,7 +22,8 @@ namespace ClipboardHistoryApp.Helpers
             }
         }
 
-        public static bool TrySafe<TException>(Action methodToExecute, Action methodOnError)
+
+        internal static bool TrySafe<TException>(Action methodToExecute, Action methodOnError)
             where TException : Exception
         {
             Action<TException> toExecSecond = e => { };
@@ -31,6 +32,29 @@ namespace ClipboardHistoryApp.Helpers
                 toExecSecond = e => methodOnError();
             }
             return TrySafe(methodToExecute, toExecSecond);
+        }
+
+
+        internal static TReturn TrySafe<TException, TReturn>(Func<TReturn> methodToExecute,
+                                                             Action<TException> methodOnError = null)
+            where TException : Exception
+        {
+            try
+            {
+                return methodToExecute.Invoke();
+            }
+            catch (TException ex)
+            {
+                if (methodOnError != null)
+                {
+                    return TrySafe<TException, TReturn>(() =>
+                    {
+                        methodOnError.Invoke(ex);
+                        return default(TReturn);
+                    });
+                }
+                return default(TReturn);
+            }
         }
     }
 }

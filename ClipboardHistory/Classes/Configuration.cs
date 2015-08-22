@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Reflection;
 using ClipboardHistoryApp.Helpers;
 using ClipboardHistoryApp.Properties;
@@ -11,120 +12,99 @@ namespace ClipboardHistoryApp.Classes
         public static int CollectionCapacity
         {
             get { return Settings.Default.CollectionCapacity; }
+            set
+            {
+                if (value > 0 && value <= 200)
+                {
+                    Settings.Default.CollectionCapacity = value;
+                    Settings.Default.Save();
+                }
+            }
         }
-        
+
         public static int SnippetNumLines
         {
             get { return Settings.Default.SnippetNumLines; }
+            set
+            {
+                if (value > 0 && value <= 50)
+                {
+                    Settings.Default.SnippetNumLines = value;
+                    Settings.Default.Save();
+                }
+            }
         }
 
         public static int ToolTipHoverDelay
         {
             get { return Settings.Default.ToolTipHoverDelay; }
+            set
+            {
+                if (value >= 0 && value <= 99999)
+                {
+                    Settings.Default.ToolTipHoverDelay = value;
+                    Settings.Default.Save();
+                }
+            }
         }
 
         public static bool VisualStudioClipboardOnly
         {
             get { return Settings.Default.VisualStudioClipboardOnly; }
+            set
+            {
+                Settings.Default.VisualStudioClipboardOnly = value;
+                Settings.Default.Save();
+            }
         }
-        
+
         public static bool PreventDuplicateItems
         {
             get { return Settings.Default.PreventDuplicateItems; }
+            set
+            {
+                Settings.Default.PreventDuplicateItems = value;
+                Settings.Default.Save();
+            }
+        }
+
+        public static bool DisplayTimestamp
+        {
+            get { return Settings.Default.DisplayTimestamp; }
+            set
+            {
+                Settings.Default.DisplayTimestamp = value;
+                Settings.Default.Save();
+            }
         }
         #endregion
 
 
         #region Public Methods
-        public static bool SaveCollectionCapacity(int capacity)
+        public static bool SaveProperty<TProperty, TValue>(Expression<Func<TProperty>> propertyExpression, TValue value)
         {
-            if (capacity > 0 && capacity <= 200)
+            var member = propertyExpression.Body as MemberExpression;
+            var property = member?.Member as PropertyInfo;
+            if (property != null && property.PropertyType == value.GetType())
             {
-                Settings.Default.CollectionCapacity = capacity;
-                Settings.Default.Save();
-                return true;
+                return ValidateAndSave(property, value);
             }
             return false;
-        }
-
-        public static bool SaveSnippetNumLines(int numlines)
-        {
-            if (numlines > 0 && numlines <= 50)
-            {
-                Settings.Default.SnippetNumLines = numlines;
-                Settings.Default.Save();
-                return true;
-            }
-            return false;
-        }
-
-        private static bool SaveToolTipHoverDelay(int delay)
-        {
-            if (delay >= 0 && delay <= 99999)
-            {
-                Settings.Default.ToolTipHoverDelay = delay;
-                Settings.Default.Save();
-                return true;
-            }
-            return false;
-        }
-
-        public static void SaveVisualStudioClipboardOnly(bool vsonly)
-        {
-            Settings.Default.VisualStudioClipboardOnly = vsonly;
-            Settings.Default.Save();
-        }
-
-        public static void SavePreventDuplicateItems(bool preventduplicate)
-        {
-            Settings.Default.PreventDuplicateItems = preventduplicate;
-            Settings.Default.Save();
-        }
-
-        public static bool SaveProperty(string propertyName, object propertyValue)
-        {
-            object convertedValue = null;
-            var configurationPropertyType = GetConfigurationPropertyType(propertyName);
-            var isConverted = ExceptionHelper.TrySafe<Exception>(() =>
-            {
-                convertedValue = Convert.ChangeType(propertyValue, configurationPropertyType);
-            });
-            return (isConverted && convertedValue != null && ValidateAndSave(propertyName, convertedValue));
         }
         #endregion
 
 
         #region Private Methods
-        private static Type GetConfigurationPropertyType(string propertyName)
+        private static bool ValidateAndSave(PropertyInfo property, object propertyValue)
         {
-            var propertyInfo = typeof(Configuration).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Static);
-            return propertyInfo.PropertyType;
-        }
-
-        private static bool ValidateAndSave(string propertyName, object propertyValue)
-        {
-            var result = false;
-            switch (propertyName)
+            var propertyToSave = typeof(Configuration).GetProperty(property.Name, BindingFlags.Public | BindingFlags.Static);
+            if (propertyToSave != null)
             {
-                case "CollectionCapacity":
-                    result = SaveCollectionCapacity((int)propertyValue);
-                    break;
-                case "SnippetNumLines":
-                    result = SaveSnippetNumLines((int)propertyValue);
-                    break;
-                case "ToolTipHoverDelay":
-                    result = SaveToolTipHoverDelay((int)propertyValue);
-                    break;
-                case "VisualStudioClipboardOnly":
-                    SaveVisualStudioClipboardOnly((bool)propertyValue);
-                    result = true;
-                    break;
-                case "PreventDuplicateItems":
-                    SavePreventDuplicateItems((bool)propertyValue);
-                    result = true;
-                    break;
+                var oldValue = propertyToSave.GetValue(null);
+                ExceptionWrapper.TrySafe<Exception>(() => propertyToSave.SetValue(null, propertyValue));
+                return !propertyToSave.GetValue(null).Equals(oldValue);
             }
-            return result;
+            return false;
         }
         #endregion
     }
