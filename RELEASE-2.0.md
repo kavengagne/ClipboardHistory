@@ -1,3 +1,4 @@
+## Release Notes for Version 2.0
 
 Version 2.0 has some major changes under the cover but still maintains the exact same look and feel.
 
