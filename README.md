@@ -14,6 +14,9 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Visual Studio 2013
 * Visual Studio 2015
 
+## Release Notes
+* [Version 2.0](/RELEASE-2.0.md)
+
 ## Features
 
 * Never lose code in the clipboard again!
