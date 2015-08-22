@@ -5,10 +5,10 @@
     <Setting Name="VisualStudioClipboardOnly" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="HistoryCollectionCapacity" Type="System.Int32" Scope="User">
+    <Setting Name="CollectionCapacity" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">25</Value>
     </Setting>
-    <Setting Name="CopyDataShortNumLines" Type="System.Int32" Scope="User">
+    <Setting Name="SnippetNumLines" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="PreventDuplicateItems" Type="System.Boolean" Scope="User">
@@ -16,6 +16,9 @@
     </Setting>
     <Setting Name="ToolTipHoverDelay" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">300</Value>
+    </Setting>
+    <Setting Name="DisplayTimestamp" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

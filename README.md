@@ -12,6 +12,7 @@ I developed this extension for my own needs, feel free to contribute if you can 
 
 * Visual Studio 2012
 * Visual Studio 2013
+* Visual Studio 2015
 
 ## Features
 
@@ -43,7 +44,7 @@ See more details on indivual settings below and also by putting your mouse over 
 
 | Picture | Description |
 |---------|-------------|
-| **Settings Panel**<br>![ClipboardHistory Settings Window](/ClipboardHistory/AppResources/Images/ScreenShot_Settings.png) | **History Max. Capacity**<br>Maximum number of items the history list can contain.  <br><br>**Lines Displayed per Item**<br>Maximum number of lines displayed for each item in the list.  <br><br>**ToolTip Hover Delay (in ms)**<br>Delay in milliseconds before the tooltip appears when you leave your mouse over an item in the list.  <br><br>**Visual Studio Clipboard Only**<br>Only track clipboard changes in the current Visual Studio instance.  <br><br>**Prevent Duplicate Items**<br>Ignores successive copy operations if the item data is the same as the last one. |
+| **Settings Panel**<br>![ClipboardHistory Settings Window](/ClipboardHistory/AppResources/Images/ScreenShot_Settings.png) | **History Max. Capacity**<br>Maximum number of items the history list can contain.  <br><br>**Lines Displayed per Item**<br>Maximum number of lines displayed for each item in the list.  <br><br>**ToolTip Hover Delay (in ms)**<br>Delay in milliseconds before the tooltip appears when you leave your mouse over an item in the list.  <br><br>**Visual Studio Clipboard Only**<br>Only track clipboard changes in the current Visual Studio instance.  <br><br>**Prevent Duplicate Items**<br>Ignores successive copy operations if the item data is the same as the last one.  <br><br>**Display Timestamp**<br>Display the Date and Time for each item. |
 
 ## Bug Tracker / Feature Request
 

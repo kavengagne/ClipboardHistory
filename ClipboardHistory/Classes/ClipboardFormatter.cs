@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ClipboardHistoryApp.Models;
 
 namespace ClipboardHistoryApp.Classes
 {
@@ -45,9 +46,9 @@ namespace ClipboardHistoryApp.Classes
         
         public ClipboardFormatter(string text, char indentationCharacter, int indentationNumber)
         {
-            this.Text = text;
-            this.IndentationCharacter = indentationCharacter;
-            this.IndentationNumber = indentationNumber;
+            Text = text;
+            IndentationCharacter = indentationCharacter;
+            IndentationNumber = indentationNumber;
         } 
         #endregion
 
@@ -55,9 +56,9 @@ namespace ClipboardHistoryApp.Classes
         #region ToString Overrides
         public override string ToString()
         {
-            Dictionary<int, int> indentationLevels = GetIndentationLevels(this.Text);
+            Dictionary<int, int> indentationLevels = GetIndentationLevels(Text);
             indentationLevels = NormalizeIndentationLevels(indentationLevels);
-            string unindentedText = RemoveIndentation(this.Text);
+            string unindentedText = RemoveIndentation(Text);
             return ApplyIndentation(unindentedText, indentationLevels);
         }
         #endregion
@@ -72,8 +73,8 @@ namespace ClipboardHistoryApp.Classes
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
-                int padSize = (levels.ContainsKey(i)) ? line.Length + (levels[i] * this.IndentationNumber) : 0;
-                result += line.PadLeft(padSize, this.IndentationCharacter);
+                int padSize = (levels.ContainsKey(i)) ? line.Length + (levels[i] * IndentationNumber) : 0;
+                result += line.PadLeft(padSize, IndentationCharacter);
                 if ((lines.Length - 1) != i)
                 {
                     result += Environment.NewLine;
