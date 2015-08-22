@@ -12,10 +12,11 @@
              Loaded="MyToolWindow_Loaded">
     <UserControl.Resources>
         <Style TargetType="ListBox" x:Key="ListBoxStyle">
-            <Setter Property="Background" Value="{DynamicResource VsBrush.ToolWindowBackground}" />
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowBackgroundKey}}" />
             <Setter Property="FontFamily" Value="Consolas" />
             <Setter Property="BorderThickness" Value="0" />
         </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <Style TargetType="ListBoxItem" x:Key="ListBoxContainerStyle">
             <Style.Resources>
                 <SolidColorBrush x:Key="HeaderBorderBrush" Color="#FFE0E0E0" />
@@ -33,13 +34,13 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border BorderBrush="{DynamicResource VsBrush.ToolWindowText}" BorderThickness="0 0 0 1">
+                        <Border BorderBrush="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowTextKey}}" BorderThickness="0 0 0 1">
                             <StackPanel Orientation="Vertical"
                                         ToolTipService.InitialShowDelay="{Binding ElementName=ListBoxHistory, Path=DataContext.HistoryConfiguration.ToolTipHoverDelay}"
                                         ToolTipService.ShowDuration="20000">
                                 <StackPanel.ToolTip>
                                     <ToolTip MaxWidth="800" MaxHeight="800" Padding="0" BorderThickness="1" BorderBrush="White"
-                                             FontFamily="Consolas" Foreground="{DynamicResource VsBrushes.ToolWindowBackground}">
+                                             FontFamily="Consolas" Foreground="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowBackgroundKey}}">
                                         <Border BorderThickness="1" BorderBrush="Black">
                                             <StackPanel Orientation="Vertical">
                                                 <Border Background="{StaticResource HeaderBackgroundBrush}" BorderThickness="0 0 0 1"
@@ -52,25 +53,48 @@
                                                         <Label Style="{StaticResource HeaderStyle}" Content="{Binding DataSize}" />
                                                     </StackPanel>
                                                 </Border>
-                                                <TextBlock Padding="5" Background="{DynamicResource VsBrush.ToolWindowBackground}"
-                                                           Foreground="{DynamicResource VsBrush.ToolWindowText}"
+                                                <TextBlock Padding="5" Background="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowBackgroundKey}}"
+                                                           Foreground="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowTextKey}}"
                                                            Text="{Binding Data}"></TextBlock>
                                             </StackPanel>
                                         </Border>
                                     </ToolTip>
                                 </StackPanel.ToolTip>
-                                <Border Background="White" BorderThickness="0 0 0 1" BorderBrush="{StaticResource HeaderBorderBrush}">
-                                    <StackPanel Orientation="Horizontal" Background="{StaticResource HeaderBackgroundBrush}">
-                                        <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ErrorIndicator" Visibility="Collapsed" />
-                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}" />
-                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding NumberOfLines}" />
-                                        <Label Style="{StaticResource HeaderStyle}" Content="{Binding DataSize}" />
-                                    </StackPanel>
+                                <Border Width="{Binding Path=ViewportWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ScrollViewer}}" Background="White"
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0 0 0 1" BorderBrush="{StaticResource HeaderBorderBrush}">
+                                    <Grid Background="{StaticResource HeaderBackgroundBrush}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Style="{StaticResource ErrorHeaderStyle}" Content="Error" Name="ErrorIndicator" Visibility="Collapsed" />
+                                            <Label Style="{StaticResource HeaderStyle}" Content="{Binding DateAndTime}"
+                                                   Visibility="{Binding ElementName=ListBoxHistory, Path=DataContext.HistoryConfiguration.DisplayTimestamp, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                            <Label Style="{StaticResource HeaderStyle}" Content="{Binding NumberOfLines}" />
+                                            <Label Style="{StaticResource HeaderStyle}" Content="{Binding DataSize}" />
+                                        </StackPanel>
+                                        <Button Grid.Column="1"
+                                                Padding="3,2,3,2"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Command="{Binding ElementName=ListBoxHistory, Path=DataContext.DeleteItemCommand}"
+                                                CommandParameter="{Binding}">
+                                            <Grid RenderTransformOrigin="0.5,0.5">
+                                                <Grid.RenderTransform>
+                                                    <RotateTransform Angle="45"></RotateTransform>
+                                                </Grid.RenderTransform>
+                                                <Rectangle Width="12" Height="2" Fill="Black" />
+                                                <Rectangle Width="2" Height="12" Fill="Black" />
+                                            </Grid>
+                                        </Button>
+                                    </Grid>
                                 </Border>
                                 <ContentPresenter>
                                     <ContentPresenter.Content>
                                         <TextBlock Name="ContentTextBlock" Text="{Binding Snippet}"
-                                                   Background="{DynamicResource VsBrush.ToolWindowBackground}"
+                                                   Background="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowBackgroundKey}}"
                                                    Foreground="{DynamicResource {x:Static vsfx:VsBrushes.ToolWindowTextKey}}"></TextBlock>
                                     </ContentPresenter.Content>
                                 </ContentPresenter>
@@ -82,7 +106,7 @@
                                 <Setter TargetName="ToolTipErrorIndicator" Property="Visibility" Value="Visible" />
                             </DataTrigger>
                             <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="ContentTextBlock" Property="Background" Value="{DynamicResource VsBrush.Highlight}"/>
+                                <Setter TargetName="ContentTextBlock" Property="Background" Value="{DynamicResource {x:Static vsfx:VsBrushes.HighlightKey}}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -142,6 +166,14 @@
                                       ToolTip="Ignores successive copy operations if the item data is the same as the last one."
                                       IsChecked="{Binding HistoryConfiguration.PreventDuplicateItems}"/>
                         </StackPanel>
+
+                        <Separator />
+
+                        <StackPanel Margin="3,0,0,2" Orientation="Vertical">
+                            <CheckBox Name="CheckBoxDisplayTimestamp" Content="Display Timestamp" Margin="5,4,5,4"
+                                      ToolTip="Display the Date and Time for each item."
+                                      IsChecked="{Binding HistoryConfiguration.DisplayTimestamp}"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
             </Expander>
@@ -155,6 +187,9 @@
             <ListBox.InputBindings>
                 <KeyBinding Key="C" Modifiers="Control"
                             Command="{Binding CopyToClipboardCommand}"
+                            CommandParameter="{Binding ElementName=ListBoxHistory, Path=SelectedItem}"/>
+                <KeyBinding Key="Delete"
+                            Command="{Binding DeleteItemCommand}"
                             CommandParameter="{Binding ElementName=ListBoxHistory, Path=SelectedItem}"/>
             </ListBox.InputBindings>
         </ListBox>

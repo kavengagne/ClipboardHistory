@@ -47,7 +47,7 @@ namespace ClipboardHistoryApp.Classes
             bool isError = false;
             if (Clipboard.ContainsText())
             {
-                isError = !ExceptionHelper.TrySafe<Exception>(
+                isError = !ExceptionWrapper.TrySafe<Exception>(
                     () => text = Clipboard.GetText(),
                     ex => text = String.Format(Resources.ClipboardException, ex.Message));
             }
@@ -64,10 +64,7 @@ namespace ClipboardHistoryApp.Classes
             catch (Exception ex)
             {
                 var item = new ClipboardDataItem(string.Format(Resources.ClipboardException, ex.Message), true);
-                if (errorCallback != null)
-                {
-                    errorCallback.Invoke(item);
-                }
+                errorCallback?.Invoke(item);
             }
             EnableNotifications();
         }

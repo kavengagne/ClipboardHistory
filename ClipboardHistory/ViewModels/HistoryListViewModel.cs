@@ -15,10 +15,11 @@ namespace ClipboardHistoryApp.ViewModels
 
 
         #region Properties
-        public HistoryCollection HistoryCollection { get; private set; }
+        public HistoryCollection HistoryCollection { get; }
         public HistoryConfiguration HistoryConfiguration { get; set; }
         
         public ICommand CopyToClipboardCommand { get; set; }
+        public ICommand DeleteItemCommand { get; set; }
         #endregion Properties
 
 
@@ -28,7 +29,7 @@ namespace ClipboardHistoryApp.ViewModels
             HistoryCollection = new HistoryCollection();
             HistoryConfiguration = new HistoryConfiguration(HistoryCollection);
             
-            InitializeClipboardUpdateNotifier();
+            InitializeClipboardService();
             InitializeCommands();
         }
         #endregion Constructors
@@ -55,11 +56,21 @@ namespace ClipboardHistoryApp.ViewModels
                 HistoryCollection.AddItem(errorItem);
             });
         }
+
+        private bool CanDeleteItem(ClipboardDataItem item)
+        {
+            return true;
+        }
+
+        private void DeleteItem(ClipboardDataItem item)
+        {
+            HistoryCollection.Remove(item);
+        }
         #endregion Commands
 
 
         #region Private Methods
-        private void InitializeClipboardUpdateNotifier()
+        private void InitializeClipboardService()
         {
             _clipboardService = new ClipboardService(OnClipboardUpdate);
             _clipboardService.EnableNotifications();
@@ -69,6 +80,7 @@ namespace ClipboardHistoryApp.ViewModels
         private void InitializeCommands()
         {
             CopyToClipboardCommand = new RelayCommand<ClipboardDataItem>(CopyToClipboard, CanCopyToClipboard);
+            DeleteItemCommand = new RelayCommand<ClipboardDataItem>(DeleteItem, CanDeleteItem);
         }
 
         private void OnClipboardUpdate(ClipboardDataItem item)
