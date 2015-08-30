@@ -102,8 +102,13 @@ namespace ClipboardHistoryApp.Models
         #region Constructors
         public ClipboardDataItem(string data, bool isErrorMessage)
         {
-            Data = data;
-            IsErrorMessage = isErrorMessage;
+            _data = data;
+            _isErrorMessage = isErrorMessage;
+
+            _snippet = ApplyClipboardFormat(StripToNumberOfLines(data, Configuration.SnippetNumLines));
+            _dataSize = GetDataSizeString(data);
+            _numberOfLines = GetNumberOfLinesString(GetArrayOfLines(data).Length);
+            _dateAndTime = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
         }
         public ClipboardDataItem(string data) : this(data, false) { }
         #endregion Constructors
