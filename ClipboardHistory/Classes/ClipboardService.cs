@@ -19,6 +19,7 @@ namespace ClipboardHistoryApp.Classes
         public ClipboardService(Action<ClipboardDataItem> notificationCallback)
         {
             _form = new NotificationForm(this);
+            NativeMethods.SetParent(_form.Handle, NativeMethods.HWND_MESSAGE);
             _notificationCallback = notificationCallback;            
         } 
         #endregion
@@ -32,7 +33,6 @@ namespace ClipboardHistoryApp.Classes
 
         public void EnableNotifications()
         {
-            NativeMethods.SetParent(_form.Handle, NativeMethods.HWND_MESSAGE);
             NativeMethods.AddClipboardFormatListener(_form.Handle);
         }
 

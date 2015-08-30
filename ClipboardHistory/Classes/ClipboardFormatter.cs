@@ -125,7 +125,8 @@ namespace ClipboardHistoryApp.Classes
         private static int FindLowestIndentationLevel(Dictionary<int, int> levels)
         {
             var indentLevels = (levels.ContainsKey(0) && levels[0] == 0) ? levels.Skip(1) : levels;
-            int lowestLevel = indentLevels.Aggregate(int.MaxValue, (current, level) => (level.Value < current) ? level.Value : current);
+            int lowestLevel = indentLevels.Aggregate(
+                int.MaxValue, (current, level) => (level.Value < current) ? level.Value : current);
             return (lowestLevel == int.MaxValue) ? 0 : lowestLevel;
         } 
         #endregion
