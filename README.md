@@ -15,7 +15,8 @@ I developed this extension for my own needs, feel free to contribute if you can 
 * Visual Studio 2015
 
 ## Release Notes
-* [Version 2.0](/RELEASE-2.0.md)
+* [Version 2.0.0](/RELEASE-2.0.0.md)
+* [Version 2.0.1](/RELEASE-2.0.1.md)
 
 ## Features
 

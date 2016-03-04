@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-// Resharper disable All
+// ReSharper disable All
 namespace ClipboardHistoryApp.Classes
 {
     internal static class NativeMethods
@@ -14,6 +14,7 @@ namespace ClipboardHistoryApp.Classes
             GW_HWNDFIRST = 0,
             GW_HWNDLAST = 1,
             GW_HWNDNEXT = 2,
+            
             GW_HWNDPREV = 3,
             GW_OWNER = 4,
             GW_CHILD = 5,

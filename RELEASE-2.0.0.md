@@ -1,6 +1,6 @@
-## Release Notes for Version 2.0
+## Release Notes for Version 2.0.0
 
-Version 2.0 has some major changes under the cover but still maintains the exact same look and feel.
+Version 2.0.0 has some major changes under the cover but still maintains the exact same look and feel.
 
 Remember that your feedback is very important to me! Keep it coming.
 

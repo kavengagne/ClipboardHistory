@@ -25,7 +25,7 @@ namespace ClipboardHistoryApp.AppResources
     [PackageRegistration(UseManagedResourcesOnly = true)]
     // This attribute is used to register the informations needed to show the this package
     // in the Help/About dialog of Visual Studio.
-    [InstalledProductRegistration("#110", "#112", "2.0", IconResourceID = 400)]
+    [InstalledProductRegistration("#110", "#112", "2.0.1", IconResourceID = 400)]
     // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     // This attribute registers a tool window exposed by this package.
@@ -83,8 +83,8 @@ namespace ClipboardHistoryApp.AppResources
             if (null != mcs)
             {
                 // Create the command for the tool window
-                var toolwndCommandID = new CommandID(GuidList.GuidClipboardHistoryCmdSet, (int)PkgCmdIDList.CmdidClipboardHistory);
-                var menuToolWin = new MenuCommand(ShowToolWindow, toolwndCommandID);
+                var toolwndCommandId = new CommandID(GuidList.GuidClipboardHistoryCmdSet, (int)PkgCmdIDList.CmdidClipboardHistory);
+                var menuToolWin = new MenuCommand(ShowToolWindow, toolwndCommandId);
                 mcs.AddCommand(menuToolWin);
             }
         }
