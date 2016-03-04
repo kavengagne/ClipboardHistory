@@ -203,6 +203,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Scheduler\ActionScheduler.cs" />
+    <Compile Include="Scheduler\ActionSchedulerItem.cs" />
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Models\ClipboardDataItem.cs" />

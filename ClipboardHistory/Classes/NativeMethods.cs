@@ -38,6 +38,11 @@ namespace ClipboardHistoryApp.Classes
             LLKHF_UP = 0x80,
         }
 
+        public enum ClipboardFormats
+        {
+            CF_TEXT = 0x01
+        }
+
 
         #region Constants
         public const int WH_KEYBOARD_LL = 13;
@@ -50,14 +55,6 @@ namespace ClipboardHistoryApp.Classes
 
 
         #region Windows API Imports
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool AddClipboardFormatListener(IntPtr hwnd);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
-
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
         
@@ -72,9 +69,30 @@ namespace ClipboardHistoryApp.Classes
         
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(Keys key);
-        
+
+
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AddClipboardFormatListener(IntPtr hwnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
+
         [DllImport("user32.dll")]
         public static extern IntPtr GetOpenClipboardWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool OpenClipboard(IntPtr hWndNewOwner);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int SetClipboardData(ClipboardFormats uFormat, IntPtr hMem);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool CloseClipboard();
+        
+
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();

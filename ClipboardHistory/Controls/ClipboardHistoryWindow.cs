@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.Shell;
 using ClipboardHistoryApp.AppResources;
 using ClipboardHistoryApp.ViewModels;
+using GalaSoft.MvvmLight.Threading;
+
 
 namespace ClipboardHistoryApp.Controls
 {
@@ -19,6 +21,8 @@ namespace ClipboardHistoryApp.Controls
     {
         public ClipboardHistoryWindow() : base(null)
         {
+            DispatcherHelper.Initialize();
+
             Caption = Resources.ToolWindowTitle;
             // Set the image that will appear on the tab of the window frame when docked with an other window
             // The resource ID correspond to the one defined in the resx file while the Index is the offset

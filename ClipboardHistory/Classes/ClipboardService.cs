@@ -1,17 +1,24 @@
 ﻿using System;
+using System.Text;
 using System.Windows.Forms;
 using ClipboardHistoryApp.AppResources;
 using ClipboardHistoryApp.Helpers;
 using ClipboardHistoryApp.Models;
+using ClipboardHistoryApp.Scheduler;
+
 
 namespace ClipboardHistoryApp.Classes
 {
     public sealed class ClipboardService : IDisposable
     {
+        private const double SCHEDULER_RESOLUTION = 10;
+        private const double CLIPBOARD_UPDATE_DELAY = 50;
+
         #region Fields
         private Action<ClipboardDataItem> _notificationCallback;
         private NotificationForm _form;
         private IntPtr _visualStudioHandle;
+        private readonly ActionScheduler<ClipboardDataItem> _clipboardUpdateActionScheduler;
         #endregion
 
         
@@ -20,8 +27,10 @@ namespace ClipboardHistoryApp.Classes
         {
             _form = new NotificationForm(this);
             NativeMethods.SetParent(_form.Handle, NativeMethods.HWND_MESSAGE);
-            _notificationCallback = notificationCallback;            
-        } 
+            _notificationCallback = notificationCallback;
+            _clipboardUpdateActionScheduler =
+                new ActionScheduler<ClipboardDataItem>(TimeSpan.FromMilliseconds(SCHEDULER_RESOLUTION));
+        }
         #endregion
 
 
@@ -72,7 +81,7 @@ namespace ClipboardHistoryApp.Classes
 
 
         #region Event Handler
-        private void OnClipboardUpdate()
+        private void OnClipboardUpdate(Message message)
         {
             var handler = _notificationCallback;
             if (handler != null)
@@ -82,14 +91,21 @@ namespace ClipboardHistoryApp.Classes
                 {
                     return;
                 }
-                handler.Invoke(GetClipboardDataItem());
+
+                var data = GetClipboardDataItem();
+                var uniqueId = GetUniqueKey(message, data);
+                _clipboardUpdateActionScheduler.AddOrUpdate(uniqueId, handler, data, TimeSpan.FromMilliseconds(CLIPBOARD_UPDATE_DELAY));
             }
         }
         #endregion
 
 
         #region Private Methods
-
+        private static string GetUniqueKey(Message message, ClipboardDataItem data)
+        {
+            var key = $"{message.HWnd}{message.Msg}{data.Snippet}{data.NumberOfLines}";
+            return Convert.ToBase64String(Encoding.Default.GetBytes(key));
+        }
         #endregion Private Methods
 
 
@@ -136,7 +152,7 @@ namespace ClipboardHistoryApp.Classes
             {
                 if (m.Msg == NativeMethods.WM_CLIPBOARDUPDATE)
                 {
-                    _parent.OnClipboardUpdate();
+                    _parent.OnClipboardUpdate(m);
                 }
                 base.WndProc(ref m);
             }
